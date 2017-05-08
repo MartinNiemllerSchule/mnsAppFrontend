@@ -29,12 +29,15 @@ function getStundenplanTable(htmlO, cb) {
 // Nachbearbeitung
         var splanTHead = '<thead><tr><td></td><td>Mo</td><td>Die</td><td>Mi</td><td>Do</td><td>Fr</td></tr></thead>';
         // TODO: Inhalte eintragen
-		
 
-		var Zeile1 = '<tr><td>1.</td> <td>' +  splanf[1][1] +'</td><td>'+splanf[1][2]+'</td><td>'+splanf[1][3]+'</td><td>'+splanf[1][4]+'</td><td>'+splanf[1][5]+'</td></tr>';
+
+        var splan = [];
+        for(var i = 0;i<12;i++) {
+            splan[i] = '<tr><td>'+ (i+1) +'</td><td>' + splans[0][i] + '</td><td>' + splans[1][i] + '</td><td>' + splans[2][i] + '</td><td>' + splans[3][i] + '</td><td>' + splans[4][i] + '</td></tr>';
+        }
         console.debug(splanf,splans);
 
-        cb(htmlO,'<table>' + splanTHead + Zeile1 +	'</table>');
+        cb(htmlO,'<table>' + splanTHead + splan[0] + splan[1] + splan[2] + splan[3] + splan[4] + splan[5] + splan[6] + splan[7] + splan[8] + splan[9] + splan[10] + splan[11] +	'</table>');
     });
 
 //	afterload (splanf,splans);
