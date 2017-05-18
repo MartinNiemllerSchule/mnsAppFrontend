@@ -19,7 +19,7 @@ function getVertretungsplanTabelle(cb) {
             vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') +'</td></tr>';
         }
 
-        cb('<table>' + vplanTHead + vplanTBody + '</table>');
+        cb('<table>' + vplanTHead + '<tbody>' + vplanTBody +'</tbody></table>');
     });
 }
 
