@@ -10,7 +10,7 @@ function getVertretungsplanTabelle(cb) {
 
         $.each(data[1], function (key, val) {
 
-            vplan.push([val.tag, val.stunde, val.kurs, val.raum, val.lehrer, val.info]);
+            vplan.push([val.tag, val.stunde, val.bezeichnung, val.raum, val.kuerzel, val.info]);
         });
         var vplanTHead = '<thead><tr><td>Tag</td><td>Stunde</td><td>Kurs</td><td>Raum</td><td>Lehrer</td><td>Info</td></tr></thead>';
         var vplanTBody = '';
@@ -19,7 +19,7 @@ function getVertretungsplanTabelle(cb) {
             vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') +'</td></tr>';
         }
 
-        cb('<table>' + vplanTHead + '<tbody>' + vplanTBody +'</tbody></table>');
+        cb('<table>' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
     });
 }
 
