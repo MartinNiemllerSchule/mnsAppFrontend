@@ -34,7 +34,7 @@ function getStundenplanTable(cb) {
 
 
         // Nachbearbeitung
-        var splanTHead = '<thead><tr><td></td><td>Mo</td><td>Di</td><td>Mi</td><td>Do</td><td>Fr</td></tr></thead>';
+        var splanTHead = '<thead><tr><th></th><th>Mo</th><th>Di</th><th>Mi</th><th>Do</th><th>Fr</th></tr></thead>';
         // TODO: Tabellen aus f und s vereinen
         // TODO: Texte in den Zellen auf das nötigste kürzen
 
@@ -44,27 +44,27 @@ function getStundenplanTable(cb) {
         for (var i = 1; i < 12; i++) {
             for (var j = 0; j < 5; j++) {
                 if (splans[i][j] == splans[i-1][j] && splans[i-1][j] !== "") {
-                    splanst[i-1][j] = '<td rowspan="2" style="border: 1px solid black;">' + splans[i-1][j] + '</td>';
+                    splanst[i-1][j] = '<td rowspan="2">' + splans[i-1][j] + '</td>';
                     splanst[i][j] = "";
                 }else{
                     if(i>1 && splans[i-2][j] == splans[i-1][j] && splans[i-1][j] !== "") {
                         splanst[i - 1][j] = "";
-                        splanst[i][j] = '<td style="border: 1px solid black;">' + splans[i][j] + '</td>';
+                        splanst[i][j] = '<td>' + splans[i][j] + '</td>';
                     }else {
-                        splanst[i - 1][j] = '<td style="border: 1px solid black;">' + splans[i - 1][j] + '</td>';
-                        splanst[i][j] = '<td style="border: 1px solid black;">' + splans[i][j] + '</td>';
+                        splanst[i - 1][j] = '<td>' + splans[i - 1][j] + '</td>';
+                        splanst[i][j] = '<td>' + splans[i][j] + '</td>';
                     }
                 }
                 if (splanf[i][j] == splanf[i-1][j] && splanf[i-1][j] !== "") {
-                    splanft[i-1][j] = '<td rowspan="2" style="border: 1px solid black;">' + splanf[i-1][j] + '</td>';
+                    splanft[i-1][j] = '<td rowspan="2">' + splanf[i-1][j] + '</td>';
                     splanft[i][j] = "";
                 }else{
                     if(i>1 && splanf[i-2][j] == splanf[i-1][j] && splanf[i-1][j] !== "") {
                         splanft[i - 1][j] = "";
-                        splanft[i][j] = '<td style="border: 1px solid black;">' + splanf[i][j] + '</td>';
+                        splanft[i][j] = '<td>' + splanf[i][j] + '</td>';
                     }else {
-                        splanft[i - 1][j] = '<td style="border: 1px solid black;">' + splanf[i - 1][j] + '</td>';
-                        splanft[i][j] = '<td style="border: 1px solid black;">' + splanf[i][j] + '</td>';
+                        splanft[i - 1][j] = '<td>' + splanf[i - 1][j] + '</td>';
+                        splanft[i][j] = '<td>' + splanf[i][j] + '</td>';
                     }
                 }
             }
@@ -76,7 +76,7 @@ function getStundenplanTable(cb) {
         for (var i = 0; i < 12; i++) {
             if(splans[i][0] == "" && splans[i][1] == "" && splans[i][2] == "" && splans[i][3] == "" &&splans[i][4] == ""){
             }else{
-                splangerade += '<tr><td style="border: 1px solid black;">' + (i + 1) + '</td>' + splanst[i] + '</tr>';
+                splangerade += '<tr><td class="Stunde">' + (i + 1) + '</td>' + splanst[i] + '</tr>';
             }
         }
 
@@ -84,11 +84,11 @@ function getStundenplanTable(cb) {
         for (var i = 0; i < 12; i++) {
             if(splanf[i][0] == "" && splanf[i][1] == "" && splanf[i][2] == "" && splanf[i][3] == "" &&splanf[i][4] == ""){
             }else{
-                splanungerade += '<tr><td style="border: 1px solid black;">' + (i + 1) + '</td>' + splanft[i] + '</tr>';
+                splanungerade += '<tr><td class="Stunde">' + (i + 1) + '</td>' + splanft[i] + '</tr>';
             }
         }
 
-        cb('<table style="border: 1px solid black;">' + splanTHead + '<tbody>'+ splangerade + '</tbody></table>');
+        cb('<table>' + splanTHead + '<tbody>'+ splangerade + '</tbody></table>');
         cb('<table>' + splanTHead + '<tbody>'+ splanungerade + '</tbody></table>');
     });
 
