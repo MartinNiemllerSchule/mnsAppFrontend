@@ -1,6 +1,46 @@
-#StundenplanTabelle{
+body{
+
+}
+ul {
+    position: fixed;
+    top: 0;
     width: 100%;
-    max-width: 500px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #6666ff;
+}
+#header{
+    position: static;
+    top: 0;
+    width: 100%;
+    height: 40px;
+    background-color: black;
+}
+li {
+    float: left;
+    border-right: 1px solid #bbbbbb;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px ;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #3333ff;
+}
+.active {
+    background-color: #3333ff;
+}
+#StundenplanTabelle{
+    max-width: 750px;
+    margin: auto;
 }
 table{
     width: 100%;
@@ -9,7 +49,7 @@ table{
     text-align: center;
 }
 th{
-    background-color: lightblue;
+    background-color: #6666ff;
     border: 1px solid black;
 }
 td{
@@ -17,18 +57,65 @@ td{
     border: 1px solid black;
 }
 .Stunde{
-    background-color: lightblue;
+    background-color: #6666ff;
     border: 1px solid black;
 }
 @media
-only screen and (max-width: 400px){
+only screen and (max-width: 415px){
+    table, th, td{
+        font-size: 14px;
+    }
+    li{
+        float: left;
+        border-right: 1px solid #bbbbbb;
+        width: 33%;
+    }
+    li a{
+        font-size: 16px;
+        padding: 14px 11px ;
+    }
+}
+@media
+only screen and (max-width: 360px){
     table, th, td{
         font-size: 12px;
+    }
+    #header{
+        position: static;
+        top: 0;
+        width: 100%;
+        height: 38px;
+        background-color: black;
+    }
+    li{
+        float: left;
+        border-right: 1px solid #bbbbbb;
+        width: 33%;
+    }
+    li a{
+        font-size: 14px;
+        padding: 14px 6px ;
     }
 }
 @media
 only screen and (max-width: 310px){
-table, th, td{
-    font-size: 10px;
-}
+    table, th, td{
+        font-size: 10px;
+    }
+    #header{
+        position: static;
+        top: 0;
+        width: 100%;
+        height: 35px;
+        background-color: black;
+    }
+    li{
+        float: left;
+        border-right: 1px solid #bbbbbb;
+        width: 32.9%;
+    }
+    li a{
+        font-size: 12px;
+        padding: 14px 6px ;
+    }
 }
