@@ -10,20 +10,20 @@ body{
     position: absolute;
     left: -200px;
     top: 0px;
+    transition: left 0.3s linear;
 }
 #Sidebar.visible{
     left: 0px;
     transition: left 0.3s linear;
 }
-ul {
+.Sidebar {
     margin: 0;
     padding: 0;
 }
-ul li {
+.Sidebar li {
     list-style: none;
 }
-
-ul li a {
+.Sidebar li a {
     background-color: #6666ff;
     display: block;
     color: white;
@@ -33,7 +33,7 @@ ul li a {
     padding: 10px;
     text-decoration: none;
 }
-ul li a:hover {
+.Sidebar li a:hover {
     background-color: #3333ff;
 }
 .active {
@@ -46,11 +46,27 @@ ul li a:hover {
     height: 15px;
     cursor: pointer;
     margin: 20px;
-    position: absolute;
     top: 0px;
-    right: -60px;
+    right: 0px;
+}
+#Sidebar-btn-open{
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 15px;
+    cursor: pointer;
+    margin: 20px;
+    margin-left: 160px;
+    top: 0px;
+    position: static;
 }
 #Sidebar-btn span{
+    height: 1px;
+    background: #111;
+    margin-bottom: 5px;
+    display: block;
+}
+#Sidebar-btn-open span{
     height: 1px;
     background: #111;
     margin-bottom: 5px;
@@ -85,14 +101,17 @@ only screen and (max-width: 415px){
     table, th, td{
         font-size: 14px;
     }
-    li{
-        float: left;
-        border-right: 1px solid #bbbbbb;
-        width: 33%;
+    #Sidebar{
+         width: 100%;
+         left: -100%;
+     }
+    .Sidebar li a {
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
     }
-    li a{
-        font-size: 16px;
-        padding: 14px 11px ;
+    #Sidebar-btn-open{
+        margin-left: calc(100% - 40px);
     }
 }
 @media
@@ -100,28 +119,10 @@ only screen and (max-width: 360px){
     table, th, td{
         font-size: 12px;
     }
-    li{
-        float: left;
-        border-right: 1px solid #bbbbbb;
-        width: 33%;
-    }
-    li a{
-        font-size: 14px;
-        padding: 14px 6px ;
-    }
 }
 @media
 only screen and (max-width: 310px){
     table, th, td{
         font-size: 10px;
-    }
-    li{
-        float: left;
-        border-right: 1px solid #bbbbbb;
-        width: 32.9%;
-    }
-    li a{
-        font-size: 12px;
-        padding: 14px 6px ;
     }
 }

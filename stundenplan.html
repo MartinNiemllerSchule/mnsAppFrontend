@@ -14,25 +14,36 @@
 <body>
 
 <div id="Sidebar">
-    <ul>
+    <ul class="Sidebar">
+        <li>
+            <div id="Sidebar-btn-open">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </li>
         <li><a href="stundenplan.html" class="active">Stundenplan</a></li>
         <li><a href="vertretungsplan.html">Vertretungsplan</a></li>
         <li><a href="buecher.html">Bücherliste</a></li>
     </ul>
-    <div id="Sidebar-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
 
     <script>
         $(document).ready(function () {
             $('#Sidebar-btn').click(function () {
                 $('#Sidebar').toggleClass('visible');
             });
+            $('#Sidebar-btn-open').click(function () {
+                $('#Sidebar').toggleClass('visible');
+            });
         });
     </script>
 
+</div>
+
+<div id="Sidebar-btn">
+    <span></span>
+    <span></span>
+    <span></span>
 </div>
 
 <div id="StundenplanTabelle"></div>
