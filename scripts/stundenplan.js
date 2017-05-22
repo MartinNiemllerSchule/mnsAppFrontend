@@ -106,11 +106,11 @@ function getStundenplanTable(cb) {
         }
         console.debug(KalenderWoche()%2);
         if(KalenderWoche()%2 == 0){
-            cb('<table><caption>Diese Woche</caption>' + splanTHead + '<tbody>'+ splangerade + '</tbody></table>');
-            cb('<table><caption>Nächste Woche</caption>' + splanTHead + '<tbody>'+ splanungerade + '</tbody></table>');
+            cb('<table class="Stundenplan"><caption>Diese Woche</caption>' + splanTHead + '<tbody>'+ splangerade + '</tbody></table>');
+            cb('<table class="Stundenplan"><caption>Nächste Woche</caption>' + splanTHead + '<tbody>'+ splanungerade + '</tbody></table>');
         }else{
-            cb('<table><caption>Diese Woche</caption>' + splanTHead + '<tbody>'+ splanungerade + '</tbody></table>');
-            cb('<table><caption>Nächste Woche</caption>' + splanTHead + '<tbody>'+ splangerade + '</tbody></table>');
+            cb('<table class="Stundenplan"><caption>Diese Woche</caption>' + splanTHead + '<tbody>'+ splanungerade + '</tbody></table>');
+            cb('<table class="Stundenplan"><caption>Nächste Woche</caption>' + splanTHead + '<tbody>'+ splangerade + '</tbody></table>');
         }
 
     });

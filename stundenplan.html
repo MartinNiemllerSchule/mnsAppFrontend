@@ -31,13 +31,25 @@
         $(document).ready(function () {
             $('#Sidebar-btn').click(function () {
                 $('#Sidebar').toggleClass('visible');
+                $('#Sidebar-cls').toggleClass('cls-visible');
             });
             $('#Sidebar-btn-open').click(function () {
                 $('#Sidebar').toggleClass('visible');
+                $('#Sidebar-cls').toggleClass('cls-visible');
             });
         });
     </script>
 
+</div>
+<div id="Sidebar-cls">
+    <script>
+        $(document).ready(function () {
+            $('#Sidebar-cls').click(function () {
+                $('#Sidebar').toggleClass('visible');
+                $('#Sidebar-cls').toggleClass('cls-visible');
+            });
+        });
+    </script>
 </div>
 
 <div id="Sidebar-btn">

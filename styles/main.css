@@ -8,7 +8,7 @@ body{
     height: 100%;
     display: block;
     position: absolute;
-    left: -200px;
+    left: 0px;
     top: 0px;
     transition: left 0.3s linear;
 }
@@ -22,12 +22,12 @@ body{
 }
 .Sidebar li {
     list-style: none;
+    border-bottom: 1px solid #bbbbbb;
 }
 .Sidebar li a {
     background-color: #6666ff;
     display: block;
     color: white;
-    border-bottom: 1px solid #bbbbbb;
     text-align: center;
     width: 180px;
     padding: 10px;
@@ -39,47 +39,16 @@ body{
 .active {
     background-color: #3333ff;
 }
-#Sidebar-btn{
-    display: inline-block;
-    vertical-align: middle;
-    width: 20px;
-    height: 15px;
-    cursor: pointer;
-    margin: 20px;
-    top: 0px;
-    right: 0px;
-}
-#Sidebar-btn-open{
-    display: inline-block;
-    vertical-align: middle;
-    width: 20px;
-    height: 15px;
-    cursor: pointer;
-    margin: 20px;
-    margin-left: 160px;
-    top: 0px;
-    position: static;
-}
-#Sidebar-btn span{
-    height: 1px;
-    background: #111;
-    margin-bottom: 5px;
-    display: block;
-}
-#Sidebar-btn-open span{
-    height: 1px;
-    background: #111;
-    margin-bottom: 5px;
-    display: block;
-}
 #StundenplanTabelle{
-    max-width: 750px;
-    margin: auto;
+    font-size: 0px;
+    float: right;
+    width: calc(100% - 200px);
 }
-table{
-    margin: 0px;
+.Stundenplan{
+    font-size: 16px;
+    margin: auto;
     padding: 0px;
-    width: 100%;
+    width: 750px;
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
@@ -97,26 +66,92 @@ td{
     border: 1px solid black;
 }
 @media
-only screen and (max-width: 415px){
-    table, th, td{
-        font-size: 14px;
+only screen and (max-width: 950px) {
+    #StundenplanTabelle {
+        font-size: 0px;
+        float: none;
+        margin: auto;
+        width: 100%;
+    }
+    .Stundenplan {
+        font-size: 16px;
+        max-width: 750px;
+        margin: auto;
+        padding: 0px;
+        width: 100%;
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
     }
     #Sidebar{
-         width: 100%;
-         left: -100%;
-     }
+        left: -200px;
+    }
+    #Sidebar-btn{
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 15px;
+        cursor: pointer;
+        margin: 20px;
+        top: 0px;
+        right: 0px;
+    }
+    #Sidebar-btn-open{
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 15px;
+        cursor: pointer;
+        margin: 20px;
+        margin-left: 160px;
+        top: 0px;
+        position: static;
+    }
+    #Sidebar-btn span{
+        height: 1px;
+        background: #111;
+        margin-bottom: 5px;
+        display: block;
+    }
+    #Sidebar-btn-open span{
+        height: 1px;
+        background: #111;
+        margin-bottom: 5px;
+        display: block;
+    }
+}
+@media
+only screen and (max-width: 415px){
+    .Stundenplan, th, td{
+        font-size: 14px;
+    }
+    #Sidebar-btn-open{
+        margin-left: calc(100% - 40px);
+    }
+    #Sidebar{
+        width: 75%;
+        left: -75%;
+    }
     .Sidebar li a {
         width: 100%;
         padding-left: 0px;
         padding-right: 0px;
     }
-    #Sidebar-btn-open{
-        margin-left: calc(100% - 40px);
+    #Sidebar-cls{
+        width: 25%;
+        left: -25%;
+        height: 100%;
+        cursor: pointer;
+        position: absolute;
+        display: block;
+    }
+    #Sidebar-cls.cls-visible{
+        left: 75%;
     }
 }
 @media
 only screen and (max-width: 360px){
-    table, th, td{
+    .Stundenplan, th, td{
         font-size: 12px;
     }
 }
@@ -124,5 +159,17 @@ only screen and (max-width: 360px){
 only screen and (max-width: 310px){
     table, th, td{
         font-size: 10px;
+    }
+    #Sidebar{
+        width: 100%;
+        left: -100%;
+    }
+    .Sidebar li a {
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    #Sidebar-cls.cls-visible{
+        left: 100%;
     }
 }
