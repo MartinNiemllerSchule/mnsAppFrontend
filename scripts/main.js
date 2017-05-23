@@ -1,49 +1,56 @@
 /**
+ * Zeigt Login-Bildschirm an oder verzweigt bei "eingeloggt bleiben" auf die Startseite
  * Created by frank on 04.05.17.
  */
 
+"use strict";
+var salt = 'sazter45($';
+var urlLogin = 'http://127.0.1.5/index.php';
+
 /**
- * fragt den Stundenplan ab und produziert eine entsprechende HTML-Tabelle
+ * onDocumentReady
+ * zeigt falls nötig den Login und führt ihn aus anderenfalls wird der Vertretungsplan für diese Woche angezeigt
+ *
  */
-
-function getStundenplanTable(cb) {
-	var splanf = [];
-	var splans = [];
-	for(var i = 0; i<12; i++) {
-		splanf[i] = [undefined,undefined,undefined,undefined,undefined];
-		splans[i] = splanf[i];
-	}
-
-	$.getJSON('https://mns.topsch.net/vapp/mns_vapp_api/', function (data) {
-		// initialisiere Stundenplan-Array splan mit leeren Werten
-		// trage alle gefundenen Daten ein
-		$.each(data, function (key, val) {
-			if (val.f == '1') {
-				splanf[val.stunde - 1][val.tag - 1] = val.bezeichnung;
-			} else {
-				splans[val.stunde - 1][val.tag - 1] = val.bezeichnung;
-			}
-		})
-
-		// Nachbearbeitung
-		var splanTHead = '<thead><tr><td></td><td>Mo</td><td>Die</td><td>Mi</td><td>Do</td><td>Fr</td></tr></thead>';
-		// TODO: Tabellen aus f und s vereinen
-		// TODO: Texte in den Zellen auf das nötigste kürzen
-		// TODO: leere Zeilen in der Tabelle nicht anzeigen
-
-		var splan = '';
-		for (var i = 0; i < 12; i++) {
-			splan += '<tr><td>' + (i + 1) + '</td><td>' + splans[i].join('</td><td>') + '</td></tr>';
-		}
-
-		cb('<table>' + splanTHead + '<tbody>'+ splan + '</tbody></table>');
-	});
-
-}
-
 $(document).ready(function () {
-	getStundenplanTable(function (tabelle) {
-		$('#StundenplanTabelle').append(tabelle);
-	});
+	setHandleLogin();
 });
+
+/**
+ * sendet die Login-Daten und reagiert auf die Antwort
+ */
+function setHandleLogin(){
+	$('#loginButton').removeAttr('onsubmit').click(
+		function () {
+			getPasswordHash(sendLoginData);
+		});
+}
+/**
+ * liest das eingegebene Passwort aus und übergibt den Passwort-Hash an das Formular
+ */
+function getPasswordHash(sLD) {
+	var sean = $("[name='sean']").val();
+	var passwort = $("[name='passwort']");
+	var pw = sha512(salt + passwort.val());
+	console.debug(pw, passwort.val());
+	sLD(sean, pw);
+}
+/**
+ * sendet die Daten
+ */
+function sendLoginData(sean, passwort) {
+	var sendData = 'fname=login&sean=' + sean + '&pw=' + passwort;
+	$.ajax({
+		url: urlLogin,
+		dataType: 'json',
+		crossDomain: true,
+		data: sendData,
+		success: function(response){
+			console.debug(response);
+		},
+		error: function (response,textStatus,e) {
+			console.debug('kein login', textStatus, e);
+		}
+	});
+}
 
