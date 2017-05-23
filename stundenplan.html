@@ -22,7 +22,10 @@
                 <span></span>
             </div>
         </li>
-        <li><a href="stundenplan.html" class="active">Stundenplan</a></li>
+        <li>
+            <div id="mns-pic"></div>
+        </li>
+        <li><a href="stundenplan.html" id="active">Stundenplan</a></li>
         <li><a href="vertretungsplan.html">Vertretungsplan</a></li>
         <li><a href="buecher.html">Bücherliste</a></li>
     </ul>
@@ -56,6 +59,36 @@
     <span></span>
     <span></span>
     <span></span>
+</div>
+
+<div id="topbar">Stundenplan</div>
+<div id="selector">
+    <div id="nächstewoche" class="woche">
+        Nächste Woche
+        <script>
+            $(document).ready(function () {
+                $('#nächstewoche').click(function () {
+                    $('#nächstewoche').addClass('active');
+                    $('#diesewoche').removeClass('active');
+                    $('#nächste-woche').addClass('tactive');
+                    $('#diese-woche').removeClass('tactive');
+                });
+            });
+        </script>
+    </div>
+    <div id="diesewoche" class="woche active">
+        Diese Woche
+        <script>
+            $(document).ready(function () {
+                $('#diesewoche').click(function () {
+                    $('#diesewoche').addClass('active');
+                    $('#nächstewoche').removeClass('active');
+                    $('#diese-woche').addClass('tactive');
+                    $('#nächste-woche').removeClass('tactive');
+                });
+            });
+        </script>
+    </div>
 </div>
 
 <div id="StundenplanTabelle"></div>

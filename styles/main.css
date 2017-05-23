@@ -1,9 +1,10 @@
 body{
     margin: 0;
     padding: 0;
+    font-family: Arial;
 }
 #Sidebar{
-    background-color: #6666ff;
+    background-color: #7ABBFF;
     width: 200px;
     height: 100%;
     display: block;
@@ -11,6 +12,7 @@ body{
     left: 0px;
     top: 0px;
     transition: left 0.3s linear;
+    border-right: 1px solid #333333;
 }
 #Sidebar.visible{
     left: 0px;
@@ -22,10 +24,10 @@ body{
 }
 .Sidebar li {
     list-style: none;
-    border-bottom: 1px solid #bbbbbb;
+    border-bottom: 1px solid #333333;
 }
 .Sidebar li a {
-    background-color: #6666ff;
+    background-color: #7ABBFF;
     display: block;
     color: white;
     text-align: center;
@@ -34,27 +36,79 @@ body{
     text-decoration: none;
 }
 .Sidebar li a:hover {
-    background-color: #3333ff;
+    background-color: #64AFFF;
 }
-.active {
-    background-color: #3333ff;
+#active {
+    background-color: #64AFFF;
+}
+#mns-pic{
+    width: 200px;
+    height: 150px;
+    padding: 0px;
+    margin: 0px;
+}
+#topbar{
+    width: calc(100% - 215px);
+    height: 55px;
+    background-color: #7ABBFF;
+    color: #FFFFFF;
+    float: right;
+    text-align: left;
+    font-size: 32px;
+    line-height: 55px;
+    padding-left: 15px;
+}
+#selector{
+    width: calc(100% - 200px);
+    height: 55px;
+    background-color: #7ABBFF;
+    float: right;
+    margin-bottom: 15px;
+}
+.woche{
+    width: 50%;
+    height: 55px;
+    margin: 0px;
+    float: right;
+    text-align: center;
+    font-size: 22px;
+    line-height: 55px;
+    cursor: pointer;
+    color: #FFFFFF;
+}
+.woche:hover{
+    background-color: #64AFFF;
+}
+.active{
+    background-color: #64AFFF;
 }
 #StundenplanTabelle{
+    font-family: "Times New Roman";
     font-size: 0px;
     float: right;
     width: calc(100% - 200px);
 }
 .Stundenplan{
+    position: absolute;
+    left: -100%;
+    top: -100%;
     font-size: 16px;
-    margin: auto;
+    margin: 0px;
     padding: 0px;
     width: 750px;
+    height: 500px;
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
 }
+.tactive{
+    position: static;
+    margin: auto;
+    padding: 0px;
+    width: 750px;
+}
 th{
-    background-color: #6666ff;
+    background-color: #64AFFF;
     border: 1px solid black;
 }
 td{
@@ -62,7 +116,7 @@ td{
     border: 1px solid black;
 }
 .Stunde{
-    background-color: #6666ff;
+    background-color: #64AFFF;
     border: 1px solid black;
 }
 @media
@@ -84,7 +138,7 @@ only screen and (max-width: 950px) {
         text-align: center;
     }
     #Sidebar{
-        left: -200px;
+        left: -201px;
     }
     #Sidebar-btn{
         display: inline-block;
@@ -92,9 +146,11 @@ only screen and (max-width: 950px) {
         width: 20px;
         height: 15px;
         cursor: pointer;
-        margin: 20px;
+        margin: 0px;
+        padding: 20px;
         top: 0px;
         right: 0px;
+        background-color: #7ABBFF;
     }
     #Sidebar-btn-open{
         display: inline-block;
@@ -102,8 +158,8 @@ only screen and (max-width: 950px) {
         width: 20px;
         height: 15px;
         cursor: pointer;
-        margin: 20px;
-        margin-left: 160px;
+        padding: 20px;
+        margin-left: 140px;
         top: 0px;
         position: static;
     }
@@ -119,6 +175,16 @@ only screen and (max-width: 950px) {
         margin-bottom: 5px;
         display: block;
     }
+    #topbar{
+        width: calc(100% - 70px);
+        height: 55px;
+        padding-left: 10px;
+     }
+    #selector{
+        width: 100%;
+        height: 55px;
+
+    }
 }
 @media
 only screen and (max-width: 415px){
@@ -126,11 +192,11 @@ only screen and (max-width: 415px){
         font-size: 14px;
     }
     #Sidebar-btn-open{
-        margin-left: calc(100% - 40px);
+        margin-left: calc(100% - 60px);
     }
     #Sidebar{
         width: 75%;
-        left: -75%;
+        left: calc(-75% - 1px);
     }
     .Sidebar li a {
         width: 100%;
