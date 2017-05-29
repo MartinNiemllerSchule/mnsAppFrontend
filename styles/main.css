@@ -220,6 +220,13 @@ only screen and (max-width: 360px){
     .Stundenplan, th, td{
         font-size: 12px;
     }
+    .Stundenplan{
+        height: calc(100vh - 140px);
+    }
+    .woche{
+        font-size: 20px;
+        line-height: 55px;
+    }
 }
 @media
 only screen and (max-width: 310px){
@@ -237,5 +244,9 @@ only screen and (max-width: 310px){
     }
     #Sidebar-cls.cls-visible{
         left: 100%;
+    }
+    .woche{
+        font-size: 18px;
+        line-height: 55px;
     }
 }
