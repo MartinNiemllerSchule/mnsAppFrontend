@@ -24,10 +24,38 @@ $(document).ready(function () {
 					if (aL == null) {
 						throw 'automatisches Login existiert in der Datenbank nicht';
 					} else {
-						if (aL) {
-							// automatisches Login ausführen
-							console.debug('aL: ' + aL);
+						if (aL.value) {
+							/* automatisches Login ausführen
+							 * Dazu werden zunächst die Daten aus der Datenbank entnommen und
+							 * der Login vom Server abgerufen.
+							 * Ist der Abruf erfolgreich, wird der aktuelle Stunden und Vertretungsplan als Antwort des Servers
+							 * in der Datenbank gespeichert, wo ihn die anderen Seiten finden und anzeigen können.
+							 */
 							// TODO: verstecke Login, logIn und zeige ?irgendwas?
+							var sendData = 'fname=login&sean=';
+							db.config
+								.get('sean')
+								.then(function (sean) {
+									sendData += sean.value;
+									db.config
+										.get('pw')
+										.then(function (pw) {
+											sendData += '&pw=' + pw.value;
+											$.ajax({
+												url: urlLogin,
+												dataType: 'json',
+												crossDomain: true,
+												data: sendData,
+												success: function(response){
+													loggedIn = true;
+													handleLogin(response);
+												},
+												error: function (response,textStatus,e) {
+													console.debug('kein login auf dem Server möglich', textStatus, e);
+												}
+											});
+										});
+								});
 						} else {
 							throw 'automatisches Login ist verboten';
 						}
@@ -83,7 +111,6 @@ function sendLoginData(sean, passwort) {
 		crossDomain: true,
 		data: sendData,
 		success: function(response){
-			console.debug(response);
 			db.config.put({key:'sean', value:sean}).catch(function (error) {
 				console.debug('DB-Error sean: ' + sean + ' e:' + error);
 			});
@@ -93,14 +120,12 @@ function sendLoginData(sean, passwort) {
 			db.config.put({key:'loginType', value:'sean'}).catch(function (error) {
 				console.debug('DB-Error loginType=sean e:' + error);
 			});
-			db.config.put({key:'loginDate', value: new Date()}).catch(function (error) {
-				console.debug('DB-Error loginDate e:' + error);
-			});
 			var autoLogin = $("[name='autoLogin']").is(':checked');
 			db.config.put({key:'autoLogin', value: autoLogin}).catch(function (error) {
 				console.debug('DB-Error autoLogin e:' + error);
 			});
 			loggedIn = true;
+			handleLogin(response);
 		},
 		error: function (response,textStatus,e) {
 			console.debug('kein login auf dem Server möglich', textStatus, e);
@@ -108,3 +133,25 @@ function sendLoginData(sean, passwort) {
 	});
 }
 
+function handleLogin(antwort) {
+	console.debug(antwort);
+	// Login war erfolgreich -> Datum des Login speichern
+	db.config.put({key:'loginDate', value: new Date()}).catch(function (error) {
+		console.debug('DB-Error loginDate e:' + error);
+	});
+	// Falls der Stunden- und Vertretungsplan ausgeliefert wurden -> abspeichern
+	if (antwort.login == 'ok') {
+		if ('splan' in antwort) {
+			db.config.put({key:'splan', value: antwort.splan}).catch(function (error) {
+				console.debug('DB-Error splan e:' + error);
+			});
+		};
+		if ('vplan' in antwort) {
+			db.config.put({key:'vplan', value: antwort.vplan}).catch(function (error) {
+				console.debug('DB-Error vplan e:' + error);
+			});
+		};
+		// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
+		$('#loginFormular').hide();
+	} else console.debug('Login-Fehler: ok erwartet: ' + antwort);
+}
