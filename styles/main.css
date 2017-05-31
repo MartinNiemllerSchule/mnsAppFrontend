@@ -4,7 +4,7 @@ body{
     font-family: Arial;
 }
 #Sidebar{
-    background-color: #7ABBFF;
+    background-color: #FFFFFF;
     width: 200px;
     height: 100%;
     display: block;
@@ -13,33 +13,43 @@ body{
     top: 0px;
     transition: left 0.3s linear;
     border-right: 1px solid #333333;
-}
-#Sidebar.visible{
-    left: 0px;
-    transition: left 0.3s linear;
+    margin: 0;
 }
 .Sidebar {
     margin: 0;
     padding: 0;
 }
+#btn{
+    border-bottom: 0px;
+}
 .Sidebar li {
     list-style: none;
+    margin-left: 10px;
+    margin-right: 10px;
     border-bottom: 1px solid #333333;
 }
 .Sidebar li a {
-    background-color: #7ABBFF;
+    background-color: #FFFFFF;
     display: block;
-    color: white;
-    text-align: center;
+    color: #000000;
+    text-align: left;
     width: 180px;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-decoration: none;
 }
 .Sidebar li a:hover {
-    background-color: #64AFFF;
+    background-color: #EFEFEF;
 }
 #active {
-    background-color: #64AFFF;
+    background-color: #EFEFEF;
+}
+.Sidebar li img{
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+    margin: 0;
+    float: left;
 }
 #mns-pic{
     width: 200px;
@@ -108,15 +118,15 @@ body{
     width: 750px;
 }
 th{
-    background-color: #64AFFF;
+    background-color: #7ABBFF;
     border: 1px solid black;
 }
 td{
-    background-color: lightgrey;
+    background-color: #FFFFFF;
     border: 1px solid black;
 }
 .Stunde{
-    background-color: #64AFFF;
+    background-color: #7ABBFF;
     border: 1px solid black;
 }
 @media
@@ -139,6 +149,13 @@ only screen and (max-width: 950px) {
     }
     #Sidebar{
         left: -201px;
+    }
+    #Sidebar.visible{
+        left: 0px;
+        transition: left 0.3s linear;
+    }
+    #btn{
+        border-bottom: 1px solid #333333;
     }
     #Sidebar-btn{
         display: inline-block;

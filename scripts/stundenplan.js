@@ -115,6 +115,18 @@ function getStundenplanTable(cb) {
 
     });
 
+    var vplan = [];
+
+    $.getJSON('https://mns.topsch.net/vapp/mns_vapp_api/', function (data) {
+
+        $.each(data[1], function (key, val) {
+
+            vplan.push([val.tag, val.stunde, val.bezeichnung]);
+        });
+
+        console.debug(vplan);
+
+    });
 }
 
 $(document).ready(function () {
