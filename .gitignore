@@ -5,7 +5,7 @@
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
-.idea/vcs.xml #frank
+.idea/vcs.xml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -51,3 +51,4 @@ fabric.properties
 
 # frank
 .directory
+/scripts/vendor/*
