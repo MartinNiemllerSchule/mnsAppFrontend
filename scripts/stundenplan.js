@@ -3,6 +3,18 @@
  */
 
 /**
+ * Verbindung mit der lokalen Datenbank herstellen
+ */
+var db;
+function connectLocalDB() {
+	db = new Dexie("Einstellungen");
+	db.version(1).stores({
+		config:'key,value'
+	});
+}
+connectLocalDB();
+
+/**
  * fragt den Stundenplan ab und produziert eine entsprechende HTML-Tabelle
  */
 
@@ -18,7 +30,9 @@ function getStundenplanTable(cb) {
         splanst[i] = ["","","","",""];
     }
     //console.debug(splans);
-    $.getJSON('https://mns.topsch.net/vapp/mns_vapp_api/', function (data) {
+    //$.getJSON('https://mns.topsch.net/vapp/mns_vapp_api/', function (data) {
+  db.config.get('splan').then(function(dataO){
+    	var data = dataO.value;
         // initialisiere Stundenplan-Array splan mit leeren Werten
         // trage alle gefundenen Daten ein
 
@@ -117,7 +131,9 @@ function getStundenplanTable(cb) {
 
     var vplan = [];
 
-    $.getJSON('https://mns.topsch.net/vapp/mns_vapp_api/', function (data) {
+    //$.getJSON('https://mns.topsch.net/vapp/mns_vapp_api/', function (data) {
+	db.config.get('vplan').then(function (dataO) {
+		var data = dataO.value;
 
         $.each(data[1], function (key, val) {
 

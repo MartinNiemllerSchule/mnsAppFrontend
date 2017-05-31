@@ -153,5 +153,7 @@ function handleLogin(antwort) {
 		};
 		// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
 		$('#loginFormular').hide();
+		window.location = "./stundenplan.html"; // Todo: die ganz schnelle und unschöne Lösung
+
 	} else console.debug('Login-Fehler: ok erwartet: ' + antwort);
 }
