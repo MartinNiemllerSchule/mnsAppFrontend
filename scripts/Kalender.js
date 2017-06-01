@@ -9,7 +9,7 @@ $(document).on('pageinit', '#index', function(){
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-
+// Erstellen des Kalenders
     $("#calendar").jqmCalendar({
         events: [{
             "summary": "Meet PM",
@@ -24,13 +24,12 @@ $(document).on('pageinit', '#index', function(){
     });
 
 });
+function getSelectedText(elementId) {
+    var elt = document.getElementById(elementId);
 
+    if (elt.selectedIndex == -1)
+        return null;
 
-$("#datepicker").pickadate({
-    labelMonthNext: 'Go to the next month',
-    labelMonthPrev: 'Go to the previous month',
-    labelMonthSelect: 'Pick a month from the dropdown',
-    labelYearSelect: 'Pick a year from the dropdown',
-    selectMonths: true,
-    selectYears: true
-})
+    return elt.options[elt.selectedIndex].text;
+};
+

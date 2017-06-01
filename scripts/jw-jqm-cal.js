@@ -128,7 +128,14 @@
             }
          }
       }
-      
+
+      function getDate(event){
+        var $this = $(this),
+            date = $this.data('date');
+          return date
+      }
+
+
       function cellClickHandler(event) {
          var $this = $(this),
             date = $this.data('date');

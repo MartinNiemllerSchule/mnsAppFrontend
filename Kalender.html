@@ -28,10 +28,18 @@
         <option>Deutsch</option>
         <option>PoWi</option>
     </select>
-    <label for="datepicker"> Datum:</label>
-    <div id="datepicker">
-        
-    </div>
+    <button id="button">Hinzufügen</button>
+    <script>
+
+        $("#button").click(function(){
+
+
+            var text = getSelectedText('klausur')
+            console.debug(text);
+           var date = getDate()
+            console.debug(date)
+        });
+    </script>
 </div>
 
 
