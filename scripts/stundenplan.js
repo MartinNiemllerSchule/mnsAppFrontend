@@ -30,13 +30,12 @@ function getStundenplanTable(cb) {
         splanst[i] = ["","","","",""];
     }
     //console.debug(splans);
-    //$.getJSON('https://mns.topsch.net/vapp/mns_vapp_api/', function (data) {
   db.config.get('splan').then(function(dataO){
     	var data = dataO.value;
         // initialisiere Stundenplan-Array splan mit leeren Werten
         // trage alle gefundenen Daten ein
 
-        $.each(data[0], function (key, val) {
+        $.each(data, function (key, val) {
             if (val.f == '1') {
                 splanf[val.stunde - 1][val.tag - 1] = val.bezeichnung;
                 splanft[val.stunde - 1][val.tag - 1] = val.bezeichnung;

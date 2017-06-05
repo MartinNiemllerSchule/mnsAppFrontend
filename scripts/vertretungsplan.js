@@ -2,13 +2,27 @@
  * Created by Janik.Liebrecht on 09.05.2017.
  */
 
+/**
+ * Verbindung mit der lokalen Datenbank herstellen
+ */
+var db;
+function connectLocalDB() {
+	db = new Dexie("Einstellungen");
+	db.version(1).stores({
+		config:'key,value'
+	});
+}
+connectLocalDB();
+
 
 function getVertretungsplanTabelle(cb) {
     var vplan = [];
 
-    $.getJSON('https://mns.topsch.net/vapp/mns_vapp_api/', function (data) {
+//    $.getJSON('https://mns.topsch.net/vapp/mns_vapp_api/', function (data) {
+	db.config.get('vplan').then(function(dataO){
+		var data = dataO.value;
 
-        $.each(data[1], function (key, val) {
+        $.each(data, function (key, val) {
 
             vplan.push([val.tag, val.stunde, val.bezeichnung, val.raum, val.kuerzel, val.info]);
         });
