@@ -46,11 +46,11 @@ $(document).ready(function () {
 												dataType: 'json',
 												crossDomain: true,
 												data: sendData,
-												success: function(response){
+												success: function (response) {
 													loggedIn = true;
 													handleLogin(response);
 												},
-												error: function (response,textStatus,e) {
+												error: function (response, textStatus, e) {
 													console.debug('kein login auf dem Server möglich', textStatus, e);
 												}
 											});
@@ -76,7 +76,7 @@ $(document).ready(function () {
 function connectLocalDB() {
 	db = new Dexie("Einstellungen");
 	db.version(1).stores({
-		config:'key,value'
+		config: 'key,value'
 	});
 }
 connectLocalDB();
@@ -84,7 +84,7 @@ connectLocalDB();
 /**
  * sendet die Login-Daten und reagiert auf die Antwort
  */
-function setHandleLogin(){
+function setHandleLogin() {
 	$('#loginButton').removeAttr('onsubmit').click(
 		function () {
 			getPasswordHash(sendLoginData);
@@ -110,25 +110,25 @@ function sendLoginData(sean, passwort) {
 		dataType: 'json',
 		crossDomain: true,
 		data: sendData,
-		success: function(response){
-			db.config.put({key:'sean', value:sean}).catch(function (error) {
+		success: function (response) {
+			db.config.put({key: 'sean', value: sean}).catch(function (error) {
 				console.debug('DB-Error sean: ' + sean + ' e:' + error);
 			});
-			db.config.put({key:'pw', value:passwort}).catch(function (error) {
+			db.config.put({key: 'pw', value: passwort}).catch(function (error) {
 				console.debug('DB-Error pw: ' + passwort + ' e:' + error);
 			});
-			db.config.put({key:'loginType', value:'sean'}).catch(function (error) {
+			db.config.put({key: 'loginType', value: 'sean'}).catch(function (error) {
 				console.debug('DB-Error loginType=sean e:' + error);
 			});
 			var autoLogin = $("[name='autoLogin']").is(':checked');
-			db.config.put({key:'autoLogin', value: autoLogin}).catch(function (error) {
+			db.config.put({key: 'autoLogin', value: autoLogin}).catch(function (error) {
 				console.debug('DB-Error autoLogin e:' + error);
 			});
 			loggedIn = true;
 			handleLogin(response);
 		},
-		error: function (response,textStatus,e) {
-			console.debug('kein login auf dem Server möglich', textStatus, e);
+		error: function (response, textStatus, e) {
+			console.error('kein login auf dem Server möglich', textStatus, e);
 		}
 	});
 }
@@ -136,24 +136,25 @@ function sendLoginData(sean, passwort) {
 function handleLogin(antwort) {
 	console.debug(antwort);
 	// Login war erfolgreich -> Datum des Login speichern
-	db.config.put({key:'loginDate', value: new Date()}).catch(function (error) {
-		console.debug('DB-Error loginDate e:' + error);
-	});
-	// Falls der Stunden- und Vertretungsplan ausgeliefert wurden -> abspeichern
-	if (antwort.login == 'ok') {
-		if ('splan' in antwort) {
-			db.config.put({key:'splan', value: antwort.splan}).catch(function (error) {
-				console.debug('DB-Error splan e:' + error);
-			});
-		};
-		if ('vplan' in antwort) {
-			db.config.put({key:'vplan', value: antwort.vplan}).catch(function (error) {
-				console.debug('DB-Error vplan e:' + error);
-			});
-		};
+	db.transaction('rw', db.config, function () {
+		db.config.put({key: 'loginDate', value: new Date()});
+		// Falls der Stunden- und Vertretungsplan ausgeliefert wurden -> abspeichern
+		if (antwort.login == 'ok') {
+			if ('splan' in antwort) {
+				db.config.put({key: 'splan', value: antwort.splan});
+			}
+			;
+			if ('vplan' in antwort) {
+				db.config.put({key: 'vplan', value: antwort.vplan});
+			}
+			;
+		} else console.debug('Login-Fehler: ok erwartet: ' + antwort);
+	}).then(function () {
 		// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
 		$('#loginFormular').hide();
 		window.location = "./stundenplan.html"; // Todo: die ganz schnelle und unschöne Lösung
+	}).catch(function (e) {
+		console.error('handleLogin:', e, e.stack);
+	});
 
-	} else console.debug('Login-Fehler: ok erwartet: ' + antwort);
 }
