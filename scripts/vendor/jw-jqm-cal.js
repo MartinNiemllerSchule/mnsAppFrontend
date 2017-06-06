@@ -129,12 +129,11 @@
          }
       }
 
-      function getDate(event){
-        var $this = $(this),
-            date = $this.data('date');
-          return date
-      }
 
+      function getDay() {
+          var d = $tbody.find("a.ui-btn-active").getDate();
+          return d;
+      }
 
       function cellClickHandler(event) {
          var $this = $(this),
@@ -236,3 +235,4 @@
    }
 
 })(jQuery);
+
