@@ -14,7 +14,7 @@
 </head>
 
 <div data-role="page" id="index">
-    <div data-theme="b" data-role="header">
+    <div data-theme="b" data-role="header" id="head">
         <h1>Index page</h1>
     </div>
 
@@ -34,10 +34,10 @@
         $("#button").click(function(){
 
 
-            var text = getSelectedText('klausur')
+            var text = getSelectedText('klausur');
             console.debug(text);
-           var date = getDate()
-            console.debug(date)
+            var date =  getTag();
+            console.debug(date);
         });
     </script>
 </div>

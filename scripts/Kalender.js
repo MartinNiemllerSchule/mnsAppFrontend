@@ -13,10 +13,11 @@ $(document).on('pageinit', '#index', function(){
     $("#calendar").jqmCalendar({
         events: [{
             "summary": "Meet PM",
-            "begin": new Date(y,m, 27 ),
-            "end": new Date(y, m, 28)
+            "begin": new Date(2017,5, 27 ),
+            "end": new Date(2017, 5, 28)
 
-        },],
+        },
+        ],
         months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         days: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
         startOfWeek: 0
@@ -33,3 +34,20 @@ function getSelectedText(elementId) {
     return elt.options[elt.selectedIndex].text;
 };
 
+function getYear() {
+   var date = new Date();
+    var y = date.getFullYear();
+
+    return y ;
+};
+function getYear() {
+    var date = new Date();
+    var m = date.getMonth();
+
+
+    return m ;
+};
+function getTag() {
+   var d
+       return d;
+};
