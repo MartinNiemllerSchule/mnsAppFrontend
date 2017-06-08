@@ -5,12 +5,16 @@
 /**
  * Verbindung mit der lokalen Datenbank herstellen
  */
-var db;
 function connectLocalDB() {
 	db = new Dexie("Einstellungen");
-	db.version(1).stores({
-		config:'key,value'
-	});
+	db.open()
+		.catch(function () {
+			db.version(1).stores({
+				config:'key,value'
+			}).catch(function (e) {
+				console.error('Kann die lokale Datenbank nicht öffnen oder neu erstellen: ', e);
+			});
+		});
 }
 connectLocalDB();
 
@@ -30,7 +34,7 @@ function getStundenplanTable(cb) {
         splanst[i] = ["","","","",""];
     }
     //console.debug(splans);
-  db.config.get('splan').then(function(dataO){
+    db.config.get('splan').then(function(dataO){
     	var data = dataO.value;
         // initialisiere Stundenplan-Array splan mit leeren Werten
         // trage alle gefundenen Daten ein

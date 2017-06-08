@@ -5,22 +5,25 @@
 
 "use strict";
 var salt = 'sazter45($';
-var urlLogin = 'https://mns.topsch.net/vapp/mns_vapp_api/index.php';
+//var urlLogin = 'https://mns.topsch.net/vapp/mns_vapp_api/index.php';
+var urlLogin = 'http://127.0.1.5/index.php';
 var db;
 var loggedIn = false;
 
+/* Datenbank ========================================================= */
+
 /**
- * onDocumentReady
- * zeigt falls nötig den Login und führt ihn aus anderenfalls wird der Vertretungsplan für diese Woche angezeigt
- *
+ * Verbindung mit der lokalen Datenbank herstellen
  */
-$(document).ready(function () {
-	if (!loggedIn) {
-		// falls die Datenbank bereits sinnvolle Werte enthält, sollen diese für das Login augenutzt werden
-		if (db) {
+function connectLocalDB() {
+	db = new Dexie("Einstellungen");
+	db.open()
+		.then(function () {
+			// Einstellungen auslesen
 			db.config
 				.get('autoLogin')
 				.then(function (aL) {
+					// versuche automatisches Login
 					if (aL == null) {
 						throw 'automatisches Login existiert in der Datenbank nicht';
 					} else {
@@ -48,7 +51,7 @@ $(document).ready(function () {
 												data: sendData,
 												success: function(response){
 													loggedIn = true;
-													handleLogin(response);
+													$(document).ready(handleLogin(response)); // Antwort in DB speichern
 												},
 												error: function (response,textStatus,e) {
 													console.debug('kein login auf dem Server möglich', textStatus, e);
@@ -61,25 +64,32 @@ $(document).ready(function () {
 						}
 					}
 				})
-				.catch(function (error) {
-					console.debug('kein automatisches Login e:' + error);
-					setHandleLogin(); // Login anzeigen
+				.catch(function (e) {
+					console.debug('autoLogin unmöglich: ',e);
+					$(document).ready(setHandleLogin()); // Login-Button ausstatten
 				});
-		} else console.debug('lokale Datenbank nicht bereit.');
-	}
-
-});
-
-/**
- * Verbindung mit der lokalen Datenbank herstellen
- */
-function connectLocalDB() {
-	db = new Dexie("Einstellungen");
-	db.version(1).stores({
-		config:'key,value'
-	});
+		})
+		.catch(function (e) {
+			console.error('kann die lokale Datenbank nicht öffnen: ', e);
+			// neue Datenbank anlegen
+			db.version(1).stores({
+				config:'key,value'
+			}).then(function () {
+				$(document).ready(setHandleLogin()); // Login-Button ausstatten
+			}).catch(function (e) {
+				console.error('Kann die lokale Datenbank nicht neu erstellen: ', e);
+			});
+		});
 }
 connectLocalDB();
+
+/**
+ * onDocumentReady
+ * zeigt falls nötig den Login und führt ihn aus anderenfalls wird der Vertretungsplan für diese Woche angezeigt
+ *
+ */
+$(document).ready(function () {
+});
 
 /**
  * sendet die Login-Daten und reagiert auf die Antwort
@@ -136,24 +146,24 @@ function sendLoginData(sean, passwort) {
 function handleLogin(antwort) {
 	console.debug(antwort);
 	// Login war erfolgreich -> Datum des Login speichern
-	db.config.put({key:'loginDate', value: new Date()}).catch(function (error) {
-		console.debug('DB-Error loginDate e:' + error);
-	});
-	// Falls der Stunden- und Vertretungsplan ausgeliefert wurden -> abspeichern
-	if (antwort.login == 'ok') {
-		if ('splan' in antwort) {
-			db.config.put({key:'splan', value: antwort.splan}).catch(function (error) {
-				console.debug('DB-Error splan e:' + error);
-			});
-		};
-		if ('vplan' in antwort) {
-			db.config.put({key:'vplan', value: antwort.vplan}).catch(function (error) {
-				console.debug('DB-Error vplan e:' + error);
-			});
-		};
+	db.transaction('rw', db.config, function () {
+		db.config.put({key: 'loginDate', value: new Date()});
+		// Falls der Stunden- und Vertretungsplan ausgeliefert wurden -> abspeichern
+		if (antwort.login == 'ok') {
+			if ('splan' in antwort) {
+				db.config.put({key: 'splan', value: antwort.splan});
+			}
+			;
+			if ('vplan' in antwort) {
+				db.config.put({key: 'vplan', value: antwort.vplan});
+			}
+			;
+		} else console.debug('Login-Fehler: ok erwartet: ' + antwort);
+	}).then(function () {
 		// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
 		$('#loginFormular').hide();
 		window.location = "./stundenplan.html"; // Todo: die ganz schnelle und unschöne Lösung
-
-	} else console.debug('Login-Fehler: ok erwartet: ' + antwort);
+	}).catch(function (e) {
+		console.error('handleLogin:', e, e.stack);
+	});
 }
