@@ -53,3 +53,7 @@
 #button{
     background-color: #64AFFF;
 }
+.invisible{
+    position:absolute;
+    left:-100%;
+}
