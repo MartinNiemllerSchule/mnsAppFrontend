@@ -3,6 +3,7 @@
  */
 
 
+var eventsArray = [];
 
 $(document).on('pageinit', '#index', function(){
     var date = new Date();
@@ -11,13 +12,7 @@ $(document).on('pageinit', '#index', function(){
     var y = date.getFullYear();
 // Erstellen des Kalenders
     $("#calendar").jqmCalendar({
-        events: [{
-            "summary": "Meet PM",
-            "begin": new Date(2017,5, 27 ),
-            "end": new Date(2017, 5, 28)
-
-        },
-        ],
+        events: eventsArray,
         months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         days: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
         startOfWeek: 0
@@ -34,20 +29,36 @@ function getSelectedText(elementId) {
     return elt.options[elt.selectedIndex].text;
 };
 
-function getYear() {
-   var date = new Date();
-    var y = date.getFullYear();
+$(document).ready(function () {
 
-    return y ;
-};
-function getYear() {
-    var date = new Date();
-    var m = date.getMonth();
+    $("#button").click(function () {
 
 
-    return m ;
-};
-function getTag() {
-   var d
-       return d;
-};
+        $("#calendar").addClass("invisible");
+        $("#datepicker").datepicker();
+        $("#datepicker").removeClass("invisible");
+        $("#button").addClass("invisible");
+        $("#button2").removeClass("invisible");
+        $("#wahl").removeClass("invisible");
+
+    });
+        $("#button2").click(function () {
+        var dt = $("#datepicker").datepicker("getDate")
+
+        var day = dt.getDate();
+        var month = dt.getMonth() ;
+        var year = dt.getFullYear();
+        var text = getSelectedText('klausur');
+        console.debug(month);
+        eventsArray.push({"summary": text, "begin": new Date(year,month,day) ,"end":  new Date(year,month,day+1)});
+        console.debug(eventsArray);
+
+        $("#calendar").removeClass("invisible");
+        $("#datepicker").addClass("invisible");
+        $("#button").removeClass("invisible");
+        $("#button2").addClass("invisible");
+        $("#wahl").addClass("invisible");
+        $("#calendar").trigger("refresh");
+        console.debug(text);
+    })
+    });
