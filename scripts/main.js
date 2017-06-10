@@ -75,6 +75,7 @@ connectLocalDB();
  * onDocumentReady
  * zeigt falls nötig den Login und führt ihn aus anderenfalls wird der Vertretungsplan für diese Woche angezeigt
  *
+ * wird zur Zeit nicht mehr benötigt (Bereitstellung der Datenbankinformationen ist langsamer als das Laden der Seite
  $( function () {
 });
  */
@@ -95,11 +96,10 @@ function getPasswordHash(sLD) {
 	var sean = $("[name='sean']").val();
 	var passwort = $("[name='passwort']");
 	var pw = sha512(salt + passwort.val());
-	console.debug(pw, passwort.val());
 	sLD(sean, pw);
 }
 /**
- * sendet die Daten
+ * sendet die Daten für den Login
  */
 function sendLoginData(sean, passwort) {
 	var sendData = 'fname=login&sean=' + sean + '&pw=' + passwort;
@@ -131,6 +131,14 @@ function sendLoginData(sean, passwort) {
 	});
 }
 
+/**
+ * das Login wurde ausgeführt und liefert Daten
+ * diese Daten werden in der lokalen Datenbank abgelegt
+ * - Stundenplan
+ * - Vertretungesplan
+ * @param antwort -> JSON-Objekt mit der Rückgabe der bisher relevanten Daten
+ *  dabei wird zwischen Lehrern und Schülern unterschieden
+ */
 function handleLogin(antwort) {
 	console.debug(antwort);
 	// Login war erfolgreich -> Datum des Login speichern
@@ -148,7 +156,7 @@ function handleLogin(antwort) {
 	}).then(function () {
 		// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
 		$('#loginFormular').hide();
-		window.location = "./stundenplan.html"; // Todo: die ganz schnelle und unschöne Lösung
+		window.location = "./stundenplan.html";
 	}).catch(function (e) {
 		console.error('handleLogin:', e, e.stack);
 	});
