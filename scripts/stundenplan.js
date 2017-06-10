@@ -1,22 +1,15 @@
 /**
- * Created by frank on 04.05.17.
+ * Stundenplan anzeigen
+ * dazu werden die Wochen unterschieden
  */
+
+"use strict";
 
 /**
  * Verbindung mit der lokalen Datenbank herstellen
  */
-function connectLocalDB() {
-	db = new Dexie("Einstellungen");
-	db.open()
-		.catch(function () {
-			db.version(1).stores({
-				config:'key,value'
-			}).catch(function (e) {
-				console.error('Kann die lokale Datenbank nicht öffnen oder neu erstellen: ', e);
-			});
-		});
-}
-connectLocalDB();
+var db = new Dexie("Einstellungen");
+db.version(1).stores({config:'key,value'});
 
 /**
  * fragt den Stundenplan ab und produziert eine entsprechende HTML-Tabelle
@@ -47,7 +40,7 @@ function getStundenplanTable(cb) {
                 splans[val.stunde - 1][val.tag - 1] = val.bezeichnung;
                 splanst[val.stunde - 1][val.tag - 1] = val.bezeichnung;
             }
-        })
+        });
 
 
         // Nachbearbeitung
@@ -111,12 +104,12 @@ function getStundenplanTable(cb) {
             var DonnerstagDat = new Date(KWDatum.getTime() +
                 (3-((KWDatum.getDay()+6) % 7)) * 86400000);
 
-            KWJahr = DonnerstagDat.getFullYear();
+            var KWJahr = DonnerstagDat.getFullYear();
 
             var DonnerstagKW = new Date(new Date(KWJahr,0,4).getTime() +
                 (3-((new Date(KWJahr,0,4).getDay()+6) % 7)) * 86400000);
 
-            KW = Math.floor(1.5 + (DonnerstagDat.getTime() -
+            var KW = Math.floor(1.5 + (DonnerstagDat.getTime() -
                 DonnerstagKW.getTime()) / 86400000/7);
 
             return KW;
@@ -132,20 +125,16 @@ function getStundenplanTable(cb) {
 
     });
 
-    var vplan = [];
+  var vplan = [];
 
-    //$.getJSON('https://mns.topsch.net/vapp/mns_vapp_api/', function (data) {
+  //$.getJSON('https://mns.topsch.net/vapp/mns_vapp_api/', function (data) {
 	db.config.get('vplan').then(function (dataO) {
 		var data = dataO.value;
-
-        $.each(data[1], function (key, val) {
-
-            vplan.push([val.tag, val.stunde, val.bezeichnung]);
-        });
-
-        console.debug(vplan);
-
-    });
+		$.each(data[1], function (key, val) {
+			vplan.push([val.tag, val.stunde, val.bezeichnung]);
+		});
+		console.debug(vplan);
+	});
 }
 
 $(document).ready(function () {

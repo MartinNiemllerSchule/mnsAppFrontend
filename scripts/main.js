@@ -1,12 +1,11 @@
 /**
  * Zeigt Login-Bildschirm an oder verzweigt bei "eingeloggt bleiben" auf die Startseite
- * Created by frank on 04.05.17.
  */
 
 "use strict";
 var salt = 'sazter45($';
-//var urlLogin = 'https://mns.topsch.net/vapp/mns_vapp_api/index.php';
-var urlLogin = 'http://127.0.1.5/index.php';
+var urlLogin = 'https://mns.topsch.net/vapp/mns_vapp_api/index.php';
+// var urlLogin = 'http://127.0.1.5/index.php';
 var db;
 var loggedIn = false;
 
@@ -17,68 +16,57 @@ var loggedIn = false;
  */
 function connectLocalDB() {
 	db = new Dexie("Einstellungen");
-	db.open()
-		.then(function () {
-			// Einstellungen auslesen
-			db.config
-				.get('autoLogin')
-				.then(function (aL) {
-					// versuche automatisches Login
-					if (aL == null) {
-						throw 'automatisches Login existiert in der Datenbank nicht';
-					} else {
-						if (aL.value) {
-							/* automatisches Login ausführen
-							 * Dazu werden zunächst die Daten aus der Datenbank entnommen und
-							 * der Login vom Server abgerufen.
-							 * Ist der Abruf erfolgreich, wird der aktuelle Stunden und Vertretungsplan als Antwort des Servers
-							 * in der Datenbank gespeichert, wo ihn die anderen Seiten finden und anzeigen können.
-							 */
-							// TODO: verstecke Login, logIn und zeige ?irgendwas?
-							var sendData = 'fname=login&sean=';
+	db.version(1).stores({config:'key,value'});
+	$( setHandleLogin ); // Login-Button ausstatten
+
+	db.tables.forEach(function (p1, p2, p3) { console.debug(p1.name,p1,p2,p3); });
+	db.config
+		.get('autoLogin')
+		.then(function (aL) {
+			// versuche automatisches Login
+			if (aL == null) {
+				throw 'automatisches Login existiert in der Datenbank nicht';
+			} else {
+				if (aL.value) {
+					/* automatisches Login ausführen
+					 * Dazu werden zunächst die Daten aus der Datenbank entnommen und
+					 * der Login vom Server abgerufen.
+					 * Ist der Abruf erfolgreich, wird der aktuelle Stunden und Vertretungsplan als Antwort des Servers
+					 * in der Datenbank gespeichert, wo ihn die anderen Seiten finden und anzeigen können.
+					 */
+					// TODO: verstecke Login, logIn und zeige ?irgendwas?
+					var sendData = 'fname=login&sean=';
+					db.config
+						.get('sean')
+						.then(function (sean) {
+							sendData += sean.value;
 							db.config
-								.get('sean')
-								.then(function (sean) {
-									sendData += sean.value;
-									db.config
-										.get('pw')
-										.then(function (pw) {
-											sendData += '&pw=' + pw.value;
-											$.ajax({
-												url: urlLogin,
-												dataType: 'json',
-												crossDomain: true,
-												data: sendData,
-												success: function(response){
-													loggedIn = true;
-													$(document).ready(handleLogin(response)); // Antwort in DB speichern
-												},
-												error: function (response,textStatus,e) {
-													console.debug('kein login auf dem Server möglich', textStatus, e);
-												}
-											});
-										});
+								.get('pw')
+								.then(function (pw) {
+									sendData += '&pw=' + pw.value;
+									$.ajax({
+										url: urlLogin,
+										dataType: 'json',
+										crossDomain: true,
+										data: sendData,
+										success: function(response){
+											loggedIn = true;
+											$(document).ready(handleLogin(response)); // Antwort in DB speichern
+										},
+										error: function (response,textStatus,e) {
+											console.debug('kein login auf dem Server möglich', textStatus, e);
+										}
+									});
 								});
-						} else {
-							throw 'automatisches Login ist verboten';
-						}
-					}
-				})
-				.catch(function (e) {
-					console.debug('autoLogin unmöglich: ',e);
-					$(document).ready(setHandleLogin()); // Login-Button ausstatten
-				});
+						});
+				} else {
+					throw 'automatisches Login ist verboten';
+				}
+			}
 		})
 		.catch(function (e) {
-			console.error('kann die lokale Datenbank nicht öffnen: ', e);
-			// neue Datenbank anlegen
-			db.version(1).stores({
-				config:'key,value'
-			}).then(function () {
-				$(document).ready(setHandleLogin()); // Login-Button ausstatten
-			}).catch(function (e) {
-				console.error('Kann die lokale Datenbank nicht neu erstellen: ', e);
-			});
+			console.debug('autoLogin unmöglich: ',e);
+			$( setHandleLogin ); // Login-Button ausstatten
 		});
 }
 connectLocalDB();
@@ -87,9 +75,9 @@ connectLocalDB();
  * onDocumentReady
  * zeigt falls nötig den Login und führt ihn aus anderenfalls wird der Vertretungsplan für diese Woche angezeigt
  *
- */
-$(document).ready(function () {
+ $( function () {
 });
+ */
 
 /**
  * sendet die Login-Daten und reagiert auf die Antwort
@@ -153,11 +141,9 @@ function handleLogin(antwort) {
 			if ('splan' in antwort) {
 				db.config.put({key: 'splan', value: antwort.splan});
 			}
-			;
 			if ('vplan' in antwort) {
 				db.config.put({key: 'vplan', value: antwort.vplan});
 			}
-			;
 		} else console.debug('Login-Fehler: ok erwartet: ' + antwort);
 	}).then(function () {
 		// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde

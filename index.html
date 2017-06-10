@@ -10,9 +10,12 @@
 </head>
 <body>
 	<div id="loginFormular">
-		Schülerausweis-/Lehrernummer: <input type="text" name="sean" value="BAET"><br/>
-		Passwort: <input type="password" name="passwort">
-		angemeldet bleiben: <input type="checkbox" name="autoLogin">
+		<label for="sean">Schülerausweis-/Lehrernummer:</label>
+		<input type="text" name="sean" id="sean" value="BAET"><br/>
+		<label for="passwort">Passwort:</label>
+		<input type="password" name="passwort" id="passwort">
+		<label for="autoLogin">angemeldet bleiben:</label>
+		<input type="checkbox" checked name="autoLogin" id="autoLogin">
 		<input type="submit" value="anmelden" id="loginButton">
 	</div>
 

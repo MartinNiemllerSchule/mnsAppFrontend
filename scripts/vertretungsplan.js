@@ -1,28 +1,20 @@
 /**
  * Created by Janik.Liebrecht on 09.05.2017.
+ * Todo: Meldung anzeigen, dass keine Einträge im Vertretungsplan vorliegen
  */
+
+"use strict";
 
 /**
  * Verbindung mit der lokalen Datenbank herstellen
  */
-function connectLocalDB() {
-	db = new Dexie("Einstellungen");
-	db.open()
-		.catch(function () {
-			db.version(1).stores({
-				config:'key,value'
-			}).catch(function (e) {
-				console.error('Kann die lokale Datenbank nicht öffnen oder neu erstellen: ', e);
-			});
-		});
-}
-connectLocalDB();
+var db = new Dexie("Einstellungen");
+db.version(1).stores({config:'key,value'});
 
 
 function getVertretungsplanTabelle(cb) {
     var vplan = [];
 
-//    $.getJSON('https://mns.topsch.net/vapp/mns_vapp_api/', function (data) {
 	db.config.get('vplan').then(function(dataO){
 		var data = dataO.value;
 
