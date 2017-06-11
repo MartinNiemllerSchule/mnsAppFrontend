@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d1bebdf6-7fc8-4304-9b74-53a7a7891b80" name="vapp-frontend" url="http://vapp.niemoeller.schule">
+        <fileTransfer host="niemoeller.schule" port="21" rootFolder="/vapp.niemoeller.schule" accessType="FTPS">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -4,8 +4,8 @@
 
 "use strict";
 var salt = 'sazter45($';
-var urlLogin = 'https://mns.topsch.net/vapp/mns_vapp_api/index.php';
-// var urlLogin = 'http://127.0.1.5/index.php';
+var urlLogin = 'https://vapp.niemoeller.schule/api/index.php';
+//var urlLogin = 'http://127.0.1.5/index.php';
 var db;
 var loggedIn = false;
 
@@ -19,7 +19,6 @@ function connectLocalDB() {
 	db.version(1).stores({config:'key,value'});
 	$( setHandleLogin ); // Login-Button ausstatten
 
-	db.tables.forEach(function (p1, p2, p3) { console.debug(p1.name,p1,p2,p3); });
 	db.config
 		.get('autoLogin')
 		.then(function (aL) {
