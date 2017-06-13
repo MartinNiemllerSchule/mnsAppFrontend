@@ -87,7 +87,7 @@ function getStundenplanTable(cb) {
 		for (var i = 0; i < 12; i++) {
 			if (splans[i][0] == "" && splans[i][1] == "" && splans[i][2] == "" && splans[i][3] == "" && splans[i][4] == "") {
 			} else {
-				splangerade += '<tr><td class="Stunde">' + (i + 1) + '</td>' + splanst[i] + '</tr>';
+				splangerade += '<tr><td class="Stunde">' + (i + 1) + '</td>' + getColumnsFromArray(splanst[i]) + '</tr>';
 			}
 		}
 
@@ -95,7 +95,7 @@ function getStundenplanTable(cb) {
 		for (var i = 0; i < 12; i++) {
 			if (splanf[i][0] == "" && splanf[i][1] == "" && splanf[i][2] == "" && splanf[i][3] == "" && splanf[i][4] == "") {
 			} else {
-				splanungerade += '<tr><td class="Stunde">' + (i + 1) + '</td>' + splanft[i] + '</tr>';
+				splanungerade += '<tr><td class="Stunde">' + (i + 1) + '</td>' + getColumnsFromArray(splanft[i]) + '</tr>';
 			}
 		}
 
@@ -136,6 +136,14 @@ function getStundenplanTable(cb) {
 		});
 		console.debug(vplan);
 	});
+}
+
+function getColumnsFromArray(array) {
+    var row = '';
+    for (var i = 0; i < array.length; i++) {
+        row += array[i];
+    }
+    return row;
 }
 
 $(document).ready(function () {
