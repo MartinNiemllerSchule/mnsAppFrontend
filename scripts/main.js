@@ -4,8 +4,8 @@
 
 "use strict";
 var salt = 'sazter45($';
-var urlLogin = 'https://vapp.niemoeller.schule/api/index.php';
-//var urlLogin = 'http://127.0.1.5/index.php';
+//var urlLogin = 'http://vapp.niemoeller.schule/api/index.php';
+var urlLogin = 'http://127.0.1.5/index.php';
 var db;
 var loggedIn = false;
 
@@ -108,19 +108,11 @@ function sendLoginData(sean, passwort) {
 		crossDomain: true,
 		data: sendData,
 		success: function(response){
-			db.config.put({key:'sean', value:sean}).catch(function (error) {
-				console.debug('DB-Error sean: ' + sean + ' e:' + error);
-			});
-			db.config.put({key:'pw', value:passwort}).catch(function (error) {
-				console.debug('DB-Error pw: ' + passwort + ' e:' + error);
-			});
-			db.config.put({key:'loginType', value:'sean'}).catch(function (error) {
-				console.debug('DB-Error loginType=sean e:' + error);
-			});
+			db.config.put({key:'sean', value:sean});
+			db.config.put({key:'pw', value:passwort});
+			db.config.put({key:'loginType', value:'sean'});
 			var autoLogin = $("[name='autoLogin']").is(':checked');
-			db.config.put({key:'autoLogin', value: autoLogin}).catch(function (error) {
-				console.debug('DB-Error autoLogin e:' + error);
-			});
+			db.config.put({key:'autoLogin', value: autoLogin});
 			loggedIn = true;
 			handleLogin(response);
 		},
@@ -143,13 +135,19 @@ function handleLogin(antwort) {
 	// Login war erfolgreich -> Datum des Login speichern
 	db.transaction('rw', db.config, function () {
 		db.config.put({key: 'loginDate', value: new Date()});
-		// Falls der Stunden- und Vertretungsplan ausgeliefert wurden -> abspeichern
+		// Daten in die lokale Datenbank eintragen (falls vorhanden - unterscheidet sich für Schüler und Lehrer)
 		if (antwort.login == 'ok') {
 			if ('splan' in antwort) {
 				db.config.put({key: 'splan', value: antwort.splan});
 			}
 			if ('vplan' in antwort) {
 				db.config.put({key: 'vplan', value: antwort.vplan});
+			}
+			if ('buecher' in antwort){
+				db.config.put({key: 'buecher', value: antwort.buecher});
+			}
+			if ('klausuren' in antwort) {
+				db.config.put({key: 'klausuren', value: antwort.klausuren});
 			}
 		} else console.debug('Login-Fehler: ok erwartet: ' + antwort);
 	}).then(function () {
