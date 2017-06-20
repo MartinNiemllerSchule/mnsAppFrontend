@@ -4,7 +4,7 @@
 
 "use strict";
 var salt = 'sazter45($';
-var urlLogin = 'https://mns.topsch.net/vapp/mns_vapp_api/index.php';
+var urlLogin = 'http://mns.topsch.net/vapp/mns_vapp_api/index.php';
 // var urlLogin = 'http://127.0.1.5/index.php';
 var db;
 var loggedIn = false;
