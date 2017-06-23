@@ -118,11 +118,11 @@ body{
     padding: 0px;
     width: 750px;
 }
-th{
+#StundenplanTabelle th{
     background-color: #7ABBFF;
     border: 1px solid black;
 }
-td{
+#StundenplanTabelle td{
     background-color: #FFFFFF;
     border: 1px solid black;
 }
@@ -130,8 +130,22 @@ td{
     background-color: #7ABBFF;
     border: 1px solid black;
 }
+
+.ui-page.ui-page-theme-a.ui-page-active{
+    position: absolute;
+    top: 55px;
+    left: 200px;
+}
+
 @media
 only screen and (max-width: 950px) {
+
+    .ui-page.ui-page-theme-a.ui-page-active{
+        left: 0px;
+        z-index: -1;
+    }
+
+
     #StundenplanTabelle {
         font-size: 0px;
         float: none;
@@ -248,7 +262,7 @@ only screen and (max-width: 360px){
 }
 @media
 only screen and (max-width: 310px){
-    table, th, td{
+    #StundenplanTabelle table, th, td{
         font-size: 10px;
     }
     #Sidebar{

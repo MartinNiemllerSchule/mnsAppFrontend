@@ -35,15 +35,13 @@ $(document).ready(function () {
 
 
         $("#calendar").addClass("invisible");
-        $("#datepicker").datepicker();
-        $("#datepicker").removeClass("invisible");
         $("#button").addClass("invisible");
         $("#button2").removeClass("invisible");
         $("#wahl").removeClass("invisible");
 
     });
         $("#button2").click(function () {
-        var dt = $("#datepicker").datepicker("getDate")
+        var dt = $("a.ui-btn-active").data("date");
 
         var day = dt.getDate();
         var month = dt.getMonth() ;
