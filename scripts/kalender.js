@@ -60,5 +60,6 @@ $(document).ready(function () {
         $("#wahl").addClass("invisible");
         $("#calendar").trigger("refresh");
         console.debug(text);
-    })
+    });
+       console.debug($("a.ui-btn-active").data("date")) ;
     });

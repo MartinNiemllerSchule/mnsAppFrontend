@@ -1,4 +1,8 @@
 /**
+ * Created by fblang on 14.06.2017.
+ */
+
+/**
  * Stundenplan anzeigen
  * dazu werden die Wochen unterschieden
  */
@@ -8,152 +12,189 @@
 /**
  * Verbindung mit der lokalen Datenbank herstellen
  */
+
 var db = new Dexie("Einstellungen");
 db.version(1).stores({config: 'key,value'});
 
+
 /**
- * fragt den Stundenplan ab und produziert eine entsprechende HTML-Tabelle
+ * Kapselung, für alles, was mit dem Stundenplan zusammenhängt
+ * @type {{stundenplanFirstWeek: Array, stundenplanSecondWeek: Array, stundenplanFirstWeekTable: Array, stundenplanSecondWeekTable: Array, stundenplanGeradeWoche: String, stundenplanUngeradeWoche: String, stundenplanJson: Json, init: Stundenplan.init, generateTableStructure: Stundenplan.generateTableStructure, pushJsonToArrays: Stundenplan.pushJsonToArrays, initStundenplanArrays: Stundenplan.initStundenplanArrays, generateTableElementsInTableArrays: Stundenplan.generateTableElementsInTableArrays, doWithDataFromServer: Stundenplan.doWithDataFromServer}}
  */
+var Stundenplan = {
+    stundenplanFirstWeek: [],
+    stundenplanSecondWeek: [],
+    stundenplanFirstWeekTable: [],
+    stundenplanSecondWeekTable: [],
+    stundenplanGeradeWoche: null,
+    stundenplanUngeradeWoche: null,
+    stundenplanJson: null,
+    stundenplanTableHead: null,
+    stundenplanTableDiese: null,
+    stundenplanTableNächste: null,
 
-function getStundenplanTable(cb) {
-	var splanf = [];
-	var splans = [];
-	var splanft = [];
-	var splanst = [];
-	for (var i = 0; i < 12; i++) {
-		splanf[i] = ["", "", "", "", ""];
-		splans[i] = ["", "", "", "", ""];
-		splanft[i] = ["", "", "", "", ""];
-		splanst[i] = ["", "", "", "", ""];
-	}
-	//console.debug(splans);
-	db.config.get('splan').then(function (dataO) {
-		var data = dataO.value;
-		// initialisiere Stundenplan-Array splan mit leeren Werten
-		// trage alle gefundenen Daten ein
+    init: function () {
+        Stundenplan.doWithDataFromServer(function (data) {
+            Stundenplan.stundenplanJson = data.value;
+            Stundenplan.generateTableStructure(function () {
+                Stundenplan.appendTableToHtml(Stundenplan.stundenplanTableDiese);
+                Stundenplan.appendTableToHtml(Stundenplan.stundenplanTableNächste);
+            });
+        })
+    },
 
-		$.each(data, function (key, val) {
-			if (val.f == '1') {
-				splanf[val.stunde - 1][val.tag - 1] = val.bezeichnung;
-				splanft[val.stunde - 1][val.tag - 1] = val.bezeichnung;
-			}
-			if (val.s == '1') {
-				splans[val.stunde - 1][val.tag - 1] = val.bezeichnung;
-				splanst[val.stunde - 1][val.tag - 1] = val.bezeichnung;
-			}
-		});
+    /**
+     * Methode, die den Stundenplan abfragt und entsprechende Html Tabellen generiert
+     */
+    generateTableStructure: function (callback) {
+        Stundenplan.pushJsonToArrays();
+        setTimeout(function () {
+            Stundenplan.generateTableElementsInTableArrays(Stundenplan.stundenplanFirstWeek, Stundenplan.stundenplanFirstWeekTable);
+            Stundenplan.generateTableElementsInTableArrays(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
+            Stundenplan.stundenplanUngeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanFirstWeek, Stundenplan.stundenplanFirstWeekTable);
+            Stundenplan.stundenplanGeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
+            Stundenplan.generateTableString(Stundenplan.stundenplanGeradeWoche, Stundenplan.stundenplanUngeradeWoche);
+            callback();
+        }, 0);
+    },
 
+    /**
+     * Methode, die die Stundenplan Arrays mit den Daten aus dem Jason Objekt befüllt
+     */
+    pushJsonToArrays: function () {
+        Stundenplan.initStundenplanArrays(Stundenplan.stundenplanFirstWeek);
+        Stundenplan.initStundenplanArrays(Stundenplan.stundenplanFirstWeekTable);
+        Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeek);
+        Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeekTable);
+        $.each(Stundenplan.stundenplanJson, function (key, val) {
+            if (val.f === '1') {
+                Stundenplan.stundenplanFirstWeek[val.stunde - 1][val.tag - 1] = val.bezeichnung;
+                Stundenplan.stundenplanFirstWeekTable[val.stunde - 1][val.tag - 1] = val.bezeichnung;
+            }
+            if (val.s === '1') {
+                Stundenplan.stundenplanSecondWeek[val.stunde - 1][val.tag - 1] = val.bezeichnung;
+                Stundenplan.stundenplanSecondWeekTable[val.stunde - 1][val.tag - 1] = val.bezeichnung;
+            }
+        });
+    },
 
-		// Nachbearbeitung
-		var splanTHead = '<thead><tr><th></th><th>Mo</th><th>Di</th><th>Mi</th><th>Do</th><th>Fr</th></tr></thead>';
-		// TODO: Tabellen aus f und s vereinen
-		// TODO: Texte in den Zellen auf das nötigste kürzen
+    /**
+     * Methode, die die Stundenplan Arrays initialisiert
+     * @param array {array}
+     */
+    initStundenplanArrays: function (array) {
+        for (var i = 0; i < 12; i++) {
+            array[i] = ['', '', '', '', ''];
+        }
+    },
 
-		console.debug("splans", splans);
-		console.debug("splanss", splanst);
+    /**
+     * Methode, die das Tabellen Array mit html-Tabellentags befüllt
+     * @param stundenplan {array}
+     * @param stundenplanTable {array}
+     */
+    generateTableElementsInTableArrays: function (stundenplan, stundenplanTable) {
+        for (var i = 1; i < 12; i++) {
+            for (var j = 0; j < 5; j++) {
+                if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                    stundenplanTable[i - 1][j] = '<td rowspan="2">' + stundenplan[i - 1][j] + '</td>';
+                    stundenplanTable[i][j] = "";
+                } else {
+                    if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                        stundenplanTable[i - 1][j] = "";
+                        stundenplanTable[i][j] = '<td>' + stundenplan[i][j] + '</td>';
+                    } else {
+                        stundenplanTable[i - 1][j] = '<td>' + stundenplan[i - 1][j] + '</td>';
+                        stundenplanTable[i][j] = '<td>' + stundenplan[i][j] + '</td>';
+                    }
+                }
+            }
+        }
+    },
 
-		for (var i = 1; i < 12; i++) {
-			for (var j = 0; j < 5; j++) {
-				if (splans[i][j] == splans[i - 1][j] && splans[i - 1][j] !== "") {
-					splanst[i - 1][j] = '<td rowspan="2">' + splans[i - 1][j] + '</td>';
-					splanst[i][j] = "";
-				} else {
-					if (i > 1 && splans[i - 2][j] == splans[i - 1][j] && splans[i - 1][j] !== "") {
-						splanst[i - 1][j] = "";
-						splanst[i][j] = '<td>' + splans[i][j] + '</td>';
-					} else {
-						splanst[i - 1][j] = '<td>' + splans[i - 1][j] + '</td>';
-						splanst[i][j] = '<td>' + splans[i][j] + '</td>';
-					}
-				}
-				if (splanf[i][j] == splanf[i - 1][j] && splanf[i - 1][j] !== "") {
-					splanft[i - 1][j] = '<td rowspan="2">' + splanf[i - 1][j] + '</td>';
-					splanft[i][j] = "";
-				} else {
-					if (i > 1 && splanf[i - 2][j] == splanf[i - 1][j] && splanf[i - 1][j] !== "") {
-						splanft[i - 1][j] = "";
-						splanft[i][j] = '<td>' + splanf[i][j] + '</td>';
-					} else {
-						splanft[i - 1][j] = '<td>' + splanf[i - 1][j] + '</td>';
-						splanft[i][j] = '<td>' + splanf[i][j] + '</td>';
-					}
-				}
-			}
-		}
-		console.debug("splans", splans);
-		console.debug("splanss", splanst);
+    /**
+     * Methode, die aus den Table Arrays einen Html String formt
+     * @param array {array}
+     * @param tableArray {array}
+     * @param htmlString {String}
+     */
+    tableArraysToString: function (array, tableArray) {
+        var htmlString = '';
+        for (var i = 0; i < 12; i++) {
+            if (array[i][0] == "" && array[i][1] == "" && array[i][2] == "" && array[i][3] == "" && array[i][4] == "") {
+            } else {
+                htmlString += '<tr><td class="Stunde">' + (i + 1) + '</td>' + Stundenplan.getColumnsFromArray(tableArray[i]) + '</tr>';
+            }
+        }
+        return htmlString;
+    },
 
-		var splangerade = '';
-		for (var i = 0; i < 12; i++) {
-			if (splans[i][0] == "" && splans[i][1] == "" && splans[i][2] == "" && splans[i][3] == "" && splans[i][4] == "") {
-			} else {
-				splangerade += '<tr><td class="Stunde">' + (i + 1) + '</td>' + splanst[i] + '</tr>';
-			}
-		}
+    /**
+     * Methode, die aus einer Spalte eines zweidimensionalen Arrays alle einträge ausliest und als String zurück gibt
+     * @param array {array}
+     * @returns {string}
+     */
+    getColumnsFromArray: function (array) {
+        var row = '';
+        for (var i = 0; i < array.length; i++) {
+            row += array[i];
+        }
+        return row;
+    },
 
-		var splanungerade = '';
-		for (var i = 0; i < 12; i++) {
-			if (splanf[i][0] == "" && splanf[i][1] == "" && splanf[i][2] == "" && splanf[i][3] == "" && splanf[i][4] == "") {
-			} else {
-				splanungerade += '<tr><td class="Stunde">' + (i + 1) + '</td>' + splanft[i] + '</tr>';
-			}
-		}
+    /**
+     * Methode, die die aktuelle Kalenderwoche ausgibt
+     * @returns {number}
+     */
+    kalenderwoche: function () {
+        var KWDatum = new Date();
 
-		function KalenderWoche() {
-			var KWDatum = new Date();
+        var DonnerstagDat = new Date(KWDatum.getTime() +
+            (3 - ((KWDatum.getDay() + 6) % 7)) * 86400000);
 
-			var DonnerstagDat = new Date(KWDatum.getTime() +
-				(3 - ((KWDatum.getDay() + 6) % 7)) * 86400000);
+        var KWJahr = DonnerstagDat.getFullYear();
 
-			var KWJahr = DonnerstagDat.getFullYear();
+        var DonnerstagKW = new Date(new Date(KWJahr, 0, 4).getTime() +
+            (3 - ((new Date(KWJahr, 0, 4).getDay() + 6) % 7)) * 86400000);
 
-			var DonnerstagKW = new Date(new Date(KWJahr, 0, 4).getTime() +
-				(3 - ((new Date(KWJahr, 0, 4).getDay() + 6) % 7)) * 86400000);
+        var KW = Math.floor(1.5 + (DonnerstagDat.getTime() -
+            DonnerstagKW.getTime()) / 86400000 / 7);
 
-			var KW = Math.floor(1.5 + (DonnerstagDat.getTime() -
-				DonnerstagKW.getTime()) / 86400000 / 7);
+        return KW;
+    },
 
-			return KW;
-		}
+    /**
+     * Methode, die einen Html Tabellenstring erstellt
+     * @param tableGerade {String}
+     * @param tableUngerade {String}
+     */
+    generateTableString: function (tableGerade, tableUngerade) {
+        Stundenplan.stundenplanTableHead = '<thead><tr><th></th><th>Mo</th><th>Di</th><th>Mi</th><th>Do</th><th>Fr</th></tr></thead>';
+        if (Stundenplan.kalenderwoche() % 2 === 0) {
+            Stundenplan.stundenplanTableDiese = '<table class="Stundenplan tactive" id="diese-woche">' + Stundenplan.stundenplanTableHead + '<tbody>' + tableGerade + '</tbody></table>';
+            Stundenplan.stundenplanTableNächste = '<table class="Stundenplan" id="nächste-woche">' + Stundenplan.stundenplanTableHead + '<tbody>' + tableUngerade + '</tbody></table>';
+        } else {
+            Stundenplan.stundenplanTableDiese = '<table class="Stundenplan tactive" id="diese-woche">' + Stundenplan.stundenplanTableHead + '<tbody>' + tableUngerade + '</tbody></table>';
+            Stundenplan.stundenplanTableNächste = '<table class="Stundenplan" id="nächste-woche">' + Stundenplan.stundenplanTableHead + '<tbody>' + tableGerade + '</tbody></table>';
+        }
+    },
 
-		console.debug(KalenderWoche() % 2);
-		if (KalenderWoche() % 2 == 0) {
-			cb('<table class="Stundenplan tactive" id="diese-woche">' + splanTHead + '<tbody>' + splangerade + '</tbody></table>');
-			cb('<table class="Stundenplan" id="nächste-woche">' + splanTHead + '<tbody>' + splanungerade + '</tbody></table>');
-		} else {
-			cb('<table class="Stundenplan tactive" id="diese-woche">' + splanTHead + '<tbody>' + splanungerade + '</tbody></table>');
-			cb('<table class="Stundenplan" id="nächste-woche">' + splanTHead + '<tbody>' + splangerade + '</tbody></table>');
-		}
+    appendTableToHtml: function (table) {
+        if (table === null) {
+            $('#StundenplanTabelle').append("Stundenplan nicht verfügbar");
+            console.debug("Stundenplan nicht verfügbar")
+        } else {
+            $('#StundenplanTabelle').append(table);
+        }
+    },
 
-	});
-
-	var vplan = [];
-
-	db.config.get('vplan').then(function (dataO) {
-		var data = dataO.value;
-		$.each(data[1], function (key, val) {
-			vplan.push([val.tag, val.stunde, val.bezeichnung]);
-		});
-		console.debug(vplan);
-	});
-}
+    doWithDataFromServer: function (callback) {
+        db.config.get('splan').then(function (data) {
+            callback(data);
+        });
+    }
+};
 
 $(document).ready(function () {
-	getStundenplanTable(function (tabelle) {
-		$('#StundenplanTabelle').append(tabelle);
-	});
-	$('#logOut').click(function () {
-		db.transaction('rw', db.config, function () {
-			db.config.delete('autoLogin');
-			db.config.delete('sean');
-			db.config.delete('pw');
-			db.config.delete('loginType');
-			db.config.delete('splan');
-			db.config.delete('vplan');
-		}).then(function () {
-			window.location = "./index.html";
-		}).catch(function (e) {
-			console.error('logOut:', (e.stack() || e));
-		});
-	})
+    Stundenplan.init();
 });
