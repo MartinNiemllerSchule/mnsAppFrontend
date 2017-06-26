@@ -67,11 +67,11 @@ var Stundenplan = {
         Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeek);
         Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeekTable);
         $.each(Stundenplan.stundenplanJson, function (key, val) {
-            if (val.f === '1') {
+            if (val.f === 1) {
                 Stundenplan.stundenplanFirstWeek[val.stunde - 1][val.tag - 1] = val.bezeichnung;
                 Stundenplan.stundenplanFirstWeekTable[val.stunde - 1][val.tag - 1] = val.bezeichnung;
             }
-            if (val.s === '1') {
+            if (val.s === 1) {
                 Stundenplan.stundenplanSecondWeek[val.stunde - 1][val.tag - 1] = val.bezeichnung;
                 Stundenplan.stundenplanSecondWeekTable[val.stunde - 1][val.tag - 1] = val.bezeichnung;
             }
