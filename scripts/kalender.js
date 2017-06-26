@@ -28,6 +28,14 @@ function getSelectedText(elementId) {
 
     return elt.options[elt.selectedIndex].text;
 };
+function removeOptions(selectbox)
+{
+    var i;
+    for(i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    {
+        selectbox.remove(i);
+    }
+}
 
 $(document).ready(function () {
 
@@ -35,31 +43,133 @@ $(document).ready(function () {
 
 
         $("#calendar").addClass("invisible");
-        $("#datepicker").datepicker();
-        $("#datepicker").removeClass("invisible");
         $("#button").addClass("invisible");
         $("#button2").removeClass("invisible");
         $("#wahl").removeClass("invisible");
+        $("#zurück").removeClass("invisible");
+        $("#löschen2").addClass("invisible");
+
 
     });
-        $("#button2").click(function () {
-        var dt = $("#datepicker").datepicker("getDate")
+    $("#button2").click(function () {
+        var dt = $("a.ui-btn-active").data("date");
 
         var day = dt.getDate();
-        var month = dt.getMonth() ;
+        var month = dt.getMonth();
         var year = dt.getFullYear();
         var text = getSelectedText('klausur');
-        console.debug(month);
-        eventsArray.push({"summary": text, "begin": new Date(year,month,day) ,"end":  new Date(year,month,day+1)});
+        //console.debug(month);
+
+        //console.debug(eventsArray);
+        var count  = 0;
+
+        if(eventsArray.length === 0){
+            eventsArray.push({"summary": text, "begin": new Date(year, month, day), "end": new Date(year, month, day + 1)});
+        }
+        else {
+            for (var i = 0; i < eventsArray.length; i++) {
+                var obj = eventsArray[i];
+
+
+                if (obj.begin.getTime() == dt.getTime() && obj.summary === text) {
+
+                    count++;
+
+                }
+
+
+
+            }
+            if (count<1){
+                eventsArray.push({"summary": text, "begin": new Date(year, month, day), "end": new Date(year, month, day + 1)});
+
+            }
+        }
+
+
+
         console.debug(eventsArray);
+
 
         $("#calendar").removeClass("invisible");
         $("#datepicker").addClass("invisible");
         $("#button").removeClass("invisible");
         $("#button2").addClass("invisible");
         $("#wahl").addClass("invisible");
+        $("#zurück").addClass("invisible");
+        $("#löschen2").removeClass("invisible");
         $("#calendar").trigger("refresh");
-        console.debug(text);
+        //console.debug(text);
     });
-       console.debug($("a.ui-btn-active").data("date")) ;
+   // console.debug($("a.ui-btn-active").data("date"));
+    $("#zurück").click(function () {
+
+        $("#calendar").removeClass("invisible");
+        $("#datepicker").addClass("invisible");
+        $("#button").removeClass("invisible");
+        $("#button2").addClass("invisible");
+        $("#wahl").addClass("invisible");
+        $("#zurück").addClass("invisible");
+        $("#löschen").addClass("invisible");
+        $("#löschen2").removeClass("invisible");
+        $("#klaus").addClass("invisible");
+        $("#calendar").trigger("refresh");
+
+    })
+    $("#löschen").click(function () {
+
+
+        var dt = $("a.ui-btn-active").data("date");
+
+
+
+
+        for (var i = 0; i < eventsArray.length; i++) {
+            var obj = eventsArray[i];
+
+            console.debug(obj.begin)
+            if (obj.begin.getTime() === dt.getTime() && getSelectedText("klausur1")=== obj.summary) {
+
+                eventsArray.splice(i, 1);
+
+            }
+        }
+        //console.debug(eventsArray);
+
+        removeOptions(document.getElementById("klausur1"));
+
+        $("#calendar").removeClass("invisible");
+        $("#button").removeClass("invisible");
+        $("#wahl").addClass("invisible");
+        $("#zurück").addClass("invisible");
+        $("#löschen").addClass("invisible");
+        $("#löschen2").removeClass("invisible");
+        $("#klaus").addClass("invisible");
+        $("#calendar").trigger("refresh");
+
+
     });
+    $("#löschen2").click(function () {
+        var dt = $("a.ui-btn-active").data("date");
+        for (var i = 0; i < eventsArray.length; i++) {
+            var obj = eventsArray[i];
+
+            console.debug(obj.summary)
+            if (obj.begin.getTime() == dt.getTime()) {
+                var x = document.getElementById("klausur1");
+                var option = document.createElement("option");
+               option.text = obj.summary;
+                x.add(option);
+
+            }
+        }
+
+        $("#calendar").addClass("invisible");
+        $("#klaus").removeClass("invisible");
+        $("#button").addClass("invisible");
+        $("#zurück").removeClass("invisible");
+        $("#löschen").removeClass("invisible");
+        $("#löschen2").addClass("invisible");
+
+    });
+});

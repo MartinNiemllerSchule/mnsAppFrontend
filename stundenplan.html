@@ -26,6 +26,7 @@
 		<li><a href="stundenplan.html" id="active"><img src="images/stundenplan.png" alt="Stundenplan">Stundenplan</a></li>
 		<li><a href="vertretungsplan.html"><img src="images/vertretungsplan.png" alt="Vertretungsplan">Vertretungsplan</a></li>
 		<li><a href="buecher.html"><img src="images/buecher.png" alt="Buecher">Bücherliste</a></li>
+		<li><a href="kalender.html"><img src="images/stundenplan.png" alt="Kalender">Kalender</a></li>
 		<li><a href="index.html" id="logOut"><img src="images/logout.png" alt="Logout">Logout</a></li>
 	</ul>
 
@@ -62,7 +63,7 @@
 
 <div id="topbar">Stundenplan</div>
 <div id="selector">
-	<div id="nächstewoche" class="woche">
+	<div id="nächstewoche" class="selectorOption">
 		Nächste Woche
 		<script>
 			$(document).ready(function () {
@@ -75,7 +76,7 @@
 			});
 		</script>
 	</div>
-	<div id="diesewoche" class="woche active">
+	<div id="diesewoche" class="selectorOption active">
 		Diese Woche
 		<script>
 			$(document).ready(function () {
@@ -90,7 +91,7 @@
 	</div>
 </div>
 
-<div id="StundenplanTabelle"></div>
+<div id="StundenplanTabelle" class="contentBox"></div>
 
 </body>
 
