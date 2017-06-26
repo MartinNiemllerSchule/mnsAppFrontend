@@ -38,6 +38,7 @@ $(document).ready(function () {
         $("#button").addClass("invisible");
         $("#button2").removeClass("invisible");
         $("#wahl").removeClass("invisible");
+        $("#zurück").removeClass("invisible");
 
     });
         $("#button2").click(function () {
@@ -60,4 +61,13 @@ $(document).ready(function () {
         console.debug(text);
     });
        console.debug($("a.ui-btn-active").data("date")) ;
+       $("#zurück").click(function () {
+
+           $("#calendar").removeClass("invisible");
+           $("#datepicker").addClass("invisible");
+           $("#button").removeClass("invisible");
+           $("#button2").addClass("invisible");
+           $("#wahl").addClass("invisible");
+           $("#calendar").trigger("refresh");
+       })
     });
