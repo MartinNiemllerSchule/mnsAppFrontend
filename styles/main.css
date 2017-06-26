@@ -76,7 +76,7 @@ body{
     float: right;
     margin-bottom: 15px;
 }
-.woche{
+.selectorOption{
     width: 50%;
     height: 55px;
     margin: 0px;
@@ -87,7 +87,7 @@ body{
     cursor: pointer;
     color: #FFFFFF;
 }
-.woche:hover{
+.selectorOption:hover{
     background-color: #64AFFF;
 }
 .active{
@@ -253,7 +253,7 @@ only screen and (max-width: 360px){
     .Stundenplan{
         height: calc(100vh - 140px);
     }
-    .woche{
+    .selectorOption{
         font-size: 20px;
         line-height: 55px;
     }
@@ -275,7 +275,7 @@ only screen and (max-width: 310px){
     #Sidebar-cls.cls-visible{
         left: 100%;
     }
-    .woche{
+    .selectorOption{
         font-size: 18px;
         line-height: 55px;
     }
