@@ -64,8 +64,35 @@
     <span></span>
 </div>
 <div id="topbar">Vertretungsplan</div>
-
-    <div id="VertretungsplanTabelle"></div>
+<div id="selector">
+    <div id="gesamt" class="selectorOption">
+        gesamter Vertretungsplan
+        <script>
+            $(document).ready(function () {
+                $('#gesamt').click(function () {
+                    $('#gesamt').addClass('active');
+                    $('#persoenlich').removeClass('active');
+                    $('#nächste-woche').addClass('tactive');
+                    $('#diese-woche').removeClass('tactive');
+                });
+            });
+        </script>
+    </div>
+    <div id="persoenlich" class="selectorOption active">
+        eigener Vertretungsplan
+        <script>
+            $(document).ready(function () {
+                $('#persoenlich').click(function () {
+                    $('#persoenlich').addClass('active');
+                    $('#gesamt').removeClass('active');
+                    $('#diese-woche').addClass('tactive');
+                    $('#nächste-woche').removeClass('tactive');
+                });
+            });
+        </script>
+    </div>
+</div>
+    <div id="VertretungsplanTabelle" class="contentBox"></div>
 
 </body>
 
