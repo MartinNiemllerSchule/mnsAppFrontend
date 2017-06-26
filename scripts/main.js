@@ -153,6 +153,9 @@ function handleLogin(antwort) {
 			if ('klausuren' in antwort) {
 				db.config.put({key: 'klausuren', value: antwort.klausuren});
 			}
+			if ('kursliste' in antwort) {
+				db.config.put({key: 'kursliste', value: antwort.kursliste});
+			}
 		} else console.debug('Login-Fehler: ok erwartet: ' + antwort);
 	}).then(function () {
 		// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
