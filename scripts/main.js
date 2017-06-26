@@ -5,7 +5,7 @@
 "use strict";
 var salt = 'sazter45($';
 var urlLogin = 'http://vapp.niemoeller.schule/api/index.php';
-// var urlLogin = 'http://127.0.1.5/index.php';
+//var urlLogin = 'http://127.0.1.5/index.php';
 var db;
 var loggedIn = false;
 
@@ -143,6 +143,9 @@ function handleLogin(antwort) {
 			}
 			if ('vplan' in antwort) {
 				db.config.put({key: 'vplan', value: antwort.vplan});
+			}
+			if ('vplanAlle' in antwort) {
+				db.config.put({key: 'vplanAlle', value: antwort.vplanAlle});
 			}
 			if ('buecher' in antwort){
 				db.config.put({key: 'buecher', value: antwort.buecher});
