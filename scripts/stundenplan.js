@@ -148,7 +148,7 @@ var Stundenplan = {
      */
     kalenderwoche: function () {
         var KWDatum = new Date();
-
+        var day = KWDatum.getDay();
         var DonnerstagDat = new Date(KWDatum.getTime() +
             (3 - ((KWDatum.getDay() + 6) % 7)) * 86400000);
 
@@ -159,8 +159,11 @@ var Stundenplan = {
 
         var KW = Math.floor(1.5 + (DonnerstagDat.getTime() -
             DonnerstagKW.getTime()) / 86400000 / 7);
-
-        return KW;
+        if(day === 0 || day === 6){
+            return (KW+1);
+        }else {
+            return KW;
+        }
     },
 
     /**
