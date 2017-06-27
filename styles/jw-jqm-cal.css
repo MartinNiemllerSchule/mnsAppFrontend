@@ -57,10 +57,10 @@
     background-color: #64AFFF;
 }
 #löschen{
-     background-color: #ff4c25;
+     background-color: rgba(255, 76, 37, 0.81);
  }
 #löschen2{
-      background-color:#ff4c25;
+      background-color: rgba(255, 76, 37, 0.81);
   }
 .invisible{
     position:absolute !important;
