@@ -2,93 +2,96 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8" content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
-	<link rel="stylesheet" href="styles/main.css">
-	<title>Stundensplan</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
-	<script src="scripts/vendor/dexie.min.js"></script>
-	<script src="./scripts/stundenplan.js" type="text/javascript"></script>
+    <meta charset="UTF-8"
+          content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <link rel="stylesheet" href="styles/main.css">
+    <title>Stundensplan</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+    <script src="scripts/vendor/dexie.min.js"></script>
+    <script src="./scripts/stundenplan.js" type="text/javascript"></script>
 </head>
 
 <body>
 <div id="Sidebar">
-	<ul class="Sidebar">
-		<li id="btn">
-			<div id="Sidebar-btn-open">
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
-		</li>
-		<li>
-			<div id="mns-pic"><img src="images/mns.png" alt=""></div>
-		</li>
-		<li><a href="stundenplan.html" id="active"><img src="images/stundenplan.png" alt="Stundenplan">Stundenplan</a></li>
-		<li><a href="vertretungsplan.html"><img src="images/vertretungsplan.png" alt="Vertretungsplan">Vertretungsplan</a></li>
-		<li><a href="buecher.html"><img src="images/buecher.png" alt="Buecher">Bücherliste</a></li>
-		<li><a href="kalender.html"><img src="images/stundenplan.png" alt="Kalender">Kalender</a></li>
-		<li><a href="index.html" id="logOut"><img src="images/logout.png" alt="Logout">Logout</a></li>
-	</ul>
+    <ul class="Sidebar">
+        <li id="btn">
+            <div id="Sidebar-btn-open">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </li>
+        <li>
+            <div id="mns-pic"><img src="images/mns.png" alt=""></div>
+        </li>
+        <li><a href="stundenplan.html" id="active"><img src="images/stundenplan.png" alt="Stundenplan">Stundenplan</a>
+        </li>
+        <li><a href="vertretungsplan.html"><img src="images/vertretungsplan.png"
+                                                alt="Vertretungsplan">Vertretungsplan</a></li>
+        <li><a href="buecher.html"><img src="images/buecher.png" alt="Buecher">Bücherliste</a></li>
+        <li><a href="kalender.html"><img src="images/stundenplan.png" alt="Kalender">Kalender</a></li>
+        <li><a href="index.html" id="logOut"><img src="images/logout.png" alt="Logout">Logout</a></li>
+    </ul>
 
-	<script>
-		$( function () {
-			$('#Sidebar-btn').click(function () {
-				$('#Sidebar').toggleClass('visible');
-				$('#Sidebar-cls').toggleClass('cls-visible');
-			});
-			$('#Sidebar-btn-open').click(function () {
-				$('#Sidebar').toggleClass('visible');
-				$('#Sidebar-cls').toggleClass('cls-visible');
-			});
-		});
-	</script>
+    <script>
+        $(function () {
+            $('#Sidebar-btn').click(function () {
+                $('#Sidebar').toggleClass('visible');
+                $('#Sidebar-cls').toggleClass('cls-visible');
+            });
+            $('#Sidebar-btn-open').click(function () {
+                $('#Sidebar').toggleClass('visible');
+                $('#Sidebar-cls').toggleClass('cls-visible');
+            });
+        });
+    </script>
 
 </div>
 <div id="Sidebar-cls">
-	<script>
-		$( function () {
-			$('#Sidebar-cls').click(function () {
-				$('#Sidebar').toggleClass('visible');
-				$('#Sidebar-cls').toggleClass('cls-visible');
-			});
-		});
-	</script>
+    <script>
+        $(function () {
+            $('#Sidebar-cls').click(function () {
+                $('#Sidebar').toggleClass('visible');
+                $('#Sidebar-cls').toggleClass('cls-visible');
+            });
+        });
+    </script>
 </div>
 
 <div id="Sidebar-btn">
-	<span></span>
-	<span></span>
-	<span></span>
+    <span></span>
+    <span></span>
+    <span></span>
 </div>
 
 <div id="topbar">Stundenplan</div>
 <div id="selector">
-	<div id="nächstewoche" class="selectorOption">
-		Nächste Woche
-		<script>
-			$(document).ready(function () {
-				$('#nächstewoche').click(function () {
-					$('#nächstewoche').addClass('active');
-					$('#diesewoche').removeClass('active');
-					$('#nächste-woche').addClass('tactive');
-					$('#diese-woche').removeClass('tactive');
-				});
-			});
-		</script>
-	</div>
-	<div id="diesewoche" class="selectorOption active">
-		Diese Woche
-		<script>
-			$(document).ready(function () {
-				$('#diesewoche').click(function () {
-					$('#diesewoche').addClass('active');
-					$('#nächstewoche').removeClass('active');
-					$('#diese-woche').addClass('tactive');
-					$('#nächste-woche').removeClass('tactive');
-				});
-			});
-		</script>
-	</div>
+    <div id="nächstewoche" class="selectorOption">
+        Nächste Woche
+        <script>
+            $(document).ready(function () {
+                $('#nächstewoche').click(function () {
+                    $('#nächstewoche').addClass('active');
+                    $('#diesewoche').removeClass('active');
+                    $('#nächste-woche').addClass('tactive');
+                    $('#diese-woche').removeClass('tactive');
+                });
+            });
+        </script>
+    </div>
+    <div id="diesewoche" class="selectorOption active">
+        Diese Woche
+        <script>
+            $(document).ready(function () {
+                $('#diesewoche').click(function () {
+                    $('#diesewoche').addClass('active');
+                    $('#nächstewoche').removeClass('active');
+                    $('#diese-woche').addClass('tactive');
+                    $('#nächste-woche').removeClass('tactive');
+                });
+            });
+        </script>
+    </div>
 </div>
 
 <div id="StundenplanTabelle" class="contentBox"></div>
