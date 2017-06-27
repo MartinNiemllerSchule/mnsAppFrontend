@@ -110,6 +110,21 @@ body{
     border-collapse: collapse;
     text-align: center;
 }
+.Vertretungsplan{
+    position: absolute;
+    left: -100%;
+    top: -100%;
+    font-size: 16px;
+    margin: 0px;
+    padding: 0px;
+    width: 750px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+.Vertretungsplan tr{
+    height: 25px;
+}
 .tactive{
     position: static;
     margin: auto;
@@ -150,6 +165,16 @@ only screen and (max-width: 950px) {
         width: 100%;
     }
     .Stundenplan {
+        font-size: 16px;
+        max-width: 750px;
+        margin: auto;
+        padding: 0px;
+        width: 100%;
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+    }
+    .Vertretungsplan {
         font-size: 16px;
         max-width: 750px;
         margin: auto;
@@ -224,6 +249,9 @@ only screen and (max-width: 415px){
     .Stundenplan, th, td{
         font-size: 14px;
     }
+    .Vertretungsplan, th, td{
+        font-size: 13px;
+    }
     #Sidebar-btn-open{
         margin-left: calc(100% - 60px);
     }
@@ -252,6 +280,9 @@ only screen and (max-width: 415px){
 only screen and (max-width: 360px){
     .Stundenplan, th, td{
         font-size: 12px;
+    }
+    .Vertretungsplan, th, td{
+        font-size: 11px;
     }
     .Stundenplan{
         height: calc(100vh - 140px);
