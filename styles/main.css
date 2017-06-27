@@ -146,7 +146,7 @@ body{
     border: 1px solid black;
 }
 .Stunde{
-    background-color: #7ABBFF;
+    background-color: #7ABBFF !important;
     border: 1px solid black;
 }
 
