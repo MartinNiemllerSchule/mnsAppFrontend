@@ -103,7 +103,7 @@ $(document).ready(function () {
     });
    // console.debug($("a.ui-btn-active").data("date"));
     $("#zurück").click(function () {
-
+        removeOptions(document.getElementById("klausur1"));
         $("#calendar").removeClass("invisible");
         $("#datepicker").addClass("invisible");
         $("#button").removeClass("invisible");

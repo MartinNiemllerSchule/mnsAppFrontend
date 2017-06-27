@@ -53,6 +53,15 @@
 #button{
     background-color: #64AFFF;
 }
+#button2{
+    background-color: #64AFFF;
+}
+#löschen{
+     background-color: #ff4c25;
+ }
+#löschen2{
+      background-color:#ff4c25;
+  }
 .invisible{
     position:absolute !important;
     left:-200%;
