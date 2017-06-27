@@ -54,6 +54,6 @@
     background-color: #64AFFF;
 }
 .invisible{
-    position:absolute;
+    position:absolute !important;
     left:-200%;
 }
