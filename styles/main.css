@@ -139,12 +139,11 @@ body{
 @media
 only screen and (max-width: 950px) {
 
-    .ui-page.ui-page-theme-a.ui-page-active{
+    .ui-page.ui-page-theme-a.ui-page-active {
         left: 0px;
-        z-index: -1;
+        z-index: 0;
+        width: 100%;
     }
-
-
     .contentBox{
         float: none;
         margin: auto;
@@ -162,6 +161,7 @@ only screen and (max-width: 950px) {
     }
     #Sidebar{
         left: -201px;
+        z-index: 1;
     }
     #Sidebar.visible{
         left: 0px;
@@ -169,6 +169,7 @@ only screen and (max-width: 950px) {
     }
     #btn{
         border-bottom: 1px solid #333333;
+        z-index: 1;
     }
     #Sidebar-btn{
         display: inline-block;
@@ -181,6 +182,7 @@ only screen and (max-width: 950px) {
         top: 0px;
         right: 0px;
         background-color: #7ABBFF;
+        z-index: 1;
     }
     #Sidebar-btn-open{
         display: inline-block;
@@ -189,9 +191,10 @@ only screen and (max-width: 950px) {
         height: 15px;
         cursor: pointer;
         padding: 20px;
-        margin-left: 140px;
+        margin-left: 130px;
         top: 0px;
         position: static;
+        z-index: 1;
     }
     #Sidebar-btn span{
         height: 1px;
