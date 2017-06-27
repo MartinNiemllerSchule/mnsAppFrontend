@@ -20,9 +20,9 @@ function getVertretungsplanTabelle(cb) {
 
         $.each(data, function (key, val) {
 
-            vplan.push([val.tag, val.stunde, val.bezeichnung, val.raum, val.kuerzel, val.info]);
+            vplan.push([val.tag, val.stunde, val.bezeichnung, val.raum, val.VLehrer, val.info]);
         });
-        var vplanTHead = '<thead><tr><td>Tag</td><td>Stunde</td><td>Kurs</td><td>Raum</td><td>Lehrer</td><td>Info</td></tr></thead>';
+        var vplanTHead = '<thead><tr><td>Tag</td><td>Stunde</td><td>Kurs</td><td>Raum</td><td>Vertretung</td><td>Info</td></tr></thead>';
         var vplanTBody = '';
 
         for (var i = 0; i < vplan.length; i++) {
@@ -40,9 +40,9 @@ function getVertretungsplanTabelleAlle(cb) {
 
         $.each(data, function (key, val) {
 
-            vplan.push([val.tag, val.stunde, val.bezeichnung, val.raum, val.kuerzel, val.info]);
+            vplan.push([val.tag, val.stunde, val.bezeichnung, val.raum, val.VLehrer, val.info]);
         });
-        var vplanTHead = '<thead><tr><td>Tag</td><td>Stunde</td><td>Kurs</td><td>Raum</td><td>Lehrer</td><td>Info</td></tr></thead>';
+        var vplanTHead = '<thead><tr><td>Tag</td><td>Stunde</td><td>Kurs</td><td>Raum</td><td>Vertretung</td><td>Info</td></tr></thead>';
         var vplanTBody = '';
 
         for (var i = 0; i < vplan.length; i++) {
