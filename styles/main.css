@@ -277,6 +277,7 @@ only screen and (max-width: 415px){
         cursor: pointer;
         position: absolute;
         display: block;
+        z-index: 1;
     }
     #Sidebar-cls.cls-visible{
         left: 75%;
