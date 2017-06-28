@@ -1,7 +1,13 @@
 /**
  * Created by Janik.Bücher on 18.05.2017.
  */
+"use strict";
 
+/**
+ * Verbindung mit der lokalen Datenbank herstellen
+ */
+var db = new Dexie("Einstellungen");
+db.version(1).stores({config: 'key,value'});
 
 var eventsArray = [];
 
@@ -36,8 +42,30 @@ function removeOptions(selectbox)
         selectbox.remove(i);
     }
 }
+ function getKursname() {
+     var kurslisteA=[]
 
+     db.config.get('kursliste').then(function (data0) {
+         var data = data0.value;
+         $.each(data, function (key, val) {
+
+             kurslisteA.push(val.bezeichnung);
+
+
+         });
+
+         for (var j = 0; j < kurslisteA.length; j++) {
+             var obj = kurslisteA[j];
+             var x = document.getElementById("klausur");
+             var option = document.createElement("option");
+             option.text = obj;
+             x.add(option);
+         }
+     });
+ }
 $(document).ready(function () {
+   getKursname();
+
 
     $("#button").click(function () {
 
