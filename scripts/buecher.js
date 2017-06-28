@@ -43,7 +43,7 @@ function getBuecherplanTable(cb) {
             bplan += '<tr><td>' + buecherplan[i].join('</td><td>') +'</td></tr>';
         }
 
-        cb('<table>' + buecherTHead + bplan + '</table>');
+        cb('<table class="Buecherliste">' + buecherTHead + bplan + '</table>');
   });
 
 }
