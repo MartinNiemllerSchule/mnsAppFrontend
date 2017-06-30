@@ -2,6 +2,16 @@
 <project version="4">
   <component name="PublishConfigData" serverName="vapp-frontend">
     <serverData>
+      <paths name="niemoeller.schule">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/api" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
       <paths name="vapp-frontend">
         <serverdata>
           <mappings>
