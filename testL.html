@@ -6,6 +6,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
 	<script src="scripts/vendor/sha512.min.js"></script>
 	<script src="scripts/vendor/dexie.min.js"></script>
+	<script src="scripts/main.js"></script>
 
 </head>
 <body>
@@ -40,7 +41,7 @@
 			db.config.put({key:'pw', value:passwort});
 			db.config.put({key:'loginType', value:'test'});
 			db.config.put({key:'autoLogin', value: true});
-			handleLogin(response);
+			handleLogin(response, db, 'test');
 			loggedIn = true;
 		},
 		error: function (response,textStatus,e) {
@@ -48,53 +49,5 @@
 		}
 	});
 
-
-	/**
-	 *
-	 * wie in main.js
-	 * Anmerkung: das ist nicht schön programmiert, denn immer wenn sich die Funktion in main.js ändert, sollte sie sich
-	 * auch hier ändern.
-	 *
-	 * das Login wurde ausgeführt und liefert Daten
-	 * diese Daten werden in der lokalen Datenbank abgelegt
-	 * - Stundenplan
-	 * - Vertretungesplan
-	 * @param antwort -> JSON-Objekt mit der Rückgabe der bisher relevanten Daten
-	 *  dabei wird zwischen Lehrern und Schülern unterschieden
-	 */
-	function handleLogin(antwort) {
-		console.debug(antwort);
-		// Login war erfolgreich -> Datum des Login speichern
-		db.transaction('rw', db.config, function () {
-			db.config.put({key: 'loginDate', value: new Date()});
-			// Daten in die lokale Datenbank eintragen (falls vorhanden - unterscheidet sich für Schüler und Lehrer)
-			if (antwort.login == 'test') {
-				if ('splan' in antwort) {
-					db.config.put({key: 'splan', value: antwort.splan});
-				}
-				if ('vplan' in antwort) {
-					db.config.put({key: 'vplan', value: antwort.vplan});
-				}
-				if ('vplanAlle' in antwort) {
-					db.config.put({key: 'vplanAlle', value: antwort.vplanAlle});
-				}
-				if ('buecher' in antwort) {
-					db.config.put({key: 'buecher', value: antwort.buecher});
-				}
-				if ('klausuren' in antwort) {
-					db.config.put({key: 'klausuren', value: antwort.klausuren});
-				}
-				if ('kursliste' in antwort) {
-					db.config.put({key: 'kursliste', value: antwort.kursliste});
-				}
-			} else console.debug('Login-Fehler: ok erwartet: ' + antwort);
-		}).then(function () {
-			// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
-			$('#loginFormular').hide();
-			window.location = "./stundenplan.html";
-		}).catch(function (e) {
-			console.error('handleLogin:', e, e.stack);
-		});
-	};
 </script>
 </html>
