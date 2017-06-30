@@ -99,7 +99,7 @@ var Stundenplan = {
                 if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
                     stundenplanTable[i - 1][j] = '<td rowspan="2">' + stundenplan[i - 1][j] + '</td>';
                     stundenplanTable[i][j] = "";
-                    if (i > 1 && stundenplan[i][j] == stundenplan[i - 2]){
+                    if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]){
                         stundenplanTable[i - 2][j] = '<td rowspan="3">' + stundenplan[i - 2][j] + '</td>';
                         stundenplanTable[i - 1][j] = "";
                         stundenplanTable[i][j] = "";
