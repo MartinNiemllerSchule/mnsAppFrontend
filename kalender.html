@@ -3,8 +3,7 @@
 <head>
     <title>Kalender</title>
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-    <meta name="viewport"
-          content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <meta name="viewport" content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
     <link href="./styles/jw-jqm-cal.css" rel="stylesheet">
 
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
@@ -33,7 +32,7 @@
         <li><a href="stundenplan.html" rel="external"><img src="images/stundenplan.png" alt="Stundenplan">Stundenplan</a></li>
         <li><a href="vertretungsplan.html" rel="external"><img src="images/vertretungsplan.png" alt="Vertretungsplan">Vertretungsplan</a></li>
         <li><a href="buecher.html" rel="external"><img src="images/buecher.png" alt="Buecher">Bücherliste</a></li>
-        <li><a href="kalender.html"><img src="images/stundenplan.png" alt="Kalender">Kalender</a></li>
+        <li><a href="kalender.html" id="active"><img src="images/stundenplan.png" alt="Kalender">Kalender</a></li>
         <li><a href="index.html" rel="external" id="logOut"><img src="images/logout.png" alt="Logout">Logout</a></li>
     </ul>
 
@@ -69,6 +68,7 @@
 </div>
 
 <div id="topbar">Kalender</div>
+<div id="topbar-placeholder"></div>
 <div data-role="page" id="index" style="overflow: hidden">
 
 
