@@ -69,3 +69,6 @@
 .ui-content .ui-listview, .ui-panel-inner > .ui-listview{
     margin: 0em !important;
 }
+#index{
+min-height: 0px !important;
+}
