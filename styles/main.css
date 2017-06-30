@@ -358,7 +358,7 @@ body {
         cursor: pointer;
         position: absolute;
         display: block;
-        z-index: 1;
+        z-index: 2;
     }
 
     #Sidebar-cls.cls-visible {
