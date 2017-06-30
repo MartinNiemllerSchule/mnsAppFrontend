@@ -35,7 +35,7 @@ function getBuecherplanTable(cb) {
 
       // console.debug(buecherplan);
 
-       var buecherTHead = '<thead><tr><td>BEAN</td><td>Titel</td><td>Ausleihdatum</td><td>Kurs</td><td>Anschaffungsjahr</td></tr></thead>';
+       var buecherTHead = '<thead><tr><th>BEAN</th><th>Titel</th><th>Ausleihdatum</th><th>Kurs</th><th>Anschaffungsjahr</th></tr></thead>';
 
 
         var bplan = '';

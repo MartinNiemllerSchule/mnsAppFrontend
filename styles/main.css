@@ -244,7 +244,8 @@ body {
 
     #Sidebar {
         left: -201px;
-        z-index: 1;
+        z-index: 2;
+        position: fixed;
     }
 
     #Sidebar.visible {
@@ -266,8 +267,8 @@ body {
         margin: 0px;
         padding: 20px;
         top: 0px;
-        right: 0px;
         background-color: #7ABBFF;
+        position: fixed;
         z-index: 1;
     }
 
@@ -302,6 +303,17 @@ body {
         width: calc(100% - 70px);
         height: 55px;
         padding-left: 10px;
+        top: 0px;
+        margin: 0px;
+        position: fixed;
+        left: 60px;
+        z-index: 1;
+    }
+
+    #topbar-placeholder {
+        width: 100%;
+        height: 55px;
+        top: 0px;
     }
 
     #selector {
@@ -346,7 +358,7 @@ body {
         cursor: pointer;
         position: absolute;
         display: block;
-        z-index: 1;
+        z-index: 2;
     }
 
     #Sidebar-cls.cls-visible {
