@@ -23,7 +23,6 @@
 <script type="application/javascript">
 	var urlLogin = 'http://vapp.niemoeller.schule/api/index.php';
 	//var urlLogin = 'http://127.0.1.5/index.php';
-	var loggedIn = false;
 
 	var db = new Dexie("Einstellungen");
 	db.version(1).stores({config:'key,value'});
@@ -42,7 +41,6 @@
 			db.config.put({key:'loginType', value:'test'});
 			db.config.put({key:'autoLogin', value: true});
 			handleLogin(response, db, 'test');
-			loggedIn = true;
 		},
 		error: function (response,textStatus,e) {
 			console.debug('Test Lehrer: kein login auf dem Server möglich', textStatus, e);

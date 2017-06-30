@@ -7,7 +7,6 @@ var salt = 'sazter45($';
 var urlLogin = 'http://vapp.niemoeller.schule/api/index.php';
 //var urlLogin = 'http://127.0.1.5/index.php';
 var db;
-var loggedIn = false;
 
 /* Datenbank ========================================================= */
 
@@ -49,7 +48,6 @@ function connectLocalDB() {
 										crossDomain: true,
 										data: sendData,
 										success: function(response){
-											loggedIn = true;
 											$(document).ready(handleLogin(response)); // Antwort in DB speichern
 										},
 										error: function (response,textStatus,e) {
@@ -113,7 +111,6 @@ function sendLoginData(sean, passwort) {
 			db.config.put({key:'loginType', value:'sean'});
 			var autoLogin = $("[name='autoLogin']").is(':checked');
 			db.config.put({key:'autoLogin', value: autoLogin});
-			loggedIn = true;
 			handleLogin(response, db);
 		},
 		error: function (response,textStatus,e) {
