@@ -26,12 +26,20 @@
 
 	var db = new Dexie("Einstellungen");
 	db.version(1).stores({config:'key,value'});
+
+	// Parameter auslesen, falls es den gibt
+	// Aufruf der Datei mit test.html?l oder test.html?s oder test.html?5
+	var wer = new RegExp('[\?&]([ls5LS])(=([^&#]*))?').exec(window.location.href);
+	var fn = (wer === null) ? 'L' : wer[1];
+	fn = fn.toUpperCase();
+console.debug('fn: ',fn);
+
 	// Testdaten holen
 	$.ajax({
 		url: urlLogin,
 		dataType: 'json',
 		crossDomain: true,
-		data: 'fname=testL&sean=NN&pw=' +
+		data: 'fname=test' + fn + '&sean=NN&pw=' +
 		'7c80a8a270caf88e1229c774c301178986c1036e0b242432d8d9f317c2423efa9692c2bb274c674457b623179f193d8cfbc73cf34bde3312f3132c53235f16cc',
 		success: function(response){
 			// Testdaten abspeichern

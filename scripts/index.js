@@ -32,7 +32,7 @@ function connectLocalDB() {
 					 * Ist der Abruf erfolgreich, wird der aktuelle Stunden und Vertretungsplan als Antwort des Servers
 					 * in der Datenbank gespeichert, wo ihn die anderen Seiten finden und anzeigen können.
 					 */
-					// TODO: verstecke Login, logIn und zeige ?irgendwas?
+
 					var sendData = 'fname=login&sean=';
 					db.config
 						.get('sean')
