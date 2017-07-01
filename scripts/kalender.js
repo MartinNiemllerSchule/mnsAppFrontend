@@ -64,11 +64,11 @@ function removeOptions(selectbox)
      });
  }
 $(document).ready(function () {
-   getKursname();
+
 
 
     $("#button").click(function () {
-
+        getKursname();
 
         $("#calendar").addClass("invisible");
         $("#button").addClass("invisible");
