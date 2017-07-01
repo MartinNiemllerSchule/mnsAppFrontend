@@ -68,10 +68,6 @@ $(document).ready(function () {
 
 
     $("#button").click(function () {
-<<<<<<< HEAD
-=======
-        getKursname();
->>>>>>> 1e4aff4197f59dd719135087b28e446b756aa689
 
         getKursname();
         $("#calendar").addClass("invisible");
