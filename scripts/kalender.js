@@ -53,7 +53,15 @@ function removeOptions(selectbox)
 
 
          });
-
+         for(var i =0;i<eventsArray.length;i++){
+             var obj=eventsArray[i];
+             for(var o=0;o<kurslisteA.length;o++){
+                 var obj1 = kurslisteA[o];
+                 if(obj.summary===obj1){
+                     kurslisteA.splice(o,1);
+                 }
+             }
+         }
          for (var j = 0; j < kurslisteA.length; j++) {
              var obj = kurslisteA[j];
              var x = document.getElementById("klausur");
@@ -61,14 +69,16 @@ function removeOptions(selectbox)
              option.text = obj;
              x.add(option);
          }
+
      });
  }
 $(document).ready(function () {
-   getKursname();
+
 
 
     $("#button").click(function () {
 
+        getKursname();
 
         $("#calendar").addClass("invisible");
         $("#button").addClass("invisible");
@@ -80,6 +90,7 @@ $(document).ready(function () {
 
     });
     $("#button2").click(function () {
+
         var dt = $("a.ui-btn-active").data("date");
 
         var day = dt.getDate();
@@ -118,7 +129,7 @@ $(document).ready(function () {
 
         console.debug(eventsArray);
 
-
+        removeOptions(document.getElementById("klausur"));
         $("#calendar").removeClass("invisible");
         $("#datepicker").addClass("invisible");
         $("#button").removeClass("invisible");
@@ -132,6 +143,7 @@ $(document).ready(function () {
    // console.debug($("a.ui-btn-active").data("date"));
     $("#zurück").click(function () {
         removeOptions(document.getElementById("klausur1"));
+        removeOptions(document.getElementById("klausur"));
         $("#calendar").removeClass("invisible");
         $("#datepicker").addClass("invisible");
         $("#button").removeClass("invisible");
