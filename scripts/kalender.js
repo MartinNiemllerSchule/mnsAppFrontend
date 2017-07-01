@@ -53,7 +53,15 @@ function removeOptions(selectbox)
 
 
          });
-
+         for(var i =0;i<eventsArray.length;i++){
+             var obj=eventsArray[i];
+             for(var o=0;o<kurslisteA.length;o++){
+                 var obj1 = kurslisteA[o];
+                 if(obj.summary===obj1){
+                     kurslisteA.splice(o,1);
+                 }
+             }
+         }
          for (var j = 0; j < kurslisteA.length; j++) {
              var obj = kurslisteA[j];
              var x = document.getElementById("klausur");
@@ -61,6 +69,7 @@ function removeOptions(selectbox)
              option.text = obj;
              x.add(option);
          }
+
      });
  }
 $(document).ready(function () {
@@ -70,6 +79,7 @@ $(document).ready(function () {
     $("#button").click(function () {
 
         getKursname();
+
         $("#calendar").addClass("invisible");
         $("#button").addClass("invisible");
         $("#button2").removeClass("invisible");
