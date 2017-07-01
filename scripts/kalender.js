@@ -68,6 +68,10 @@ $(document).ready(function () {
 
 
     $("#button").click(function () {
+<<<<<<< HEAD
+=======
+        getKursname();
+>>>>>>> 1e4aff4197f59dd719135087b28e446b756aa689
 
         getKursname();
         $("#calendar").addClass("invisible");
@@ -80,6 +84,7 @@ $(document).ready(function () {
 
     });
     $("#button2").click(function () {
+
         var dt = $("a.ui-btn-active").data("date");
 
         var day = dt.getDate();
@@ -118,7 +123,7 @@ $(document).ready(function () {
 
         console.debug(eventsArray);
 
-
+        removeOptions(document.getElementById("klausur"));
         $("#calendar").removeClass("invisible");
         $("#datepicker").addClass("invisible");
         $("#button").removeClass("invisible");
@@ -132,6 +137,7 @@ $(document).ready(function () {
    // console.debug($("a.ui-btn-active").data("date"));
     $("#zurück").click(function () {
         removeOptions(document.getElementById("klausur1"));
+        removeOptions(document.getElementById("klausur"));
         $("#calendar").removeClass("invisible");
         $("#datepicker").addClass("invisible");
         $("#button").removeClass("invisible");
