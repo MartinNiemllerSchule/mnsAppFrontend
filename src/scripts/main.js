@@ -8,8 +8,21 @@
  * Initialisierung Datenbank und anderer immer wiederkehrender Dinge
  */
 $.db = getEinstellungen();
-$(
-	setLogoutButton($.db)
+$(function () {
+	setLogoutButton($.db);
+
+	// für Lehrer soll der Link auf die Bücherliste verschwinden
+	$.db.config.get('art').then(function (art) {
+		if (art.value == 'l') {
+			$('#liBuecherListe').hide();
+		}
+	}).catch(function (e) {
+		console.debug('Konnte Bücherliste nicht ausblenden, da nicht ermittelt werden konnte, ob Lehrer oder Schüler die' +
+			' Seite abfragen');
+	});
+
+}
+
 );
 
 
@@ -66,6 +79,9 @@ function handleLogin(antwort, db, antwortLoginText = 'ok') {
 		db.config.put({key: 'loginDate', value: new Date()});
 		// Daten in die lokale Datenbank eintragen (falls vorhanden - unterscheidet sich für Schüler und Lehrer)
 		if (antwort.login == antwortLoginText) {
+			if ('art' in antwort) {
+				db.config.put({key: 'art', value: antwort.art});
+			}
 			if ('splan' in antwort) {
 				db.config.put({key: 'splan', value: antwort.splan});
 			}
