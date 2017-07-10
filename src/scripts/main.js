@@ -5,6 +5,46 @@
 "use strict";
 
 /**
+ * Initialisierung Datenbank und anderer immer wiederkehrender Dinge
+ */
+$.db = getEinstellungen();
+$(
+	setLogoutButton($.db)
+);
+
+
+/**
+ * nimmt die Verbindung zur Datenbank auf oder erstellt sie, falls das nötig ist.
+ * @returns {*}
+ */
+function getEinstellungen() {
+	var db = new Dexie("Einstellungen");
+	db.version(1).stores({config:'key,value'});
+	return db;
+}
+
+/**
+ * beim Klicken auf den Logout-Link soll die Datenbank alles vergessen
+ *  außer die Einstellung zum autoLogin
+ * @param db - Datenbank-Verbindung
+ */
+function setLogoutButton(db) {
+	var anchor = $('#logout');
+	if (db && anchor) {
+		anchor.click(function () {
+			db.config.transaction('rw',config,function () {
+				var autoLogin = db.config.get('autoLogin');
+				db.config.clear();
+				db.config.put({'key':'autoLogin', 'value':autoLogin});
+			}).catch(function (e) {
+				console.debug('Datenbankfehler in lokaler DB bei Logout:', e);
+			})
+		})
+	}
+}
+
+
+/**
  * das Login wurde ausgeführt und liefert Daten
  * diese Daten werden in der lokalen Datenbank abgelegt
  * - Stundenplan
@@ -13,7 +53,14 @@
  *  dabei wird zwischen Lehrern und Schülern unterschieden
  */
 function handleLogin(antwort, db, antwortLoginText = 'ok') {
-	console.debug(antwort);
+	if (!antwort) {
+		console.debug('handleLogin antwort ist', antwort);
+		return undefined;
+	} else console.debug(antwort);
+	if (!db) {
+		console.debug('handleLogin db ist', db);
+		return undefined;
+	}
 	// Login war erfolgreich -> Datum des Login speichern
 	db.transaction('rw', db.config, function () {
 		db.config.put({key: 'loginDate', value: new Date()});
@@ -41,7 +88,7 @@ function handleLogin(antwort, db, antwortLoginText = 'ok') {
 	}).then(function () {
 		// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
 		$('#loginFormular').hide();
-		window.location = "./stundenplan.html";
+		window.location = "../stundenplan.html";
 	}).catch(function (e) {
 		console.error('handleLogin:', e, e.stack);
 	});

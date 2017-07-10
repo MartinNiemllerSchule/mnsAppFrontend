@@ -24,15 +24,13 @@
 	var urlLogin = 'http://vapp.niemoeller.schule/api/index.php';
 	//var urlLogin = 'http://127.0.1.5/index.php'; // test BEAT
 
-	var db = new Dexie("Einstellungen");
-	db.version(1).stores({config:'key,value'});
+	var db = getEinstellungen();
 
 	// Parameter auslesen, falls es den gibt
 	// Aufruf der Datei mit test.html?l oder test.html?s oder test.html?5
 	var wer = new RegExp('[\?&]([ls5LS])(=([^&#]*))?').exec(window.location.href);
 	var fn = (wer === null) ? 'L' : wer[1];
 	fn = fn.toUpperCase();
-console.debug('fn: ',fn);
 
 	// Testdaten holen
 	$.ajax({

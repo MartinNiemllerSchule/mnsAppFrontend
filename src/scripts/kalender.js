@@ -6,8 +6,7 @@
 /**
  * Verbindung mit der lokalen Datenbank herstellen
  */
-var db = new Dexie("Einstellungen");
-db.version(1).stores({config: 'key,value'});
+var db = getEinstellungen();
 
 var eventsArray = [];
 
