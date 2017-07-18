@@ -1,110 +1,117 @@
 /**
- * Zeigt Login-Bildschirm an oder verzweigt bei "eingeloggt bleiben" auf die Startseite
- */
-
-"use strict";
-var salt = 'sazter45($';
-var urlLogin = 'http://vapp.niemoeller.schule/api/index.php';
-//var urlLogin = 'http://127.0.1.5/index.php';
-
-/* Datenbank ========================================================= */
-var db = $.db;
-
-/**
- * Login vorbereiten oder
- * automatisches Login durchführen
- */
-
-$(function () {
-	setHandleLogin();
-	// autoLogin auf unchecked setzten, falls nötig
-	$.db.config.get('autoLogin')
-		.then(function (autoLogin) {
-			if (!autoLogin.value) {
-				$('#autoLogin').prop('checked', false);
-			}
-		}).catch(function (e) {
-		console.debug('autoLogin wurde in der Datenbank nicht gefunden');
-	})
-}); // Login-Button ausstatten, nachdem die HTML-Seite geladen wurde
-
-// autoLogin vielleicht versuchen
-db.config
-	.get('autoLogin')
-	.then(function (aL) {
-		// versuche automatisches Login
-		if (aL != null && aL.value) {
-			if (aL.value) {
-				/* automatisches Login ausführen
-				 * Dazu werden zunächst die Daten aus der Datenbank entnommen und
-				 * der Login vom Server abgerufen.
-				 * Ist der Abruf erfolgreich, wird der aktuelle Stunden und Vertretungsplan als Antwort des Servers
-				 * in der Datenbank gespeichert, wo ihn die anderen Seiten finden und anzeigen können.
-				 */
-
-				var sendData = 'fname=login&sean=';
-				db.config
-					.get('sean')
-					.then(function (sean) {
-						sendData += sean.value;
-						db.config
-							.get('pw')
-							.then(function (pw) {
-								sendData += '&pw=' + pw.value;
-								$.ajax({
-									url: urlLogin,
-									dataType: 'json',
-									crossDomain: true,
-									data: sendData,
-									success: function(response){
-										$(handleLogin(response)); // Antwort in DB speichern
-									},
-									error: function (response,textStatus,e) {
-										console.debug('kein login auf dem Server möglich', textStatus, e);
-									}
-								});
-							});
-					});
-			} else {
-				throw 'automatisches Login ist verboten';
-			}
-		}
-	})
-	.catch(function (e) {
-		console.debug('autoLogin unmöglich: ',e);
-	});
-
-/**
- * onDocumentReady
- * zeigt falls nötig den Login und führt ihn aus anderenfalls wird der Vertretungsplan für diese Woche angezeigt
+ * Funktionalität für die Startseite bereitstellen
  *
- * wird zur Zeit nicht mehr benötigt (Bereitstellung der Datenbankinformationen ist langsamer als das Laden der Seite
- $( function () {
+ * TODO: nach Neustart -> Testlogin automatisch löschen oder Testdaten besser kenntlich machen
+ */
+
+
+var salt = 'sazter45($';
+
+requirejs(['./scripts/vapp.js'], function () {
+	requirejs(['db', 'jquery', 'sha512'], function (db) {
+		"use strict";
+		/**
+		 * Login vorbereiten oder
+		 * automatisches Login durchführen
+		 */
+
+		$(function () {
+			setHandleLogin(db);
+			// autoLogin auf unchecked setzten, falls nötig
+			db.config.get('autoLogin')
+				.then(function (autoLogin) {
+					if (!autoLogin.value) {
+						$('#autoLogin').prop('checked', false);
+					}
+				}).catch(function (e) {
+				console.debug('autoLogin wurde in der Datenbank nicht gefunden', e.stack || e);
+			})
+		}); // Login-Button ausstatten, nachdem die HTML-Seite geladen wurde
+
+		// autoLogin vielleicht versuchen
+		db.config
+			.get('autoLogin')
+			.then(function (aL) {
+				// versuche automatisches Login
+				if (aL !== null && aL.value) {
+					if (aL.value) {
+						/* automatisches Login ausführen
+						 * Dazu werden zunächst die Daten aus der Datenbank entnommen und
+						 * der Login vom Server abgerufen.
+						 * Ist der Abruf erfolgreich, wird der aktuelle Stunden und Vertretungsplan als Antwort des Servers
+						 * in der Datenbank gespeichert, wo ihn die anderen Seiten finden und anzeigen können.
+						 */
+
+						var sendData = 'fname=login&sean=';
+						db.config
+							.get('sean')
+							.then(function (sean) {
+								if (sean) {
+									sendData += sean.value;
+									db.config
+										.get('pw')
+										.then(function (pw) {
+											if (pw) {
+												sendData += '&pw=' + pw.value;
+												$.ajax({
+													url: urlLogin,
+													dataType: 'json',
+													crossDomain: true,
+													data: sendData,
+													success: function (response) {
+														db.handleLogin(response).then(function (e) {
+															// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
+															if (e) {
+																$('#loginFormular').hide();
+																window.location = "../stundenplan.html";
+															}
+														}); // Antwort in DB speichern
+													},
+													error: function (response, textStatus, e) {
+														console.debug('kein login auf dem Server möglich', textStatus, e);
+													}
+												});
+											} else console.debug('kein Passwort gefunden');
+										});
+								} else console.debug('keine sean gefunden');
+							});
+					} else {
+						throw 'automatisches Login ist verboten';
+					}
+				}
+			})
+			.catch(function (e) {
+				console.debug('autoLogin unmöglich: ', e);
+			});
+	});
 });
+
+/**
+ * Bereitstellung von oben verwendeten Funktionen =============================
  */
 
 /**
  * sendet die Login-Daten und reagiert auf die Antwort
  */
-function setHandleLogin(){
+function setHandleLogin(db) {
 	$('#loginButton').removeAttr('onsubmit').click(
 		function () {
-			getPasswordHash(sendLoginData);
+			getPasswordHash(db, sendLoginData);
 		});
 }
 /**
  * liest das eingegebene Passwort aus und übergibt den Passwort-Hash an das Formular
  */
-function getPasswordHash(sLD) {
+function getPasswordHash(db, sLD) {
 	var sean = $("[name='sean']").val();
 	var passwort = $("[name='passwort']");
 	var pw = sha512(salt + passwort.val());
-	sLD(sean, pw);
+	sLD(db, sean, pw);
 }
 /**
  * sendet die Daten für den Login
  */
-function sendLoginData(sean, passwort) {
+function sendLoginData(db, sean, passwort) {
 	var sendData = 'fname=login&sean=' + sean + '&pw=' + passwort;
 	$.ajax({
 		url: urlLogin,
@@ -117,7 +124,13 @@ function sendLoginData(sean, passwort) {
 			db.config.put({key:'loginType', value:'sean'});
 			var autoLogin = $("[name='autoLogin']").is(':checked');
 			db.config.put({key:'autoLogin', value: autoLogin});
-			handleLogin(response, db);
+			db.handleLogin(response).then(function (e) {
+				// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
+				if (e) {
+					$('#loginFormular').hide();
+					window.location = "../stundenplan.html";
+				}
+			})
 		},
 		error: function (response,textStatus,e) {
 			console.debug('kein login auf dem Server möglich', textStatus, e);

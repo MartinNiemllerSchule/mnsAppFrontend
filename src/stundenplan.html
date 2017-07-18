@@ -5,10 +5,7 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
     <link rel="stylesheet" href="styles/main.css">
     <title>Stundenplan</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
-    <script src="scripts/vendor/dexie.min.js"></script>
-    <script src="scripts/main.js"></script>
-    <script src="scripts/stundenplan.js" type="text/javascript"></script>
+	<script data-main="scripts/stundenplan" src="scripts/vendor/require.js" async></script>
 </head>
 
 <body>
@@ -33,29 +30,8 @@
         <li><a href="index.html" id="logOut"><img src="images/logout.png" alt="Logout">Logout</a></li>
     </ul>
 
-    <script>
-        $(function () {
-            $('#Sidebar-btn').click(function () {
-                $('#Sidebar').toggleClass('visible');
-                $('#Sidebar-cls').toggleClass('cls-visible');
-            });
-            $('#Sidebar-btn-open').click(function () {
-                $('#Sidebar').toggleClass('visible');
-                $('#Sidebar-cls').toggleClass('cls-visible');
-            });
-        });
-    </script>
-
 </div>
 <div id="Sidebar-cls">
-    <script>
-        $(function () {
-            $('#Sidebar-cls').click(function () {
-                $('#Sidebar').toggleClass('visible');
-                $('#Sidebar-cls').toggleClass('cls-visible');
-            });
-        });
-    </script>
 </div>
 
 <div id="Sidebar-btn">
@@ -67,32 +43,8 @@
 <div id="topbar">Stundenplan</div>
 <div id="topbar-placeholder"></div>
 <div id="selector">
-    <div id="nächstewoche" class="selectorOption">
-        Nächste Woche
-        <script>
-            $(document).ready(function () {
-                $('#nächstewoche').click(function () {
-                    $('#nächstewoche').addClass('active');
-                    $('#diesewoche').removeClass('active');
-                    $('#nächste-woche').addClass('tactive');
-                    $('#diese-woche').removeClass('tactive');
-                });
-            });
-        </script>
-    </div>
-    <div id="diesewoche" class="selectorOption active">
-        Diese Woche
-        <script>
-            $(document).ready(function () {
-                $('#diesewoche').click(function () {
-                    $('#diesewoche').addClass('active');
-                    $('#nächstewoche').removeClass('active');
-                    $('#diese-woche').addClass('tactive');
-                    $('#nächste-woche').removeClass('tactive');
-                });
-            });
-        </script>
-    </div>
+	<div id="selRight" class="selectorOption">Nächste Woche</div>
+	<div id="selLeft" class="selectorOption active">Diese Woche</div>
 </div>
 
 <div id="StundenplanTabelle" class="contentBox"></div>

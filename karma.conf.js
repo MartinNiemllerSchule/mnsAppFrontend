@@ -17,8 +17,7 @@ module.exports = function(config) {
     files: [
       'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',
       'src/scripts/vendor/*.js',
-      'src/scripts/main.js',
-	    'src/scripts/index.js',
+	    'src/scripts/app/index.js',
       'test/*.js'
     ],
 

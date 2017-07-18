@@ -3,11 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Test Lehrer</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
-	<script src="scripts/vendor/sha512.min.js"></script>
-	<script src="scripts/vendor/dexie.min.js"></script>
-	<script src="scripts/main.js"></script>
-
+	<script data-main="scripts/test" src="scripts/vendor/require.js" async></script>
 </head>
 <body>
 <div id="loginFormular">
@@ -20,38 +16,4 @@
 	<input type="submit" value="anmelden" id="loginButton">
 </div>
 </body>
-<script type="application/javascript">
-	var urlLogin = 'http://vapp.niemoeller.schule/api/index.php';
-	//var urlLogin = 'http://127.0.1.5/index.php'; // test BEAT
-
-	var db = getEinstellungen();
-
-	// Parameter auslesen, falls es den gibt
-	// Aufruf der Datei mit test.html?l oder test.html?s oder test.html?5
-	var wer = new RegExp('[\?&]([ls5LS])(=([^&#]*))?').exec(window.location.href);
-	var fn = (wer === null) ? 'L' : wer[1];
-	fn = fn.toUpperCase();
-
-	// Testdaten holen
-	$.ajax({
-		url: urlLogin,
-		dataType: 'json',
-		crossDomain: true,
-		data: 'fname=test' + fn + '&sean=NN&pw=' +
-		'7c80a8a270caf88e1229c774c301178986c1036e0b242432d8d9f317c2423efa9692c2bb274c674457b623179f193d8cfbc73cf34bde3312f3132c53235f16cc',
-		success: function(response){
-			// Testdaten abspeichern
-			db.config.clear();
-			db.config.put({key:'sean', value:sean});
-			db.config.put({key:'pw', value:passwort});
-			db.config.put({key:'loginType', value:'test'});
-			db.config.put({key:'autoLogin', value: true});
-			handleLogin(response, db, 'test');
-		},
-		error: function (response,textStatus,e) {
-			console.debug('Test Lehrer: kein login auf dem Server möglich', textStatus, e);
-		}
-	});
-
-</script>
 </html>
