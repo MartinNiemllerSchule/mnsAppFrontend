@@ -1,0 +1,76 @@
+/**
+ * Created by frank on 20.07.17.
+ */
+
+requirejs(['./scripts/vapp.js'], function () {
+	requirejs(['db', 'moment', 'jquery', 'fullCalendar', 'fcLDe', 'menu'], function (db, moment) {
+		"use strict";
+
+		var eventCal = {
+			klausuren: [],
+			fc: undefined,
+
+			/**
+			 * Wandelt ein Klausur-Objekt {date:,Stunde:,dauer:,bezeichnung} in ein passendes event-Objekt um
+			 * @param klausur - Objekt (eine Datenbank-Zeile
+			 */
+			klausur2event: function (klausur) {
+				var start = moment(klausur.date + ' ' + stunden[klausur.stunde]);
+				var ende = start.clone().add(90, 'm');
+				var evt = {
+					'title': klausur.bezeichnung,
+					'start': start,
+					'end': ende,
+					'className': 'calEventKlausur',
+					'color': '#6CF',
+					'textColor': '#EEE',
+				};
+				this.klausuren.push(evt);
+			},
+
+			/**
+			 * zeigt den Kalender tatsächlich an - alle Einstellungen werden vorgenommen
+			 */
+			init: function () {
+				var self = this;
+				db.config.get('klausuren').then(function (klausuren) {
+					if (klausuren && klausuren.value.length > 0) {
+						self.klausuren = [];
+						for (var i = 0; i < klausuren.value.length; i++) {
+							self.klausur2event(klausuren.value[i]);
+						}
+						if (self.fc) {
+							self.fc.fullCalendar('addEventSource', self.klausuren);
+						} else {
+							setTimeout(function () {
+								self.fc.fullCalendar('addEventSource', self.klausuren);
+							}, 1000);
+						}
+					}
+				});
+
+				// ist fraglich, ob die Daten aus der Datenbank dann auch wirklich schon angekommen sind.
+				$(function () {
+					self.fc = $('#calendar').fullCalendar({
+						header: {
+							left: 'prev,next today',
+							center: 'title',
+							right: 'month,basicWeek,basicDay'
+						},
+						locale: 'de',
+						weekends: false, // events am Wochenende sind unwahrscheinlich (höchstens Tag der offenen Tür) - vielleicht
+						// zuschalten, falls notwendig
+						fixedWeekCount: false, // Anzahl der Wochen 4-6 pro Monat
+						navLinks: false, // can click day/week names to navigate views
+						editable: true,
+						eventLimit: true, // allow "more" link when too many events
+						aspectRatio: 2,
+						events: []
+					});
+				});
+			}
+		}
+
+		eventCal.init();
+	});
+});
