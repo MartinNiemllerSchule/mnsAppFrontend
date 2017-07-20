@@ -47,6 +47,9 @@ define('db', ['dexie'], function (Dexie) {
 					if ('kursliste' in antwort) {
 						db.config.put({key: 'kursliste', value: antwort.kursliste});
 					}
+					if ('events' in antwort) {
+						db.config.put({key: 'events', value: antwort.events});
+					}
 				} else console.debug('Login-Fehler: ' + antwortLoginText + ' erwartet: ' + antwort);
 			}).then(function () {
 				resolve(true);
