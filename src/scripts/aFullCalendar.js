@@ -8,6 +8,7 @@ requirejs(['./scripts/vapp.js'], function () {
 
 		var eventCal = {
 			klausuren: [],
+			kursliste: undefined,
 			fc: undefined,
 
 			/**
@@ -33,6 +34,7 @@ requirejs(['./scripts/vapp.js'], function () {
 			 */
 			init: function () {
 				var self = this;
+				// alle Klausuren eintragen und anzeigen
 				db.config.get('klausuren').then(function (klausuren) {
 					if (klausuren && klausuren.value.length > 0) {
 						self.klausuren = [];
@@ -49,7 +51,12 @@ requirejs(['./scripts/vapp.js'], function () {
 					}
 				});
 
-				// ist fraglich, ob die Daten aus der Datenbank dann auch wirklich schon angekommen sind.
+				//Kursliste holen und im Objekt vorhalten
+				db.config.get('kursliste').then(function (kl) {
+					self.kursliste = kl.value;
+				});
+
+				// wird vermutlich schon ausgeführt, solange die Daten noch beschafft werden: document.ready
 				$(function () {
 					self.fc = $('#calendar').fullCalendar({
 						header: {
