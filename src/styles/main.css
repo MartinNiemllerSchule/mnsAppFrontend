@@ -246,7 +246,6 @@ body {
         left: -201px;
         z-index: 2;
         position: fixed;
-        overflow-y: scroll;
         top: 0;
         bottom: 0;
     }
@@ -345,6 +344,7 @@ body {
 
     #Sidebar {
         width: 75%;
+        overflow-y: scroll;
         left: calc(-75% - 1px);
     }
 
