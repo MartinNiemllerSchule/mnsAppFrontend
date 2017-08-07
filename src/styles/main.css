@@ -335,34 +335,34 @@ body {
         font-size: 13px;
     }
 
-    .Buecherliste table, thead, tbody, th, td, tr{
+    .Buecherliste, table, thead, tbody, th, td, tr{
         display: block;
     }
 
-    .Buecherliste thead tr{
+    .Buecherliste, thead tr{
         position: absolute;
         top: -100%;
         left: -100%;
     }
 
-    .Buecherliste tr{
+    .Buecherliste, tr{
         border: 1px solid #000000;
     }
 
-    .Buecherliste td{
+    .Buecherliste, td{
         border: none;
         border-bottom: 1px solid #000000;
         position: relative;
         padding-left: 50%;
     }
 
-    .Buecherliste td:before{
+    .Buecherliste, td:before{
         position: absolute;
         width: 45%;
         white-space: nowrap;
     }
 
-    .Buecherliste td:nth-of-type(1):before{content: 'test'}
+    .Buecherliste, td:nth-of-type(1):before{content: 'test'}
 
     #Sidebar-btn-open {
         margin-left: calc(100% - 60px);
