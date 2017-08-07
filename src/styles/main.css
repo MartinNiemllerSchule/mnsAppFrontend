@@ -210,7 +210,7 @@ body {
     }
 
     .Stundenplan {
-        font-size: 16px;
+        font-size: 12px;
         max-width: 750px;
         margin: auto;
         padding: 0px;
@@ -232,7 +232,7 @@ body {
     }
 
     .Buecherliste {
-        font-size: 16px;
+        font-size: 15px;
         max-width: 750px;
         margin: auto;
         padding: 0px;
@@ -335,9 +335,34 @@ body {
         font-size: 13px;
     }
 
-    .Buecherliste, th, td {
-        font-size: 13px;
+    .Buecherliste table, thead, tbody, th, td, tr{
+        display: block;
     }
+
+    .Buecherliste thead tr{
+        position: absolute;
+        top: -100%;
+        left: -100%;
+    }
+
+    .Buecherliste tr{
+        border: 1px solid #000000;
+    }
+
+    .Buecherliste td{
+        border: none;
+        border-bottom: 1px solid #000000;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .Buecherliste td:before{
+        position: absolute;
+        width: 45%;
+        white-space: nowrap;
+    }
+
+    .Buecherliste td:nth-of-type(1):before{content: 'test'}
 
     #Sidebar-btn-open {
         margin-left: calc(100% - 60px);
