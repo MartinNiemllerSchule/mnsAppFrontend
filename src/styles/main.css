@@ -335,7 +335,7 @@ body {
         font-size: 13px;
     }
 
-    .Buecherliste table, thead, tbody, th, td, tr{
+    .Buecherliste table thead, tbody th, td, tr{
         display: block;
     }
 
