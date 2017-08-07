@@ -51,10 +51,25 @@ requirejs(['./scripts/vapp.js'], function () {
 					}
 				});
 
-				//Kursliste holen und im Objekt vorhalten
-				db.config.get('kursliste').then(function (kl) {
-					self.kursliste = kl.value;
-				});
+				//Kursliste holen und in select eintragn
+                var kurslisteA = [];
+
+                db.config.get('kursliste').then(function (data0) {
+                    var data = data0.value;
+                    $.each(data, function (key, val) {
+                        kurslisteA.push(val.bezeichnung);
+                    });
+                    for (var j = 0; j < kurslisteA.length; j++) {
+                        // ?? 			$('#klausur').prop('option',kurslisteA[j]);
+                        var obj = kurslisteA[j];
+                        var x = document.getElementById("kursnr");
+                        var option = document.createElement("option");
+                        option.text = obj;
+                        x.add(option);
+                    }
+                });
+
+
 
 				// wird vermutlich schon ausgeführt, solange die Daten noch beschafft werden: document.ready
 				$(function () {
