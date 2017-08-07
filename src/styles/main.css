@@ -327,36 +327,36 @@ body {
 }
 
 @media only screen and (max-width: 415px) {
-    .Stundenplan, th, td {
+    .Stundenplan th, td {
         font-size: 14px;
     }
 
-    .Vertretungsplan, th, td {
+    .Vertretungsplan th, td {
         font-size: 13px;
     }
 
-    .Buecherliste, table, thead, tbody, th, td, tr{
+    .Buecherliste table, thead, tbody, th, td, tr{
         display: block;
     }
 
-    .Buecherliste, thead tr{
+    .Buecherliste thead tr{
         position: absolute;
         top: -100%;
         left: -100%;
     }
 
-    .Buecherliste, tr{
+    .Buecherliste tr{
         border: 1px solid #000000;
     }
 
-    .Buecherliste, td{
+    .Buecherliste td{
         border: none;
         border-bottom: 1px solid #000000;
         position: relative;
         padding-left: 50%;
     }
 
-    .Buecherliste, td:before{
+    .Buecherliste td:before{
         position: absolute;
         width: 45%;
         white-space: nowrap;
@@ -399,15 +399,15 @@ body {
 }
 
 @media only screen and (max-width: 360px) {
-    .Stundenplan, th, td {
+    .Stundenplan th, td {
         font-size: 12px;
     }
 
-    .Vertretungsplan, th, td {
+    .Vertretungsplan th, td {
         font-size: 11px;
     }
 
-    .Buecherliste, th, td {
+    .Buecherliste th, td {
         font-size: 11px;
     }
 
@@ -422,7 +422,7 @@ body {
 }
 
 @media only screen and (max-width: 310px) {
-    .contentBox table, th, td {
+    .contentBox table th, td {
         font-size: 10px;
     }
 
