@@ -356,10 +356,9 @@ body {
         padding-left: 50%;
     }
 
-    .Buecherliste td:before{
+    .Buecherliste, td:before{
         position: absolute;
         width: 45%;
-        white-space: nowrap;
     }
 
     .Buecherliste td:nth-of-type(1):before{content: 'test'}
