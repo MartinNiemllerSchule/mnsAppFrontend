@@ -1,7 +1,8 @@
 /**
  * Created by Buecher on 26.08.2017.
  */
-$(function() {
+
+(function() {
     // Create the QuaggaJS config object for the live stream
     var liveStreamConfig = {
         inputStream: {
