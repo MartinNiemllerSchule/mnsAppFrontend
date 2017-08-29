@@ -137,7 +137,7 @@ body {
 
 .Vertretungsplan {
     position: absolute;
-    left: -100%;
+    left: -200%;
     top: -100%;
     font-size: 16px;
     margin: 0px;
@@ -210,7 +210,7 @@ body {
     }
 
     .Stundenplan {
-        font-size: 16px;
+        font-size: 12px;
         max-width: 750px;
         margin: auto;
         padding: 0px;
@@ -232,7 +232,7 @@ body {
     }
 
     .Buecherliste {
-        font-size: 16px;
+        font-size: 15px;
         max-width: 750px;
         margin: auto;
         padding: 0px;
@@ -246,7 +246,7 @@ body {
         left: -201px;
         z-index: 2;
         position: fixed;
-        overflow-y: scroll;
+        overflow-y: auto;
         top: 0;
         bottom: 0;
     }
@@ -327,17 +327,41 @@ body {
 }
 
 @media only screen and (max-width: 415px) {
-    .Stundenplan, th, td {
+    .Stundenplan th, td {
         font-size: 14px;
     }
 
-    .Vertretungsplan, th, td {
+    .Vertretungsplan th, td {
         font-size: 13px;
     }
 
-    .Buecherliste, th, td {
-        font-size: 13px;
+    .Buecherliste table thead, tbody tr th td{
+        display: block;
     }
+
+    .Buecherliste thead tr{
+        position: absolute;
+        top: -100%;
+        left: -100%;
+    }
+
+    .Buecherliste tr{
+        border: 1px solid #000000;
+    }
+
+    .Buecherliste td{
+        border: none;
+        border-bottom: 1px solid #000000;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .Buecherliste, td:before{
+        position: absolute;
+        width: 45%;
+    }
+
+    .Buecherliste td:nth-of-type(1):before{content: 'test'}
 
     #Sidebar-btn-open {
         margin-left: calc(100% - 60px);
@@ -374,15 +398,15 @@ body {
 }
 
 @media only screen and (max-width: 360px) {
-    .Stundenplan, th, td {
+    .Stundenplan th, td {
         font-size: 12px;
     }
 
-    .Vertretungsplan, th, td {
+    .Vertretungsplan th, td {
         font-size: 11px;
     }
 
-    .Buecherliste, th, td {
+    .Buecherliste th, td {
         font-size: 11px;
     }
 
@@ -397,7 +421,7 @@ body {
 }
 
 @media only screen and (max-width: 310px) {
-    .contentBox table, th, td {
+    .contentBox table th, td {
         font-size: 10px;
     }
 
