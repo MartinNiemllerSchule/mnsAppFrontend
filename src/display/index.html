@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Vertretungsplan und Ankündigungen</title>
+	<script
+			src="https://code.jquery.com/jquery-3.2.1.min.js"
+			integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			crossorigin="anonymous"></script>
+	<style>
+		body {
+			color: black;
+			font-size: 20px;
+			font-family: arial;
+			background-color: white;
+		}
+		h1 { margin: 0; }
+
+		a:link { color: blue }
+		a:visited { color: purple }
+		a:hover { color: purple }
+		a:active { color: red }
+
+		#vplan {
+			vertical-align: top;
+			position: relative;
+			float: left;
+			width: 50%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		#vplanTbl table {
+			border-collapse: collapse;
+			border: 1px solid;
+		}
+		#vplanTbl table thead { background-color: #37a9dd; }
+		#vplanTbl table tbody tr:nth-child(2n) { background-color: #ececec;}
+		#vplanTbl table tr td {
+			border: thin solid;
+			padding: 0ex 1ex;
+		}
+
+		#infos {
+			text-align: left;
+			position: relative;
+			height: 100%;
+			overflow: hidden;
+			border-left: 1px solid #515151;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			margin-left: auto ;
+			margin-right: auto
+		}
+
+	</style>
+</head>
+<body>
+	<div id='vplan'>
+		<h1>Vertretungsplan</h1>
+		<div id="vplanTbl"></div>
+	</div>
+	<div id='infos'></div>
+</body>
+</html>
+
+<script type="application/javascript">
+	var scrollwayVer = 0;
+	var scrollvarVer;
+	var scrollactiveVer = false;
+	var timeVer = 0;
+
+	var scrollwayInfo = 0;
+	var scrollvarInfo;
+	var scrollactiveInfo = false;
+	var timeInfo = 0;
+
+	function update_std() {
+		$('#vplanTbl').load('getVP.php', function () {
+			scrollcheckVer();
+		});
+		$.ajax({
+			url: 'http://mnsblog.topsch.net/index.php',
+			xhrFields: { withCredentials: true},
+			username: 'vapp',
+			password: 'Vapp-Display',
+			dataType: 'html'
+		}).then( function (antwort) {
+			$('infos').html(antwort);
+			scrollcheckInfo();
+		});
+	}
+
+	$(document).ready(function () {
+		update_std();
+	});
+	var aktiv = window.setInterval("update_std()", 1000 * 1500);
+
+	function scrollcheckVer() {
+		if ($('#vplan').offsetHeight < $('#vplan').scrollHeight) {
+			if (scrollactiveVer == false) {
+				scrollwayVer = 0;
+				timeVer = ($('#vplan').scrollHeight - $(window).height()) * 50;
+				scrollfuncVer();
+				scrollvarVer = setInterval(scrollfuncVer, timeVer + 2000);
+				scrollactiveVer = true;
+			}
+		} else {
+			clearInterval(scrollvarVer);
+			scrollactiveVer = false;
+		}
+	}
+
+	function scrollfuncVer() {
+		if (scrollwayVer == 0) {
+			$('#vplan').animate({scrollTop: $('#vplan').scrollHeight - $(window).height()}, timeVer);
+			scrollwayVer = 1;
+		} else {
+			$('#vplan').animate({scrollTop: 0}, timeVer);
+			scrollwayVer = 0;
+		}
+	}
+
+	function scrollcheckInfo() {
+		if (document.getElementById('infos').offsetHeight < document.getElementById('infos').scrollHeight) {
+			if (scrollactiveInfo == false) {
+				scrollwayInfo = 0;
+				timeInfo = (document.getElementById('infos').scrollHeight - $(window).height()) * 50;
+				scrollfuncInfo();
+				scrollvarInfo = setInterval(scrollfuncInfo, timeInfo + 2000);
+				scrollactiveInfo = true;
+			}
+		} else {
+			clearInterval(scrollvarInfo);
+			scrollactiveInfo = false;
+		}
+	}
+
+	function scrollfuncInfo() {
+		if (scrollwayInfo == 0) {
+			$('#infos').animate({scrollTop: document.getElementById('infos').scrollHeight - $(window).height()}, timeInfo);
+			scrollwayInfo = 1;
+		} else {
+			$('#infos').animate({scrollTop: 0}, timeInfo);
+			scrollwayInfo = 0;
+		}
+	}
+</script>
