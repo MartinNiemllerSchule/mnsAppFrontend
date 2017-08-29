@@ -17,7 +17,7 @@ requirejs.config({
 	}
 });
 
-urlLogin = 'http://vapp.niemoeller.schule/api/index.php';
+urlLogin = 'https://vapp.niemoeller.schule/api/index.php';
 //urlLogin = 'http://127.0.1.5/index.php'; // Baethge -> debugging
 
 stunden = {
