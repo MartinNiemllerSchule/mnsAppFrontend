@@ -10,6 +10,7 @@ requirejs(['./scripts/vapp.js'], function () {
 			klausuren: [],
 			kursliste: undefined,
 			fc: undefined,
+			fctd: undefined, // ausgewählte Zelle
 
 			/**
 			 * Wandelt ein Klausur-Objekt {date:,Stunde:,dauer:,bezeichnung} in ein passendes event-Objekt um
@@ -52,23 +53,22 @@ requirejs(['./scripts/vapp.js'], function () {
 				});
 
 				//Kursliste holen und in select eintragn
-                var kurslisteA = [];
+				var kurslisteA = [];
 
-                db.config.get('kursliste').then(function (data0) {
-                    var data = data0.value;
-                    $.each(data, function (key, val) {
-                        kurslisteA.push(val.bezeichnung);
-                    });
-                    for (var j = 0; j < kurslisteA.length; j++) {
-                        // ?? 			$('#klausur').prop('option',kurslisteA[j]);
-                        var obj = kurslisteA[j];
-                        var x = document.getElementById("kursnr");
-                        var option = document.createElement("option");
-                        option.text = obj;
-                        x.add(option);
-                    }
-                });
-
+				db.config.get('kursliste').then(function (data0) {
+					var data = data0.value;
+					$.each(data, function (key, val) {
+						kurslisteA.push(val.bezeichnung);
+					});
+					for (var j = 0; j < kurslisteA.length; j++) {
+						// ?? 			$('#klausur').prop('option',kurslisteA[j]);
+						var obj = kurslisteA[j];
+						var x = document.getElementById("kursnr");
+						var option = document.createElement("option");
+						option.text = obj;
+						x.add(option);
+					}
+				});
 
 
 				// wird vermutlich schon ausgeführt, solange die Daten noch beschafft werden: document.ready
@@ -87,10 +87,39 @@ requirejs(['./scripts/vapp.js'], function () {
 						editable: true,
 						eventLimit: true, // allow "more" link when too many events
 						aspectRatio: 2,
-						events: []
+						events: [],
+
+						dayClick: function (date, jsEvent, view) {
+							if (self.fctd == this) {
+								$(this).css('background-color', '');
+								self.fctd = undefined;
+								self.hide();
+							} else {
+								self.show();
+								if (self.fctd != undefined) {
+									$(self.fctd).css('background-color', '');
+								}
+								$(this).css('background-color', 'red');
+								$('#datum').prop('value', date.format('YYYY-MM-DD'));
+								self.fctd = this;
+								$('#kursnr').trigger('click');
+							}
+						}
 					});
+
+					self.hide();
+					
 				});
+			},
+
+			show: function () {
+				$('#kalenderEintragen').show();
+			},
+
+			hide: function () {
+				$('#kalenderEintragen').hide();
 			}
+
 		}
 
 		eventCal.init();
