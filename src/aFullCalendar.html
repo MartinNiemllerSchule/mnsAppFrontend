@@ -48,13 +48,12 @@
 <div class="contentBox">
 	<div id="calendar"></div>
 	<div id="kalenderEintragen">
-		<form action="./api/index.php">
-			<span>
+		<span>
 			<select id="kursnr"></select>
 			<input hidden id="fname" value="setKlausur">
 			<input hidden id="datum">
-				</span>
-			<span>
+		</span>
+		<span>
 			<label for="stunde">beginnt in Stunde: </label>
 			<select id="stunde">
 				<option value="1" selected>1</option>
@@ -67,8 +66,8 @@
 				<option value="8">8</option>
 			</select>
 			</span>
-			<span>
-			<label for="dauer">dauert ... Stunden: </label>
+		<span>
+			<label for="dauer">dauert </label>
 			<select id="dauer">
 				<option value="1">1</option>
 				<option value="2" selected>2</option>
@@ -78,10 +77,12 @@
 				<option value="6">6</option>
 				<option value="7">7</option>
 			</select>
+			<label for="dauer"> Stunden</label>
 			</span>
-			<span><input type="submit" value="eintragen"></span>
-			<span><input type="button" value="verwerfen"></span>
-		</form>
+		<span><input type="button" value="eintragen"></span>
+	</div>
+	<div id="kalenderEintragLoeschen">
+		<span><input type="button" value="löschen"></span>
 	</div>
 
 </div>

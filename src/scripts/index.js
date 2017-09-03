@@ -63,7 +63,7 @@ requirejs(['./scripts/vapp.js'], function () {
 															// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
 															if (e) {
 																$('#loginFormular').hide();
-																window.location = "../stundenplan.html";
+																window.location = zielNachLogin;
 															}
 														}); // Antwort in DB speichern
 													},
@@ -128,7 +128,7 @@ function sendLoginData(db, sean, passwort) {
 				// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
 				if (e) {
 					$('#loginFormular').hide();
-					window.location = "../stundenplan.html";
+					window.location = zielNachLogin;
 				}
 			})
 		},

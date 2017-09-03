@@ -17,8 +17,8 @@ requirejs.config({
 	}
 });
 
-urlLogin = 'https://vapp.niemoeller.schule/api/index.php';
-//urlLogin = 'http://127.0.1.5/index.php'; // Baethge -> debugging
+urlLogin = './api/index.php';
+zielNachLogin = '../aFullCalendar.html';
 
 stunden = {
 	'1': '08:00',
