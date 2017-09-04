@@ -104,7 +104,7 @@ $(function() {
                 }
             })
             Quagga.stop();
-            setTimeout(function(){ $('#livestream_scanner').modal('hide'); }, 1000);
+           
         }
     });
 
