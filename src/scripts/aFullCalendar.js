@@ -22,6 +22,7 @@ requirejs(['./scripts/vapp.js'], function () {
 				var ende = start.clone().add(dauer, 'm');
 				var evt = {
 					'title': klausur.bezeichnung,
+					'kursnr': klausur.kursnr,
 					'start': start,
 					'end': ende,
 					'className': 'calEventKlausur',
@@ -75,7 +76,7 @@ requirejs(['./scripts/vapp.js'], function () {
 						header: {
 							left: 'prev,next today',
 							center: 'title',
-							right: 'month,basicWeek,basicDay'
+							right: 'month'
 						},
 						locale: 'de',
 						weekends: false, // events am Wochenende sind unwahrscheinlich (höchstens Tag der offenen Tür) - vielleicht
@@ -93,7 +94,7 @@ requirejs(['./scripts/vapp.js'], function () {
 								self.fctd = undefined;
 								self.hide();
 							} else {
-								self.show();
+								$('#kalenderEintragen').show();
 								if (self.fctd != undefined) {
 									$(self.fctd).css('background-color', '');
 								}
@@ -119,19 +120,12 @@ requirejs(['./scripts/vapp.js'], function () {
 
 					});
 
-					self.hide();
+					$('#kalenderEintragen').hide();
+					$('#kalenderEintragLoeschen').hide();
 					$('input[value="eintragen"]').removeAttr('onsubmit').click(self.send);
 					$('input[value="löschen"]').click(self.delete);
 					
 				});
-			},
-
-			show: function () {
-				$('#kalenderEintragen').show();
-			},
-
-			hide: function () {
-				$('#kalenderEintragen').hide();
 			},
 
 			send: function () {
@@ -157,13 +151,12 @@ requirejs(['./scripts/vapp.js'], function () {
 						// sollte {erfolg:[true|false]} sein
 						if (response.erfolg) {
 							eventCal.klausur2event(klausur).then(function (event) {
-								$.fn.fullCalendar('refetchEvents');
-								//TODO: das event wird noch nicht sofort angezeigt
+								$('#calendar').fullCalendar('removeEventSource', eventCal.klausuren);
+								$('#calendar').fullCalendar('addEventSource', eventCal.klausuren);
 							});
 							$(eventCal.fctd).css('background-color', '');
-							eventCal.hide();
-
-							//TODO: eintragen in lokale DB
+							$('#kalenderEintragen').hide();
+							//TODO: eintragen in lokale DB oder refetch
 						} else {
 							console.warn('Die Klausur konnte nicht eingetragen werden - sendData - antwort', sendData, response);
 						}
@@ -175,10 +168,41 @@ requirejs(['./scripts/vapp.js'], function () {
 				});
 			},
 
+			/**
+			 * löscht die Klausur und veranlasst die neue Darstellung des Kalenders
+			 */
 			delete: function () {
 				const event = eventCal.fcEvent;
 				if (event) {
-					// TODO: Abfrage zum Löschen der Klausur
+					console.debug(event);
+					var sendData = "fname=deleteKlausur&kursnr=" + event.kursnr + "&datum=" + event.start.format('YYYY-MM-DD');
+					$.ajax({
+						url: urlLogin,
+						dataType: 'json',
+						crossDomain: true,
+						data: sendData,
+						success: function (response) {
+							// sollte {erfolg:[true|false]} sein
+							if (response.erfolg) {
+								// entferne aus Klausuren
+								var pos = 0;
+								while (pos < eventCal.klausuren.length && eventCal.klausuren[pos].kursnr != event.kursnr) pos++;
+								if (eventCal.klausuren[pos].kursnr == event.kursnr) {
+									eventCal.klausuren.splice(pos, 1);
+									$('#calendar').fullCalendar('removeEventSource', eventCal.klausuren);
+									$('#calendar').fullCalendar('addEventSource', eventCal.klausuren);
+									//TODO: eintragen in lokale DB oder refetch
+								} else console.debug('konnte klausur aus klausuren nicht entfernen');
+							} else {
+								console.warn('Die Klausur konnte nicht gelöscht werden - sendData - antwort', sendData, response);
+							}
+							$('#kalenderEintragLoeschen').hide();
+						},
+						error: function (response, textStatus, e) {
+							console.debug('Klausur konnte nicht gelöscht werden', sendData, textStatus, e);
+							console.debug('response: ', response);
+						}
+					});
 				}
 			}
 
