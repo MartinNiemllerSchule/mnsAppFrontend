@@ -83,7 +83,7 @@ $(function() {
     // the barcode had actually been found.
     Quagga.onDetected(function(result) {
         if (result.codeResult.code){
-            $('#scanner_input').val(result.codeResult.code);
+            $('#scanner_input').text(result.codeResult.code);
             var sendData = "fname=getBuch&bnr=" + result.codeResult.code;
             $.ajax({
                 url: 'https://vapp.niemoeller.schule/api/index.php',
