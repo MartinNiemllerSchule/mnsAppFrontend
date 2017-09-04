@@ -85,7 +85,7 @@ $(function() {
         if (result.codeResult.code){
             $('#scanner_input').val(result.codeResult.code);
             var sendData = "fname=getBuch&bnr=" + result.codeResult.code;
-            $ajax({
+            $.ajax({
                 url: urlLogin,
                 dataType: 'json',
                 crossDomain: true,
