@@ -86,7 +86,7 @@ $(function() {
             $('#scanner_input').val(result.codeResult.code);
             var sendData = "fname=getBuch&bnr=" + result.codeResult.code;
             $.ajax({
-                url: urlLogin,
+                url: 'https://vapp.niemoeller.schule/api/index.php',
                 dataType: 'json',
                 crossDomain: true,
                 data: sendData,
