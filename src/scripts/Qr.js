@@ -84,6 +84,29 @@ $(function() {
     Quagga.onDetected(function(result) {
         if (result.codeResult.code){
             $('#scanner_input').val(result.codeResult.code);
+            var buchNr=  $('#scanner_input').val();
+            console.debug(buchNr);
+            var sendData = "fname=getBuch&bnr=" + buchNr;
+            console.debug(sendData);
+            $.ajax({
+                url: 'https://vapp.niemoeller.schule/api/index.php',
+                dataType: 'json',
+                crossDomain: true,
+                data: sendData,
+                success: function (response) {
+                    console.debug(response);
+                    if(response.bean == undefined || response.bean == ""){
+                        console.debug("Buch nicht gefunden")
+                    }
+                    else {
+                        $('#Titel').text(response.title);
+                        console.debug("Antwort wird zurückgegeben");
+                    }
+                },
+                error: function (response ,textStatus,e) {
+                    console.debug("Antwort auf getBuch gescheiter", textStatus, e);
+                }
+            })
             Quagga.stop();
             setTimeout(function(){ $('#livestream_scanner').modal('hide'); }, 1000);
         }
