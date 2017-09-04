@@ -84,6 +84,25 @@ $(function() {
     Quagga.onDetected(function(result) {
         if (result.codeResult.code){
             $('#scanner_input').val(result.codeResult.code);
+            var sendData = "fname=getBuch&bnr=" + result.codeResult.code;
+            $ajax({
+                url: urlLogin,
+                dataType: 'json',
+                crossDomain: true,
+                data: sendData,
+                success: function (response) {
+                    console.debug(response);
+                    if(response.bean == undefined || response.bean == ""){
+                        console.debug("Buch nicht gefunden")
+                    }
+                    else {
+                        $('#Titel').text(response.title);
+                    }
+                },
+                error: function (response ,textStatus,e) {
+                    console.debug("Antwort auf getBuch gescheiter", textStatus, e);
+                }
+            })
             Quagga.stop();
             setTimeout(function(){ $('#livestream_scanner').modal('hide'); }, 1000);
         }
