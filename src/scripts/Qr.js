@@ -97,6 +97,7 @@ $(function() {
                     }
                     else {
                         $('#Titel').text(response.title);
+                        console.debug("Antwort wird zurückgegeben");
                     }
                 },
                 error: function (response ,textStatus,e) {
@@ -104,7 +105,7 @@ $(function() {
                 }
             })
             Quagga.stop();
-           
+
         }
     });
 
