@@ -54,7 +54,7 @@ requirejs(['./scripts/vapp.js'], function () {
 											if (pw) {
 												sendData += '&pw=' + pw.value;
 												$.ajax({
-													url: urlLogin,
+													url: urlApi,
 													dataType: 'json',
 													crossDomain: true,
 													data: sendData,
@@ -114,7 +114,7 @@ function getPasswordHash(db, sLD) {
 function sendLoginData(db, sean, passwort) {
 	var sendData = 'fname=login&sean=' + sean + '&pw=' + passwort;
 	$.ajax({
-		url: urlLogin,
+		url: urlApi,
 		dataType: 'json',
 		crossDomain: true,
 		data: sendData,

@@ -14,7 +14,7 @@ requirejs(['./scripts/vapp.js'], function () {
 
 		// Testdaten holen
 		$.ajax({
-			url: urlLogin,
+			url: urlApi,
 			dataType: 'json',
 			crossDomain: true,
 			data: 'fname=test' + fn + '&sean=NN&pw=' +

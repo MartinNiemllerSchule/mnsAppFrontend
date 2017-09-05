@@ -142,7 +142,7 @@ requirejs(['./scripts/vapp.js'], function () {
 				console.debug('klausur', klausur);
 
 				$.ajax({
-					url: urlLogin,
+					url: urlApi,
 					dataType: 'json',
 					crossDomain: true,
 					data: sendData,
@@ -177,7 +177,7 @@ requirejs(['./scripts/vapp.js'], function () {
 					console.debug(event);
 					var sendData = "fname=deleteKlausur&kursnr=" + event.kursnr + "&datum=" + event.start.format('YYYY-MM-DD');
 					$.ajax({
-						url: urlLogin,
+						url: urlApi,
 						dataType: 'json',
 						crossDomain: true,
 						data: sendData,

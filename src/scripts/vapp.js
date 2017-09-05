@@ -17,7 +17,7 @@ requirejs.config({
 	}
 });
 
-urlLogin = './api/index.php';
+urlApi = './api/index.php';
 zielNachLogin = '../aFullCalendar.html';
 
 stunden = {

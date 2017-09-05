@@ -15,7 +15,7 @@ describe("Die Verbindung zur ", function() {
 		var urlLogin = 'http://vapp.niemoeller.schule/api/index.php';
 		it('auf die Frage nach Lehrerdate', function () {
 			$.ajax({
-				url: urlLogin,
+				url: urlApi,
 				dataType: 'json',
 				crossDomain: true,
 				data: 'fname=testL&sean=NN&pw=' +
