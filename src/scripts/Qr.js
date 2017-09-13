@@ -127,6 +127,13 @@ $(function() {
             startScanner();
         }
     }, false);
+
+    $("#livestream_scanner input:file").on("change", function(e) {
+        if (e.target.files && e.target.files.length) {
+            Quagga.decodeSingle($.extend({}, fileConfig, {src: URL.createObjectURL(e.target.files[0])}), function(result) {alert(result.codeResult.code);});
+        }
+    });
+
 });
 
 
