@@ -2,7 +2,7 @@
  * Created by Buecher on 26.08.2017.
  */
 
-$(function() {
+
     // Create the QuaggaJS config object for the live stream
     var _scannerIsRunning = false;
 
@@ -128,9 +128,7 @@ $(function() {
             }
         }, false);
 
-    // Call Quagga.decodeSingle() for every file selected in the
-    // file input
+    
 
 
-}
 
