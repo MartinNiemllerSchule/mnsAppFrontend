@@ -121,7 +121,7 @@ $(function() {
 
     // Stop quagga in any case, when the modal is closed
     document.getElementById("btn").addEventListener("click", function () {
-        if (_scannerIsRunning) {
+        if (_scannerIsRunning == true) {
             Quagga.stop();
         } else {
             startScanner();
