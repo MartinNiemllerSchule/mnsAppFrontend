@@ -2,7 +2,7 @@
  * Created by Buecher on 26.08.2017.
  */
 
-
+$(function() {
     // Create the QuaggaJS config object for the live stream
     var _scannerIsRunning = false;
 
@@ -120,14 +120,14 @@
     }
 
     // Stop quagga in any case, when the modal is closed
-        document.getElementById("btn").addEventListener("click", function () {
-            if (_scannerIsRunning) {
-                Quagga.stop();
-            } else {
-                startScanner();
-            }
-        }, false);
-
+    document.getElementById("btn").addEventListener("click", function () {
+        if (_scannerIsRunning) {
+            Quagga.stop();
+        } else {
+            startScanner();
+        }
+    }, false);
+});
 
 
 
