@@ -35,11 +35,11 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: text/plain');
 
 $db = new DBAPI(); // Datenbankzugriff herstellen
-$vplanArr = $db->getVPlan4Display(1);
+$vplanArr = $db->getVPlan4Display();
 if ($vplanArr !== null && count($vplanArr) > 0) {
 	$vplan = '';
 	for($z=0; $z<count($vplanArr); $z++) {
-		if ($z==0 || $vplanArr[$z]['tag'] != $vplanArr[$z]['tag']) {
+		if ($z == 0 || $vplanArr[$z]['tag'] != $vplanArr[$z - 1]['tag']) {
 			$datum = new DateTime($vplanArr[$z]['tag']);
 			$vplan .= "<tr><th colspan='6'>{$wochentage[$datum->format('N')]}, {$datum->format('j')}. {$monate[$datum->format('n')]}</th></tr>";
 		}
