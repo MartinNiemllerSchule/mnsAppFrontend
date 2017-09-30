@@ -3,17 +3,82 @@
 <head>
 	<meta charset="UTF-8" name="viewport" content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
 	<title>Login</title>
-	d
+	<link rel="stylesheet" href="styles/main.css">
+	<style>
+		body {
+			background-color: #7ABBFF;
+			width: 21em;
+		}
 
+		#vappIcon {
+			display: block;
+			margin: auto auto;
+			width: 10em;
+		}
+
+		#loginFormular {
+			align-items: center;
+		}
+
+		#loginFormular div {
+			display: block;
+			margin: auto 1em;
+			width: 100%;
+			border-bottom: solid thin white;
+			padding-top: 0.6ex;
+		}
+
+		#loginFormular div:first-of-type {
+			border-top: solid thin white;
+		}
+
+		#loginFormular div label {
+			width: 10em;
+			display: inline-block;
+			text-align: right;
+			padding-right: 1ex;
+			color: white;
+			font-weight: bolder;
+		}
+
+		#loginFormular div label img {
+			width: 3ex;
+			position: relative;
+			padding: 0.1ex;
+		}
+
+		input[type="text"], input[type="password"] {
+			font-size: larger;
+			top: 50%;
+			transform: translateY(-25%);
+		}
+
+		input[type="submit"] {
+			margin-left: 24em;
+			margin-top: 2em;
+			transform: scale(2);
+		}
+
+		input[type="checkbox"] {
+			transform: scale(2);
+		}
+	</style>
 </head>
 <body>
+<img src="images/vappIcon.png" id="vappIcon" alt="logo">
 	<div id="loginFormular">
-		<label for="sean">Schülerausweis-/Lehrernummer:</label>
-		<input type="text" name="sean" id="sean" value="260000002"><br/>
-		<label for="passwort">Passwort:</label>
-		<input type="password" name="passwort" id="passwort">
-		<label for="autoLogin">angemeldet bleiben:</label>
-		<input type="checkbox" checked name="autoLogin" id="autoLogin">
+		<div>
+			<label for="sean"><img src="images/user.png" title="Schülerausweis-/Lehrernummer"></label>
+			<input type="text" name="sean" id="sean" value="260000002" size="13">
+		</div>
+		<div>
+			<label for="passwort"><img src="images/pwd.png" title="Passwort"></label>
+			<input type="password" name="passwort" id="passwort" size="13">
+		</div>
+		<div>
+			<label for="autoLogin">angemeldet bleiben:</label>
+			<input type="checkbox" checked name="autoLogin" id="autoLogin">
+		</div>
 		<input type="submit" value="anmelden" id="loginButton">
 	</div>
 
