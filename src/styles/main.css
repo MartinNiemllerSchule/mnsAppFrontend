@@ -1,447 +1,449 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial;
+	margin: 0;
+	padding: 0;
+	font-family: Arial;
 }
 
 #Sidebar {
-    background-color: #FFFFFF;
-    width: 200px;
-    height: 100%;
-    display: block;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    transition: left 0.3s linear;
-    border-right: 1px solid #333333;
-    margin: 0;
+	background-color: #FFFFFF;
+	width: 200px;
+	height: 100%;
+	display: block;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	transition: left 0.3s linear;
+	border-right: 1px solid #333333;
+	margin: 0;
 }
 
 .Sidebar {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 #btn {
-    border-bottom: 0px;
+	border-bottom: 0px;
 }
 
 .Sidebar li {
-    list-style: none;
-    margin-left: 10px;
-    margin-right: 10px;
-    border-bottom: 1px solid #333333;
+	list-style: none;
+	margin-left: 10px;
+	margin-right: 10px;
+	border-bottom: 1px solid #333333;
 }
 
 .Sidebar li a {
-    background-color: #FFFFFF;
-    display: block;
-    color: #000000;
-    text-align: left;
-    width: 180px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-decoration: none;
+	background-color: #FFFFFF;
+	display: block;
+	color: #000000;
+	text-align: left;
+	width: 180px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-decoration: none;
 }
 
 .Sidebar li a:hover {
-    background-color: #EFEFEF;
+	background-color: #EFEFEF;
 }
 
 #active {
-    background-color: #EFEFEF;
+	background-color: #EFEFEF;
 }
 
 .Sidebar li img {
-    width: 20px;
-    height: 20px;
-    padding: 10px;
-    margin: 0;
-    margin-top: -10px;
-    float: left;
+	width: 20px;
+	height: 20px;
+	padding: 10px;
+	margin: 0;
+	margin-top: -10px;
+	float: left;
 }
 
 #mns-pic {
-    width: 180px;
-    height: 150px;
-    padding: 0px;
-    margin: 0px;
+	width: 180px;
+	height: 150px;
+	padding: 0px;
+	margin: 0px;
 }
 
 #mns-pic img {
-    width: 100%;
-    height: 150px;
-    padding: 0px;
-    margin-top: 0px;
+	width: 100%;
+	height: 150px;
+	padding: 0px;
+	margin-top: 0px;
 }
 
 #topbar {
-    width: calc(100% - 215px);
-    height: 55px;
-    background-color: #7ABBFF;
-    color: #FFFFFF;
-    float: right;
-    text-align: left;
-    font-size: 32px;
-    line-height: 55px;
-    padding-left: 15px;
+	width: calc(100% - 215px);
+	height: 55px;
+	background-color: #7ABBFF;
+	color: #FFFFFF;
+	float: right;
+	text-align: left;
+	font-size: 32px;
+	line-height: 55px;
+	padding-left: 15px;
 }
 
 #selector {
-    width: calc(100% - 200px);
-    height: 55px;
-    background-color: #7ABBFF;
-    float: right;
-    margin-bottom: 0px;
+	width: calc(100% - 200px);
+	height: 55px;
+	background-color: #7ABBFF;
+	float: right;
+	margin-bottom: 0px;
 }
 
 .selectorOption {
-    width: 50%;
-    height: 55px;
-    margin: 0px;
-    float: right;
-    text-align: center;
-    font-size: 22px;
-    line-height: 55px;
-    cursor: pointer;
-    color: #FFFFFF;
+	width: 50%;
+	height: 55px;
+	margin: 0px;
+	float: right;
+	text-align: center;
+	font-size: 22px;
+	line-height: 55px;
+	cursor: pointer;
+	color: #FFFFFF;
 }
 
 .selectorOption:hover {
-    background-color: #64AFFF;
+	background-color: #64AFFF;
 }
 
 .active {
-    background-color: #64AFFF;
+	background-color: #64AFFF;
 }
 
 .contentBox {
-    float: right;
-    width: calc(100% - 200px);
-    margin-top: 15px !important;
+	float: right;
+	width: calc(100% - 200px);
+	margin-top: 15px !important;
 }
 
 .Stundenplan {
-    position: absolute;
-    left: -100%;
-    top: -100%;
-    font-size: 16px;
-    margin: 0px;
-    padding: 0px;
-    width: 750px;
-    height: 500px;
-    border: 1px solid black;
-    border-collapse: collapse;
-    text-align: center;
+	position: absolute;
+	left: -100%;
+	top: -100%;
+	font-size: 16px;
+	margin: 0px;
+	padding: 0px;
+	width: 750px;
+	height: 500px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	text-align: center;
 }
 
 .Vertretungsplan {
-    position: absolute;
-    left: -200%;
-    top: -100%;
-    font-size: 16px;
-    margin: 0px;
-    padding: 0px;
-    width: 750px;
-    border: 1px solid black;
-    border-collapse: collapse;
-    text-align: center;
+	position: absolute;
+	left: -200%;
+	top: -100%;
+	font-size: 16px;
+	margin: 0px;
+	padding: 0px;
+	width: 750px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	text-align: center;
 }
 
 .Vertretungsplan tr {
-    height: 25px;
+	height: 25px;
 }
 
 .Buecherliste {
-    font-size: 16px;
-    margin: auto;
-    padding: 0px;
-    width: 750px;
-    border: 1px solid black;
-    border-collapse: collapse;
-    text-align: center;
+	font-size: 16px;
+	margin: auto;
+	padding: 0px;
+	width: 750px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	text-align: center;
 }
 
 .Buecherliste tr {
-    height: 25px;
+	height: 25px;
 }
 
 .tactive {
-    position: static;
-    margin: auto;
-    padding: 0px;
-    width: 750px;
+	position: static;
+	margin: auto;
+	padding: 0px;
+	width: 750px;
 }
 
 .contentBox th {
-    background-color: #7ABBFF !important;
-    border: 1px solid black;
+	background-color: #7ABBFF !important;
+	border: 1px solid black;
 }
 
 .contentBox td {
-    background-color: #FFFFFF;
-    border: 1px solid black;
+	background-color: #FFFFFF;
+	border: 1px solid black;
 }
 
 .Stunde {
-    background-color: #7ABBFF !important;
-    border: 1px solid black;
+	background-color: #7ABBFF !important;
+	border: 1px solid black;
 }
 
 .ui-page.ui-page-theme-a.ui-page-active {
-    position: absolute;
-    top: 55px;
-    left: 200px;
-    width: calc(100% - 200px);
+	position: absolute;
+	top: 55px;
+	left: 200px;
+	width: calc(100% - 200px);
 }
 
 @media only screen and (max-width: 950px) {
 
-    .ui-page.ui-page-theme-a.ui-page-active {
-        left: 0px;
-        z-index: 0;
-        width: 100%;
-    }
+	.ui-page.ui-page-theme-a.ui-page-active {
+		left: 0px;
+		z-index: 0;
+		width: 100%;
+	}
 
-    .contentBox {
-        float: none;
-        margin: auto;
-        width: 100%;
-    }
+	.contentBox {
+		float: none;
+		margin: auto;
+		width: 100%;
+	}
 
-    .Stundenplan {
-        font-size: 12px;
-        max-width: 750px;
-        margin: auto;
-        padding: 0px;
-        width: 100%;
-        border: 1px solid black;
-        border-collapse: collapse;
-        text-align: center;
-    }
+	.Stundenplan {
+		font-size: 12px;
+		max-width: 750px;
+		margin: auto;
+		padding: 0px;
+		width: 100%;
+		border: 1px solid black;
+		border-collapse: collapse;
+		text-align: center;
+	}
 
-    .Vertretungsplan {
-        font-size: 16px;
-        max-width: 750px;
-        margin: auto;
-        padding: 0px;
-        width: 100%;
-        border: 1px solid black;
-        border-collapse: collapse;
-        text-align: center;
-    }
+	.Vertretungsplan {
+		font-size: 16px;
+		max-width: 750px;
+		margin: auto;
+		padding: 0px;
+		width: 100%;
+		border: 1px solid black;
+		border-collapse: collapse;
+		text-align: center;
+	}
 
-    .Buecherliste {
-        font-size: 15px;
-        max-width: 750px;
-        margin: auto;
-        padding: 0px;
-        width: 100%;
-        border: 1px solid black;
-        border-collapse: collapse;
-        text-align: center;
-    }
+	.Buecherliste {
+		font-size: 15px;
+		max-width: 750px;
+		margin: auto;
+		padding: 0px;
+		width: 100%;
+		border: 1px solid black;
+		border-collapse: collapse;
+		text-align: center;
+	}
 
-    #Sidebar {
-        left: -201px;
-        z-index: 2;
-        position: fixed;
-        overflow-y: auto;
-        top: 0;
-        bottom: 0;
-    }
+	#Sidebar {
+		left: -201px;
+		z-index: 2;
+		position: fixed;
+		overflow-y: auto;
+		top: 0;
+		bottom: 0;
+	}
 
-    #Sidebar.visible {
-        left: 0px;
-        transition: left 0.3s linear;
-    }
+	#Sidebar.visible {
+		left: 0px;
+		transition: left 0.3s linear;
+	}
 
-    #btn {
-        border-bottom: 1px solid #333333;
-        z-index: 1;
-    }
+	#btn {
+		border-bottom: 1px solid #333333;
+		z-index: 1;
+	}
 
-    #Sidebar-btn {
-        display: inline-block;
-        vertical-align: middle;
-        width: 20px;
-        height: 15px;
-        cursor: pointer;
-        margin: 0px;
-        padding: 20px;
-        top: 0px;
-        background-color: #7ABBFF;
-        position: fixed;
-        z-index: 1;
-    }
+	#Sidebar-btn {
+		display: inline-block;
+		vertical-align: middle;
+		width: 20px;
+		height: 15px;
+		cursor: pointer;
+		margin: 0px;
+		padding: 20px;
+		top: 0px;
+		background-color: #7ABBFF;
+		position: fixed;
+		z-index: 1;
+	}
 
-    #Sidebar-btn-open {
-        display: inline-block;
-        vertical-align: middle;
-        width: 20px;
-        height: 15px;
-        cursor: pointer;
-        padding: 20px;
-        margin-left: 130px;
-        top: 0px;
-        position: static;
-        z-index: 1;
-    }
+	#Sidebar-btn-open {
+		display: inline-block;
+		vertical-align: middle;
+		width: 20px;
+		height: 15px;
+		cursor: pointer;
+		padding: 20px;
+		margin-left: 130px;
+		top: 0px;
+		position: static;
+		z-index: 1;
+	}
 
-    #Sidebar-btn span {
-        height: 1px;
-        background: #111;
-        margin-bottom: 5px;
-        display: block;
-    }
+	#Sidebar-btn span {
+		height: 1px;
+		background: #111;
+		margin-bottom: 5px;
+		display: block;
+	}
 
-    #Sidebar-btn-open span {
-        height: 1px;
-        background: #111;
-        margin-bottom: 5px;
-        display: block;
-    }
+	#Sidebar-btn-open span {
+		height: 1px;
+		background: #111;
+		margin-bottom: 5px;
+		display: block;
+	}
 
-    #topbar {
-        width: calc(100% - 70px);
-        height: 55px;
-        padding-left: 10px;
-        top: 0px;
-        margin: 0px;
-        position: fixed;
-        left: 60px;
-        z-index: 1;
-    }
+	#topbar {
+		width: calc(100% - 70px);
+		height: 55px;
+		padding-left: 10px;
+		top: 0px;
+		margin: 0px;
+		position: fixed;
+		left: 60px;
+		z-index: 1;
+	}
 
-    #topbar-placeholder {
-        width: 100%;
-        height: 55px;
-        top: 0px;
-    }
+	#topbar-placeholder {
+		width: 100%;
+		height: 55px;
+		top: 0px;
+	}
 
-    #selector {
-        width: 100%;
-        height: 55px;
-        float: none;
-    }
+	#selector {
+		width: 100%;
+		height: 55px;
+		float: none;
+	}
 }
 
 @media only screen and (max-width: 415px) {
-    .Stundenplan th, td {
-        font-size: 14px;
-    }
+	.Stundenplan th, td {
+		font-size: 14px;
+	}
 
-    .Vertretungsplan th, td {
-        font-size: 13px;
-    }
+	.Vertretungsplan th, td {
+		font-size: 13px;
+	}
 
-    .Buecherliste table thead, tbody tr th td{
-        display: block;
-    }
+	.Buecherliste table thead, tbody tr th td {
+		display: block;
+	}
 
-    .Buecherliste thead tr{
-        position: absolute;
-        top: -100%;
-        left: -100%;
-    }
+	.Buecherliste thead tr {
+		position: absolute;
+		top: -100%;
+		left: -100%;
+	}
 
-    .Buecherliste tr{
-        border: 1px solid #000000;
-    }
+	.Buecherliste tr {
+		border: 1px solid #000000;
+	}
 
-    .Buecherliste td{
-        border: none;
-        border-bottom: 1px solid #000000;
-        position: relative;
-        padding-left: 50%;
-    }
+	.Buecherliste td {
+		border: none;
+		border-bottom: 1px solid #000000;
+		position: relative;
+		padding-left: 50%;
+	}
 
-    .Buecherliste, td:before{
-        position: absolute;
-        width: 45%;
-    }
+	.Buecherliste, td:before {
+		position: absolute;
+		width: 45%;
+	}
 
-    .Buecherliste td:nth-of-type(1):before{content: 'test'}
+	.Buecherliste td:nth-of-type(1):before {
+		content: 'test'
+	}
 
-    #Sidebar-btn-open {
-        margin-left: calc(100% - 60px);
-    }
+	#Sidebar-btn-open {
+		margin-left: calc(100% - 60px);
+	}
 
-    #Sidebar {
-        width: 75%;
-        left: calc(-75% - 1px);
-    }
+	#Sidebar {
+		width: 75%;
+		left: calc(-75% - 1px);
+	}
 
-    .Sidebar li a {
-        width: 100%;
-        padding-left: 0px;
-        padding-right: 0px;
-    }
+	.Sidebar li a {
+		width: 100%;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
 
-    #Sidebar-cls {
-        width: 25%;
-        left: -25%;
-        height: 100%;
-        cursor: pointer;
-        position: absolute;
-        display: block;
-        z-index: 2;
-    }
+	#Sidebar-cls {
+		width: 25%;
+		left: -25%;
+		height: 100%;
+		cursor: pointer;
+		position: absolute;
+		display: block;
+		z-index: 2;
+	}
 
-    #Sidebar-cls.cls-visible {
-        left: 75%;
-    }
+	#Sidebar-cls.cls-visible {
+		left: 75%;
+	}
 
-    #mns-pic {
-        width: 100%;
-    }
+	#mns-pic {
+		width: 100%;
+	}
 }
 
 @media only screen and (max-width: 360px) {
-    .Stundenplan th, td {
-        font-size: 12px;
-    }
+	.Stundenplan th, td {
+		font-size: 12px;
+	}
 
-    .Vertretungsplan th, td {
-        font-size: 11px;
-    }
+	.Vertretungsplan th, td {
+		font-size: 11px;
+	}
 
-    .Buecherliste th, td {
-        font-size: 11px;
-    }
+	.Buecherliste th, td {
+		font-size: 11px;
+	}
 
-    .Stundenplan {
-        height: calc(100vh - 140px);
-    }
+	.Stundenplan {
+		height: calc(100vh - 140px);
+	}
 
-    .selectorOption {
-        font-size: 20px;
-        line-height: 55px;
-    }
+	.selectorOption {
+		font-size: 20px;
+		line-height: 55px;
+	}
 }
 
 @media only screen and (max-width: 310px) {
-    .contentBox table th, td {
-        font-size: 10px;
-    }
+	.contentBox table th, td {
+		font-size: 10px;
+	}
 
-    #Sidebar {
-        width: 100%;
-        left: -100%;
-    }
+	#Sidebar {
+		width: 100%;
+		left: -100%;
+	}
 
-    .Sidebar li a {
-        width: 100%;
-        padding-left: 0px;
-        padding-right: 0px;
-    }
+	.Sidebar li a {
+		width: 100%;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
 
-    #Sidebar-cls.cls-visible {
-        left: 100%;
-    }
+	#Sidebar-cls.cls-visible {
+		left: 100%;
+	}
 
-    .selectorOption {
-        font-size: 18px;
-        line-height: 55px;
-    }
+	.selectorOption {
+		font-size: 18px;
+		line-height: 55px;
+	}
 }
