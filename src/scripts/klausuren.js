@@ -39,7 +39,7 @@ requirejs(['./scripts/vapp.js'], function () {
 			},
 
 			/**
-			 * zeigt den Kalender tatsächlich an - alle Einstellungen werden vorgenommen
+			 * zeigt den Klausuren tatsächlich an - alle Einstellungen werden vorgenommen
 			 */
 			init: function () {
 				var self = this;

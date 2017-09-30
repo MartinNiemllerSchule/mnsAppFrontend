@@ -25,5 +25,5 @@
 # frank
 .directory
 whpush.php
-/src/api/
+/src/api/*
 /src/api

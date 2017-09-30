@@ -18,7 +18,7 @@ requirejs.config({
 });
 
 urlApi = './api/index.php';
-zielNachLogin = '../aFullCalendar.html';
+zielNachLogin = '../klausuren.html';
 
 stunden = {
 	'1': '08:00',
