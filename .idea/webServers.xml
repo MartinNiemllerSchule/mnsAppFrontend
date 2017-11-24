@@ -3,11 +3,11 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="886b5370-2f96-41c9-b27b-3f3688af5aed" name="niemoeller.schule" url="http://niemoeller.schule/test">
-        <fileTransfer host="niemoeller.schule" port="57680" accessType="FTPS">
+        <fileTransfer host="niemoeller.schule" port="21" rootFolder="/vapp.niemoeller.schule">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" />
           </advancedOptions>
-          <option name="port" value="57680" />
+          <option name="port" value="21" />
         </fileTransfer>
       </webServer>
     </option>

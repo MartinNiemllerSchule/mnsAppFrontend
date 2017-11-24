@@ -10,10 +10,17 @@ requirejs.config({
 		sha512: './vendor/sha512.min',
 		moment: './vendor/moment.min',
 		fullCalendar: './vendor/fullcalendar',
-		fcLDe: './vendor/de'
+		fcLDe: './vendor/de',
+		firebase: 'https://www.gstatic.com/firebasejs/4.5.0/firebase',
+		firebaseApp: "https://www.gstatic.com/firebasejs/4.5.0/firebase-app",
+		firebaseMessaging: "https://www.gstatic.com/firebasejs/4.5.0/firebase-messaging"
+
 	},
 	shim: {
-		fcLDe: ['fullCalendar']
+		fcLDe: ['fullCalendar'],
+		firebase: {
+			exports: 'firebase'
+		}
 	}
 });
 
