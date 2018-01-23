@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Inventur</title>
+	<script data-main="scripts/index.js" src="../scripts/vendor/require.js" async></script>
+	<link rel="stylesheet" href="styles/index.css">
+	<title>Inventur</title>
+</head>
+<body>
+	<div>Wähle einen Titel aus oder scanne ein Buch, für das inventarisiert werden soll.</div>
+	<div id="TitelWahl">
+		<form>
+			<select id="sel">
+			</select>
+		</form>
+	</div>
+
+
+
+	<input type="button" id="ScanTitel" value="Scanne einen Titel" />
+	<div id="TitelScan">
+
+	</div>
+
+	<div id="Nummer">
+		<input id="scanner_input" class="form-control, hiddenByCss" placeholder="Buch_EAN" type="text" />
+	</div>
+	<div class="modal" id="livestream_scanner">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title, hiddenByCss">Barcode Scanner</h4>
+				</div>
+				<div class="modal-body" style="position: static">
+					<div id="interactive" class="viewport"></div>
+					<div class="error"></div>
+				</div>
+				<div class="modal-footer">
+					<label class="btn btn-default pull-left">
+						<i class="fa fa-camera"></i> Use camera app
+						<input type="file" accept="image/*;capture=camera" capture="camera" class="hidden" />
+					</label>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+<button type="button" id="inventurStart">Starte Inventur</button>
+</body>
+</html>

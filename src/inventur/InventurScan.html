@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>QR-Scan</title>
+
+	<script data-main="./scripts/InventurScan.js" src="../scripts/vendor/require.js" async></script>
+
+	<link rel="stylesheet" href="./styles/index.css">
+	<link rel="stylesheet" href="../styles/qr.css">
+</head>
+<body>
+<!-- Div to show the scanner -->
+<div id="scanner-container"></div>
+<input type="button" id="btn" value="Scanner starten/stoppen"/>
+
+<div id="Titel"></div>
+<div id="Nummer">
+	<input id="scanner_input" class="form-control" placeholder=" " type="text"/>
+</div>
+<div class="modal" id="livestream_scanner">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-body" style="position: static">
+				<div id="interactive" class="viewport"></div>
+				<div class="error"></div>
+			</div>
+			<div class="modal-footer">
+				<label class="btn btn-default pull-left">
+					<i class="fa fa-camera"></i> Bild benutzen
+					<input type="file" accept="image/*;capture=camera" capture="camera" class="hidden"/>
+				</label>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div id="buchausgabe" class="contentBox"></div>
+
+<div id="sound">
+	<audio autoplay="autoplay" id="erro">
+		<embed hidden="true" autostart="false" loop="false" src="./sounds/erro.mp3" />
+	</audio>
+	<audio autoplay="autoplay" id="succ">
+		<embed hidden="true" autostart="false" loop="false" src="./sounds/Scanner.mp3" />
+	</audio>
+</div>
+
+<form action="./auswertung.html">
+	<input type="submit" value="Auswertung"/>
+</form><!-- /.modal -->
+</body>
+</html>
