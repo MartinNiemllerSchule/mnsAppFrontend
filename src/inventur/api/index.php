@@ -11,10 +11,7 @@
 	if (LOG) error_log('index');
 	include_once "db.php";
 	$db = new DBAPI(); // Datenbankzugriff herstellen
-	if (LOG) error_log('index - DBAPI fertig: '.is_object($db));
-
-//	$accessControl = new AccessControl($db); // Zugriffsrecht sicherstellen
-//if (LOG) error_log('AccessControl fertig');
+	if (LOG) error_log('index - DBAPI fertig: '.(is_object($db)? 'db ist Objekt' : 'db ist kein Objekt'));
 
 	$c = new Controller($db); // Controller starten und die passende Funktion aufrufen
 	if (LOG) error_log('index - Controller fertig');

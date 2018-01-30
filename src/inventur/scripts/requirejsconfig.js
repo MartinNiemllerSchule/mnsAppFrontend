@@ -20,4 +20,5 @@ requirejs.config({
     }
 });
 
-urlApi = 'https://qr.niemoeller.schule/api/index.php';
+urlApi = 'https://vapp.niemoeller.schule/api/index.php';
+urlInventurApi = 'https://vapp.niemoeller.schule/inventur/api/index.php';

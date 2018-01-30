@@ -30,7 +30,7 @@ requirejs(['scripts/requirejsconfig.js'], function () {
 					var sendData = "fname=getBuchtitel&bnr=" + buchNr;
 					console.debug("Ajax senddata: " + sendData);
 					$.ajax({
-						url: urlApi,
+						url: urlInventurApi,
 						dataType: 'json',
 						crossDomain: true,
 						data: sendData,
@@ -144,7 +144,7 @@ var inventur = {
 				var sendData = "fname=getBuchtitel&bnr=" + buchNr;
 				console.debug("Ajax senddata: " + sendData);
 				$.ajax({
-					url: urlApi,
+					url: urlInventurApi,
 					dataType: 'json',
 					crossDomain: true,
 					data: sendData,
@@ -183,7 +183,7 @@ var inventur = {
 					var sendData = "fname=getBuchtitel&bnr=" + buchNr;
 					console.debug("Ajax senddata: " + sendData);
 					$.ajax({
-						url: urlApi,
+						url: urlInventurApi,
 						dataType: 'json',
 						crossDomain: true,
 						data: sendData,
@@ -242,7 +242,7 @@ var inventur = {
 		 (sonst aus Datenbank auslesen, falls das möglich ist)
 		*/
 		$.ajax({
-			url: urlApi,
+			url: urlInventurApi,
 			dataType: 'json',
 			crossDomain: true,
 			data: 'fname=getTitel',

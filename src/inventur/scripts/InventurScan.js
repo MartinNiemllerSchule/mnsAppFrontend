@@ -2,7 +2,7 @@
  * Created by Janik Bücher on 02.11.2017.
  * Diese Datei bindet den QR-Scanner ein und übermittelt per Ajax-Abfrage die erkannten Buchnummern an die Datenbank
  */
-requirejs(['../../scripts/vapp.js'], function () {
+requirejs(['requirejsconfig'], function () {
 	requirejs(['dexie', 'jquery', 'quagga'], function (Dexie) {
 		"use strict";
 
@@ -124,7 +124,7 @@ requirejs(['../../scripts/vapp.js'], function () {
 							var sendData = "fname=setBuchLastSeen&bean=" + buchNr + "&tid=" + id;
 							console.debug("Ajax senddata" + sendData);
 							$.ajax({
-								url: urlApi,
+								url: urlInventurApi,
 								dataType: 'json',
 								crossDomain: true,
 								data: sendData,
@@ -200,7 +200,7 @@ requirejs(['../../scripts/vapp.js'], function () {
 									console.debug("Ajax senddata" + sendData);
 									$(".drawingBuffer").addClass("hiddenByCss");
 									$.ajax({
-										url: urlApi,
+										url: urlInventurApi,
 										dataType: 'json',
 										crossDomain: true,
 										data: sendData,

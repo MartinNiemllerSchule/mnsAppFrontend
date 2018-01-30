@@ -1,7 +1,7 @@
 /**
  * Created by Janik.Liebrecht on 16.11.2017.
  */
-requirejs(['../../scripts/vapp.js'], function () {
+requirejs(['requirejsconfig'], function () {
     requirejs(['dexie', 'jquery'], function (Dexie) {
         "use strict";
 
@@ -22,7 +22,7 @@ requirejs(['../../scripts/vapp.js'], function () {
         function getDetails(id) {
             var sendData = 'fname=getTDetails&tid=' + id;
             $.ajax({
-                url: urlApi,
+                url: urlInventurApi,
                 dataType: 'json',
                 crossDomain: true,
                 data: sendData,
