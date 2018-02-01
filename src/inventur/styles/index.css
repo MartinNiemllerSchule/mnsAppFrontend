@@ -41,19 +41,35 @@ select {
 }
 
 .btn {
-    float: left;
+    display: block;
     background-color: #64AFFF;
-    border: 0px;
+    border: 0;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
     color: white;
     text-align: center;
     text-decoration: none;
     font-size: 22px;
-    width: 100%;
+    width: calc(100% - 10px);
     height: 55px !important;
-    margin-bottom: 5px;
-    padding: 0px;
+    margin: 5px;
+    padding: 0;
+}
+
+#ScanTitel {
+    display: block;
+    background-color: #64AFFF;
+    border: 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 22px;
+    width: calc(100% - 10px);
+    height: 55px !important;
+    margin: 5px;
+    padding: 0;
 }
 
 .textfield {
