@@ -12,3 +12,52 @@ canvas.drawing, canvas.drawingBuffer {
     left: 0;
     top: 0;
 }
+
+#topbar {
+    width: calc(100% - 15px);
+    height: 55px;
+    background-color: #7ABBFF;
+    color: #FFFFFF;
+    float: right;
+    text-align: left;
+    font-size: 32px;
+    line-height: 55px;
+    padding-left: 15px;
+}
+
+.contentBox {
+    float: right;
+    width: calc(100%);
+    margin-top: 15px !important;
+}
+
+#TitelWahl {
+    margin: 5px;
+}
+
+select {
+    width: 100%;
+    font-size: 18px;
+}
+
+.btn {
+    float: left;
+    background-color: #64AFFF;
+    border: 0px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 22px;
+    width: 100%;
+    height: 55px !important;
+    margin-bottom: 5px;
+    padding: 0px;
+}
+
+.textfield {
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+}

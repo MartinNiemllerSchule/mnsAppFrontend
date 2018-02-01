@@ -2,62 +2,66 @@
 <html lang="de">
 
 <head>
-	<meta charset="UTF-8" name="viewport"
-		  content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
-	<meta name="apple-mobile-web-app-title" content="MNS">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-ststus-bar-style" content="black-translucent">
-	<title>Inventur</title>
-	<script type="text/javascript" src="../scripts/vendor/staystandalone_ios.js"></script>
-	<script data-main="scripts/index.js" src="../scripts/vendor/require.js" async></script>
-	<link rel="stylesheet" href="styles/index.css">
-	<link rel="stylesheet" href="../styles/main.css">
-	<title>Inventur</title>
+    <meta charset="UTF-8" name="viewport"
+          content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <meta name="apple-mobile-web-app-title" content="MNS">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-ststus-bar-style" content="black-translucent">
+    <title>Inventur</title>
+    <script type="text/javascript" src="../scripts/vendor/staystandalone_ios.js"></script>
+    <script data-main="scripts/index.js" src="../scripts/vendor/require.js" async></script>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <title>Inventur</title>
 </head>
 <body>
-	<div id="topbar">Inventur</div>
-	<div id="topbar-placeholder"></div>
-	<div class="contentBox">
-		<div>Wähle einen Titel aus oder scanne ein Buch, für das inventarisiert werden soll.</div>
-		<div id="TitelWahl">
-			<form>
-				<select id="sel">
-				</select>
-			</form>
-		</div>
+    <div id="Sidebar-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div id="topbar">Inventur</div>
+    <div id="topbar-placeholder"></div>
+    <div class="contentBox">
+        <div class="textfield">Wähle einen Titel aus oder scanne ein Buch, für das inventarisiert werden soll.</div>
+        <div id="TitelWahl">
+            <form>
+                <select id="sel">
+                </select>
+            </form>
+        </div>
 
 
+        <input type="button" id="ScanTitel" class="btn" value="Scanne einen Titel"/>
+        <div id="TitelScan">
 
-		<input type="button" id="ScanTitel" value="Scanne einen Titel" />
-		<div id="TitelScan">
+        </div>
 
-		</div>
+        <div id="Nummer">
+            <input id="scanner_input" class="form-control, hiddenByCss" placeholder="Buch_EAN" type="text"/>
+        </div>
+        <div class="modal" id="livestream_scanner">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title, hiddenByCss">Barcode Scanner</h4>
+                    </div>
+                    <div class="modal-body" style="position: static">
+                        <div id="interactive" class="viewport"></div>
+                        <div class="error"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <label class="btn btn-default pull-left">
+                            <i class="fa fa-camera"></i> Use camera app
+                            <input type="file" accept="image/*;capture=camera" capture="camera" class="hidden"/>
+                        </label>
+                        <button type="button" class="btn btn-primary hiddenByCss" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
-		<div id="Nummer">
-			<input id="scanner_input" class="form-control, hiddenByCss" placeholder="Buch_EAN" type="text" />
-		</div>
-		<div class="modal" id="livestream_scanner">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title, hiddenByCss">Barcode Scanner</h4>
-					</div>
-					<div class="modal-body" style="position: static">
-						<div id="interactive" class="viewport"></div>
-						<div class="error"></div>
-					</div>
-					<div class="modal-footer">
-						<label class="btn btn-default pull-left">
-							<i class="fa fa-camera"></i> Use camera app
-							<input type="file" accept="image/*;capture=camera" capture="camera" class="hidden" />
-						</label>
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-
-		<button type="button" id="inventurStart">Starte Inventur</button>
-	</div>
+        <button type="button" class="btn" id="inventurStart">Starte Inventur</button>
+    </div>
 </body>
 </html>
