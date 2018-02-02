@@ -5,19 +5,20 @@
 requirejs.config({
 	baseUrl: 'scripts',
 	paths: {
-		jquery: 'https://code.jquery.com/jquery-3.3.1.slim.min',
+		jquery: './vendor/jquery-3.2.1.min',
 		dexie: './vendor/dexie.min',
 		sha512: './vendor/sha512.min',
 		moment: './vendor/moment.min',
 		fullCalendar: './vendor/fullcalendar',
 		fcLDe: './vendor/de',
-		firebase: 'https://www.gstatic.com/firebasejs/4.5.0/firebase',
-		firebaseApp: "https://www.gstatic.com/firebasejs/4.5.0/firebase-app",
-		firebaseMessaging: "https://www.gstatic.com/firebasejs/4.5.0/firebase-messaging"
+		firebase: 'https://www.gstatic.com/firebasejs/4.9.0/firebase',
+		firebaseApp: "https://www.gstatic.com/firebasejs/4.9.0/firebase-app",
+		firebaseMessaging: "https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging"
 
 	},
 	shim: {
 		fcLDe: ['fullCalendar'],
+		firebaseMessaging: ['firebaseApp'],
 		firebase: {
 			exports: 'firebase'
 		}
@@ -25,6 +26,7 @@ requirejs.config({
 });
 
 urlApi = './api/index.php';
+urlInventurApi = './inventur/api/index.php';
 zielNachLogin = '../klausuren.html';
 
 stunden = {

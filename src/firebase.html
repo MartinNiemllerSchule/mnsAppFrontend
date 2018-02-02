@@ -129,6 +129,12 @@ limitations under the License.
 	// [END refresh_token]
 
 	// [START receive_message]
+	/*
+	url -X POST --header "Authorization: key=AIzaSyD5O2ZjNd8ChC8SmocLfjhQ2f_V12FcWAM" \
+    --Header "Content-Type: application/json" \
+    https://fcm.googleapis.com/fcm/send \
+    -d "{\"to\":\"eB6eVcoFIGE:APA91bE2qIgCGlV6_T06-z_LukIWeJsAKENY8JbigLT66FDosFqzBtpSKF0KFB9_cvGPKF3gfEE0v5cxJXWrldHi5BJkSL4O7pjM4B61en7MyIH2SCdOgQf3u3-smD5nUjVMERC2KCq3\",\"notification\":{\"body\":\"Yellow\"},\"priority\":10}"
+	 */
 	// Handle incoming messages. Called when:
 	// - a message is received while the app has focus
 	// - the user clicks on an app notification created by a sevice worker
