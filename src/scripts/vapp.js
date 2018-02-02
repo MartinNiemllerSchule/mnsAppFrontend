@@ -5,7 +5,7 @@
 requirejs.config({
 	baseUrl: 'scripts',
 	paths: {
-		jquery: './vendor/jquery-3.2.1.min',
+		jquery: 'https://code.jquery.com/jquery-3.3.1.slim.min',
 		dexie: './vendor/dexie.min',
 		sha512: './vendor/sha512.min',
 		moment: './vendor/moment.min',
