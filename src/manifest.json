@@ -3,17 +3,17 @@
   "name": "App der Martin-Niemöller-Schule",
   "icons": [
     {
-      "src": "mns-icon-1x.png",
+      "src": "images/mns-icon-1x.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "mns-icon-2x.png",
+      "src": "images/mns-icon-2x.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "mns-icon-4x.png",
+      "src": "images/mns-icon-4x.png",
       "type": "image/png",
       "sizes": "192x192"
     }
