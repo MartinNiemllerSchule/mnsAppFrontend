@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport"
+          content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <meta name="apple-mobile-web-app-title" content="MNS">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-ststus-bar-style" content="black-translucent">
     <title>Auswertung</title>
     <script data-main="scripts/auswertung.js" src="../scripts/vendor/require.js" async></script>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="styles/index.css">
 </head>
 <body>
+<div id="Sidebar-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+<div id="topbar">Inventur</div>
+<div id="topbar-placeholder"></div>
+<div class="contentBox">
     <div id="inhalt"></div>
     <form action="./InventurScan.html">
         <input type="submit" value="weitere Bücher einlesen" />
@@ -13,5 +27,6 @@
     <form action="./index.html">
         <input type="submit" value="neuen Titel inventarisieren" />
     </form>
+</div>
 </body>
 </html>

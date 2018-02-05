@@ -4,13 +4,10 @@
 }
 
 canvas.imgBuffer{
-    max-width: 400px;
-    max-height: 400px;
+    max-width: 100%;
 }
 canvas.drawing, canvas.drawingBuffer {
-    position: absolute;
-    left: 0;
-    top: 0;
+    max-width: 100%;
 }
 
 #topbar {
@@ -40,6 +37,10 @@ select {
     font-size: 18px;
 }
 
+#btn {
+    border-bottom: 0;
+}
+
 .btn {
     display: block;
     background-color: #64AFFF;
@@ -56,7 +57,7 @@ select {
     padding: 0;
 }
 
-#ScanTitel {
+.btnGroup {
     display: block;
     background-color: #64AFFF;
     border: 0;
@@ -69,6 +70,23 @@ select {
     width: calc(100% - 10px);
     height: 55px !important;
     margin: 5px;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 0;
+}
+
+#ScanTitel {
+    display: block;
+    background-color: #64AFFF;
+    border: 0;
+    border-top: 1px solid black;
+    border-bottom: 0;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 22px;
+    width: calc(100% - 10px);
+    height: 55px !important;
     padding: 0;
 }
 
@@ -76,4 +94,12 @@ select {
     width: 100%;
     text-align: center;
     font-size: 18px;
+}
+
+#nummer {
+    margin-bottom: 15px;
+}
+
+#scanner_input {
+    margin: auto;
 }
