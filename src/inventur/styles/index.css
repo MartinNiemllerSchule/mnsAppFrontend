@@ -8,7 +8,7 @@
 }
 
 .drawingBuffer {
-    position: fixed;
+    position: absolute;
     top: 70px;
     left: 5px;
 }
