@@ -114,3 +114,22 @@ select {
     display: block;
     margin: auto;
 }
+
+#grün {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.grün {
+    background: #00FF00;
+}
+
+.weiß {
+    background: #FFFFFF;
+}
+
+.rot {
+    background: #FF0000;
+}

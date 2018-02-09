@@ -128,11 +128,15 @@ requirejs(['requirejsconfig'], function () {
 								data: sendData,
 								success: function (response) {
 									if (response.erfolg == false) {
-										console.debug("Buch nicht gefunden (response is false)")
-										playSound('erro')
+										console.debug("Buch nicht gefunden (response is false)");
+										playSound('erro');
+										$('#grün').addClass("grün");
+										setTimeout(function () {
+                                            $('#grün').addClass("weiß");
+                                        },20)
 									} else {
 										console.debug(response);
-										playSound('succ')
+										playSound('succ');
 										$('#Titel').text(response.title);
 										console.debug("Antwort wird zurückgegeben");
 									}
