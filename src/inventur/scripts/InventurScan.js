@@ -130,8 +130,10 @@ requirejs(['requirejsconfig'], function () {
 									if (response.erfolg == false) {
 										console.debug("Buch nicht gefunden (response is false)");
 										playSound('erro');
+                                        $('#grün').removeClass("weiß");
                                         $('#grün').addClass("rot");
                                         setTimeout(function () {
+                                            $('#grün').removeClass("rot");
                                             $('#grün').addClass("weiß");
                                         },200)
 									} else {
@@ -139,8 +141,10 @@ requirejs(['requirejsconfig'], function () {
 										playSound('succ');
 										$('#Titel').text(response.title);
 										console.debug("Antwort wird zurückgegeben");
+                                        $('#grün').removeClass("weiß");
                                         $('#grün').addClass("grün");
                                         setTimeout(function () {
+                                            $('#grün').removeClass("grün");
                                             $('#grün').addClass("weiß");
                                         },200)
 									}
@@ -214,8 +218,10 @@ requirejs(['requirejsconfig'], function () {
 											if (response.erfolg == false) {
 												console.debug("Buch nicht gefunden (response is false)");
 												playSound('erro');
+                                                $('#grün').removeClass("weiß");
                                                 $('#grün').addClass("rot");
                                                 setTimeout(function () {
+                                                    $('#grün').removeClass("rot");
                                                     $('#grün').addClass("weiß");
                                                 },200)
 											} else {
@@ -223,8 +229,10 @@ requirejs(['requirejsconfig'], function () {
 												playSound('succ');
 												$('#Titel').text(response.title);
 												console.debug("Antwort wird zurückgegeben");
+                                                $('#grün').removeClass("weiß");
                                                 $('#grün').addClass("grün");
                                                 setTimeout(function () {
+                                                    $('#grün').removeClass("grün");
                                                     $('#grün').addClass("weiß");
                                                 },200)
 											}
