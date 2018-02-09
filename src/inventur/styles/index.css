@@ -3,11 +3,10 @@
     left: -500% !important;
 }
 
-canvas.imgBuffer{
-    max-width: 100%;
-}
-canvas.drawing, canvas.drawingBuffer {
-    max-width: 100%;
+#interactive * {
+    max-width: calc(100% - 10px);
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 #topbar {
@@ -96,10 +95,11 @@ select {
     font-size: 18px;
 }
 
-#nummer {
+#Nummer {
     margin-bottom: 15px;
 }
 
 #scanner_input {
+    display: block;
     margin: auto;
 }
