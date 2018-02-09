@@ -29,21 +29,28 @@ define('db', ['dexie'], function (Dexie) {
 					if ('art' in antwort) {
 						db.config.put({key: 'art', value: antwort.art});
 					}
+                    // nicht auf IOS
 					if ('splan' in antwort) {
-						db.config.put({key: 'splan', value: antwort.splan});
+						var splan = antwort.splan;
+						db.config.put({key: 'splan', value: splan});
 					}
+                    // nicht auf IOS
 					if ('vplan' in antwort) {
 						db.config.put({key: 'vplan', value: antwort.vplan});
 					}
+                    // nicht auf IOS
 					if ('vplanAlle' in antwort) {
 						db.config.put({key: 'vplanAlle', value: antwort.vplanAlle});
 					}
+					// nicht auf IOS
 					if ('buecher' in antwort) {
 						db.config.put({key: 'buecher', value: antwort.buecher});
 					}
+                    // nicht auf IOS
 					if ('klausuren' in antwort) {
 						db.config.put({key: 'klausuren', value: antwort.klausuren});
 					}
+                    // nicht auf IOS
 					if ('kursliste' in antwort) {
 						db.config.put({key: 'kursliste', value: antwort.kursliste});
 					}
