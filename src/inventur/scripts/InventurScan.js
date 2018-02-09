@@ -130,15 +130,15 @@ requirejs(['requirejsconfig'], function () {
 									if (response.erfolg == false) {
 										console.debug("Buch nicht gefunden (response is false)");
 										playSound('erro');
-										$('#grün').addClass("grün");
-										setTimeout(function () {
-                                            $('#grün').addClass("weiß");
-                                        },20)
 									} else {
 										console.debug(response);
 										playSound('succ');
 										$('#Titel').text(response.title);
 										console.debug("Antwort wird zurückgegeben");
+                                        $('#grün').addClass("grün");
+                                        setTimeout(function () {
+                                            $('#grün').addClass("weiß");
+                                        },20)
 									}
 								},
 								error: function (response, textStatus, e) {
