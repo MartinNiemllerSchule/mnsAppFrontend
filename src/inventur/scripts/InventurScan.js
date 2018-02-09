@@ -25,8 +25,6 @@ requirejs(['requirejsconfig'], function () {
 						target: document.querySelector('#scanner-container'),
 						size: 640,
 						constraints: {
-							width: {min: 640},
-							height: {min: 480},
 
 							facingMode: "environment"
 						},
