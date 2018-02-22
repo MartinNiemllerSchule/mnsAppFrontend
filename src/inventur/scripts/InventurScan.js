@@ -25,8 +25,6 @@ requirejs(['requirejsconfig'], function () {
 						target: document.querySelector('#scanner-container'),
 						size: 640,
 						constraints: {
-							width: {min: 640},
-							height: {min: 480},
 
 							facingMode: "environment"
 						},
@@ -130,13 +128,25 @@ requirejs(['requirejsconfig'], function () {
 								data: sendData,
 								success: function (response) {
 									if (response.erfolg == false) {
-										console.debug("Buch nicht gefunden (response is false)")
-										playSound('erro')
+										console.debug("Buch nicht gefunden (response is false)");
+										playSound('erro');
+                                        $('#grün').removeClass("weiß");
+                                        $('#grün').addClass("rot");
+                                        setTimeout(function () {
+                                            $('#grün').removeClass("rot");
+                                            $('#grün').addClass("weiß");
+                                        },200)
 									} else {
 										console.debug(response);
-										playSound('succ')
+										playSound('succ');
 										$('#Titel').text(response.title);
 										console.debug("Antwort wird zurückgegeben");
+                                        $('#grün').removeClass("weiß");
+                                        $('#grün').addClass("grün");
+                                        setTimeout(function () {
+                                            $('#grün').removeClass("grün");
+                                            $('#grün').addClass("weiß");
+                                        },200)
 									}
 								},
 								error: function (response, textStatus, e) {
@@ -207,12 +217,24 @@ requirejs(['requirejsconfig'], function () {
 										success: function (response) {
 											if (response.erfolg == false) {
 												console.debug("Buch nicht gefunden (response is false)");
-												playSound('erro')
+												playSound('erro');
+                                                $('#grün').removeClass("weiß");
+                                                $('#grün').addClass("rot");
+                                                setTimeout(function () {
+                                                    $('#grün').removeClass("rot");
+                                                    $('#grün').addClass("weiß");
+                                                },200)
 											} else {
 												console.debug(response);
-												playSound('succ')
+												playSound('succ');
 												$('#Titel').text(response.title);
 												console.debug("Antwort wird zurückgegeben");
+                                                $('#grün').removeClass("weiß");
+                                                $('#grün').addClass("grün");
+                                                setTimeout(function () {
+                                                    $('#grün').removeClass("grün");
+                                                    $('#grün').addClass("weiß");
+                                                },200)
 											}
 										},
 										error: function (response, textStatus, e) {
