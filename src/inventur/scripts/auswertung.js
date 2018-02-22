@@ -1,7 +1,7 @@
 /**
  * Created by Janik.Liebrecht on 16.11.2017.
  */
-requirejs(['../../scripts/vapp.js'], function () {
+requirejs(['requirejsconfig'], function () {
     requirejs(['dexie', 'jquery'], function (Dexie) {
         "use strict";
 
