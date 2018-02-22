@@ -19,25 +19,24 @@ requirejs(['requirejsconfig'], function () {
             })
         });
 
-        function getDetails(id) {
-            var sendData = 'fname=abschlussInventur&tid=' + id;
-            $.ajax({
-                url: urlApi,
-                dataType: 'json',
-                crossDomain: true,
-                data: sendData,
-                success: function(response){
-                    console.debug(response[0]);
-                    $('#inhalt').append("<strong>Eingescannter Titel: " + response[0].titel + "</strong></br>"
-                        + "Im Bestand: " + response[0].AnzahlImBestand + "</br>"
-                        + "Ausgeliehen: " + response[0].AnzahlAusgeliehene + "</br>"
-                        + "Verschollen: " + response[0].AnzahlVerschollene);
-                },
-                error: function () {
-                    console.debug('getDetails geht nicht');
-                }
-            });
-        }
-
+         function getDetails(id) {
+-            var sendData = 'fname=abschlussInventur&tid=' + id;
+-            $.ajax({
+-                url: urlInventurApi,
+-                dataType: 'json',
+-                crossDomain: true,
+-                data: sendData,
+-                success: function(response){
+-                    console.debug(response[0]);
+-                    $('#inhalt').append("<strong>Eingescannter Titel: " + response[0].titel + "</strong></br>"
+-                        + "Im Bestand: " + response[0].AnzahlImBestand + "</br>"
+-                        + "Ausgeliehen: " + response[0].AnzahlAusgeliehene + "</br>"
+-                        + "Verschollen: " + response[0].AnzahlVerschollene);
+-                },
+-                error: function () {
+-                    console.debug('getDetails geht nicht');
+-                }
+-            });
+-        }
     });
 });
