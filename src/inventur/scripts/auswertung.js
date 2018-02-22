@@ -1,12 +1,12 @@
 /**
  * Created by Janik.Liebrecht on 16.11.2017.
  */
-requirejs(['requirejsconfig'], function () {
+requirejs(['../../scripts/vapp.js'], function () {
     requirejs(['dexie', 'jquery'], function (Dexie) {
         "use strict";
 
         $(function () {
-            var db = new Dexie('Inventur');
+            var db = new Dexie("Inventur");
             db.version(1).stores({
                 config: 'key,value'
             });
@@ -20,9 +20,9 @@ requirejs(['requirejsconfig'], function () {
         });
 
         function getDetails(id) {
-            var sendData = 'fname=getTDetails&tid=' + id;
+            var sendData = 'fname=abschlussInventur&tid=' + id;
             $.ajax({
-                url: urlInventurApi,
+                url: urlApi,
                 dataType: 'json',
                 crossDomain: true,
                 data: sendData,
@@ -38,5 +38,6 @@ requirejs(['requirejsconfig'], function () {
                 }
             });
         }
+
     });
 });
