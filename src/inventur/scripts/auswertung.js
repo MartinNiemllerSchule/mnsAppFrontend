@@ -1,26 +1,26 @@
-/**
- * Created by Janik.Liebrecht on 16.11.2017.
- */
-requirejs(['requirejsconfig'], function () {
-    requirejs(['dexie', 'jquery'], function (Dexie) {
-        "use strict";
-
-        $(function () {
-            var db = new Dexie("Inventur");
-            db.version(1).stores({
-                config: 'key,value'
-            });
-
-            db.config.get('inventurTitel')
-                .then(function (inventurTitel) {
-                    getDetails(inventurTitel.value);
-                }).catch(function () {
-                console.debug('inventurTitel wurde in der Datenbank nicht gefunden');
-            })
-        });
-
-         function getDetails(id) {
--            var sendData = 'fname=abschlussInventur&tid=' + id;
+-/**
+- * Created by Janik.Liebrecht on 16.11.2017.
+- */
+-requirejs(['requirejsconfig'], function () {
+-    requirejs(['dexie', 'jquery'], function (Dexie) {
+-        "use strict";
+-
+-        $(function () {
+-            var db = new Dexie('Inventur');
+-            db.version(1).stores({
+-                config: 'key,value'
+-            });
+-
+-            db.config.get('inventurTitel')
+-                .then(function (inventurTitel) {
+-                    getDetails(inventurTitel.value);
+-                }).catch(function () {
+-                console.debug('inventurTitel wurde in der Datenbank nicht gefunden');
+-            })
+-        });
+-
+-        function getDetails(id) {
+-            var sendData = 'fname=getTDetails&tid=' + id;
 -            $.ajax({
 -                url: urlInventurApi,
 -                dataType: 'json',
@@ -38,5 +38,5 @@ requirejs(['requirejsconfig'], function () {
 -                }
 -            });
 -        }
-    });
-});
+-    });
+-});
