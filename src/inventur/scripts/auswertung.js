@@ -20,7 +20,7 @@ requirejs(['requirejsconfig'], function () {
         });
 
         function getDetails(id) {
-            var sendData = 'fname=getTDetails&tid=' + id;
+            var sendData = 'fname=abschlussInventur&tid=' + id;
             $.ajax({
                 url: urlInventurApi,
                 dataType: 'json',
