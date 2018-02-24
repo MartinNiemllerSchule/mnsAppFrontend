@@ -31,33 +31,27 @@ define('db', ['dexie'], function (Dexie) {
 					}
                     // nicht auf IOS
 					if ('splan' in antwort) {
-						var splan = antwort.splan;
-						db.config.put({key: 'splan', value: splan});
+						db.config.put({key: 'splan', value: antwort.splan});
 					}
                     // nicht auf IOS
 					if ('vplan' in antwort) {
-						var vplan = antwort.vplan;
-						db.config.put({key: 'vplan', value: vplan});
+						db.config.put({key: 'vplan', value: antwort.vplan});
 					}
                     // nicht auf IOS
 					if ('vplanAlle' in antwort) {
-						var vplanAlle = antwort.vplanAlle;
-						db.config.put({key: 'vplanAlle', value: vplanAlle});
+						db.config.put({key: 'vplanAlle', value: antwort.vplanAlle});
 					}
-					// nicht auf IOS
+		    // nicht auf IOS
 					if ('buecher' in antwort) {
-						var buecher = antwort.buecher;
-						db.config.put({key: 'buecher', value: buecher});
+						db.config.put({key: 'buecher', value: antwort.buecher});
 					}
                     // nicht auf IOS
 					if ('klausuren' in antwort) {
-						var klausuren = antwort.klausuren;
-						db.config.put({key: 'klausuren', value: klausuren});
+						db.config.put({key: 'klausuren', value: antwort.klausuren});
 					}
                     // nicht auf IOS
 					if ('kursliste' in antwort) {
-						var kursliste = antwort.kursliste;
-						db.config.put({key: 'kursliste', value: kursliste});
+						db.config.put({key: 'kursliste', value: antwort.kursliste});
 					}
 					if ('events' in antwort) {
 						db.config.put({key: 'events', value: antwort.events});
