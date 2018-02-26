@@ -37,21 +37,20 @@ requirejs(['./scripts/vapp.js'], function () {
 			 * Methode, die den Stundenplan abfragt und entsprechende Html Tabellen generiert
 			 */
 			generateTableStructure: function (callback) {
-				Stundenplan.pushJsonToArrays();
-				setTimeout(function () {
-					Stundenplan.generateTableElementsInTableArrays(Stundenplan.stundenplanFirstWeek, Stundenplan.stundenplanFirstWeekTable);
-					Stundenplan.generateTableElementsInTableArrays(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
-					Stundenplan.stundenplanUngeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanFirstWeek, Stundenplan.stundenplanFirstWeekTable);
-					Stundenplan.stundenplanGeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
-					Stundenplan.generateTableString(Stundenplan.stundenplanGeradeWoche, Stundenplan.stundenplanUngeradeWoche);
-					callback();
-				}, 10);
+				Stundenplan.pushJsonToArrays(function () {
+                    Stundenplan.generateTableElementsInTableArrays(Stundenplan.stundenplanFirstWeek, Stundenplan.stundenplanFirstWeekTable);
+                    Stundenplan.generateTableElementsInTableArrays(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
+                    Stundenplan.stundenplanUngeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanFirstWeek, Stundenplan.stundenplanFirstWeekTable);
+                    Stundenplan.stundenplanGeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
+                    Stundenplan.generateTableString(Stundenplan.stundenplanGeradeWoche, Stundenplan.stundenplanUngeradeWoche);
+                    callback();
+                });
 			},
 
 			/**
 			 * Methode, die die Stundenplan Arrays mit den Daten aus dem Jason Objekt befüllt
 			 */
-			pushJsonToArrays: function () {
+			pushJsonToArrays: function (callback) {
 				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanFirstWeek);
 				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanFirstWeekTable);
 				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeek);
@@ -66,6 +65,7 @@ requirejs(['./scripts/vapp.js'], function () {
 						Stundenplan.stundenplanSecondWeekTable[data.stunde - 1][data.tag - 1] = data.bezeichnung;
 					}
 				});
+				callback();
 			},
 
 			/**
