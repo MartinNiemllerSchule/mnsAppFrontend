@@ -37,14 +37,15 @@ requirejs(['./scripts/vapp.js'], function () {
 			 * Methode, die den Stundenplan abfragt und entsprechende Html Tabellen generiert
 			 */
 			generateTableStructure: function (callback) {
-				Stundenplan.pushJsonToArrays(function () {
+				Stundenplan.pushJsonToArrays()
+					.then(function () {
                     Stundenplan.generateTableElementsInTableArrays(Stundenplan.stundenplanFirstWeek, Stundenplan.stundenplanFirstWeekTable);
                     Stundenplan.generateTableElementsInTableArrays(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
                     Stundenplan.stundenplanUngeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanFirstWeek, Stundenplan.stundenplanFirstWeekTable);
                     Stundenplan.stundenplanGeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
                     Stundenplan.generateTableString(Stundenplan.stundenplanGeradeWoche, Stundenplan.stundenplanUngeradeWoche);
-                    callback();
                 });
+                    callback();
 			},
 
 			/**
