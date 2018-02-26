@@ -45,7 +45,7 @@ requirejs(['./scripts/vapp.js'], function () {
                         Stundenplan.stundenplanGeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
                         Stundenplan.generateTableString(Stundenplan.stundenplanGeradeWoche, Stundenplan.stundenplanUngeradeWoche);
                         callback();
-					}, 3000);
+					}, 500);
                 });
 			},
 
