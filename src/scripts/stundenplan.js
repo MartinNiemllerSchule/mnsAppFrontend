@@ -56,14 +56,14 @@ requirejs(['./scripts/vapp.js'], function () {
 				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanFirstWeekTable);
 				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeek);
 				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeekTable);
-				db.splan.each(function (key, val) {
-					if (val.f === 1) {
-						Stundenplan.stundenplanFirstWeek[val.stunde - 1][val.tag - 1] = val.bezeichnung;
-						Stundenplan.stundenplanFirstWeekTable[val.stunde - 1][val.tag - 1] = val.bezeichnung;
+				db.splan.each(function (data) {
+					if (data.f === 1) {
+						Stundenplan.stundenplanFirstWeek[data.stunde - 1][data.tag - 1] = data.bezeichnung;
+						Stundenplan.stundenplanFirstWeekTable[data.stunde - 1][data.tag - 1] = data.bezeichnung;
 					}
-					if (val.s === 1) {
-						Stundenplan.stundenplanSecondWeek[val.stunde - 1][val.tag - 1] = val.bezeichnung;
-						Stundenplan.stundenplanSecondWeekTable[val.stunde - 1][val.tag - 1] = val.bezeichnung;
+					if (data.s === 1) {
+						Stundenplan.stundenplanSecondWeek[data.stunde - 1][data.tag - 1] = data.bezeichnung;
+						Stundenplan.stundenplanSecondWeekTable[data.stunde - 1][data.tag - 1] = data.bezeichnung;
 					}
 				});
 			},
