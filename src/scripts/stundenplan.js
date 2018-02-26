@@ -64,8 +64,9 @@ requirejs(['./scripts/vapp.js'], function () {
 						Stundenplan.stundenplanSecondWeek[data.stunde - 1][data.tag - 1] = data.bezeichnung;
 						Stundenplan.stundenplanSecondWeekTable[data.stunde - 1][data.tag - 1] = data.bezeichnung;
 					}
-				});
-				callback();
+				}).then(function () {
+                    callback();
+                });
 			},
 
 			/**
