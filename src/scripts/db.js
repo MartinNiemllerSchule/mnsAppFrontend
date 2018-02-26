@@ -5,13 +5,13 @@
 define('db', ['dexie'], function (Dexie) {
 	var db = new Dexie('Einstellungen');
 	db.version(1).stores({
-        config: 'key,value',
-        splan: 'bezeichnung,tag,stunde,f,s',
-        vplan: 'VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
-        vplanAlle: 'VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
-        buecher: 'bean,titel,ausleihdatum,kurs,anschaffungsjahr',
-        klausuren: '',
-        kursliste: 'kursnr,bezeichnung,kuerzel'
+        config: '++id,key,value',
+        splan: '++id,bezeichnung,tag,stunde,f,s',
+        vplan: '++id,VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
+        vplanAlle: '++id,VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
+        buecher: '++id,bean,titel,ausleihdatum,kurs,anschaffungsjahr',
+        klausuren: '++id,',
+        kursliste: '++id,kursnr,bezeichnung,kuerzel'
     });
 	db.open();
 
