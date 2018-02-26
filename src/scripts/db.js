@@ -5,8 +5,6 @@
 define('db', ['dexie'], function (Dexie) {
 	var db = new Dexie('Einstellungen');
 	db.version(1).stores({config: 'key,value'});
-	db.version(1).stores({splan: 'bezeichnung,tag,stunde,f,s'});
-
 	db.open();
 
 	/**
@@ -31,18 +29,10 @@ define('db', ['dexie'], function (Dexie) {
 					if ('art' in antwort) {
 						db.config.put({key: 'art', value: antwort.art});
 					}
-                    // müsste auf IOS
+                    // nicht auf IOS
 					if ('splan' in antwort) {
-                        $.each(antwort.splan, function () {
-                            db.splan.put({
-                                bezeichnung: this.bezeichnung,
-                                tag: this.tag,
-                                stunde: this.stunde,
-                                f: this.f,
-                                s: this.s
-                            })
-                        });
-                    }
+						db.config.put({key: 'splan', value: antwort.splan});
+					}
                     // nicht auf IOS
 					if ('vplan' in antwort) {
 						db.config.put({key: 'vplan', value: antwort.vplan});
@@ -51,7 +41,7 @@ define('db', ['dexie'], function (Dexie) {
 					if ('vplanAlle' in antwort) {
 						db.config.put({key: 'vplanAlle', value: antwort.vplanAlle});
 					}
-		    		// nicht auf IOS
+		    // nicht auf IOS
 					if ('buecher' in antwort) {
 						db.config.put({key: 'buecher', value: antwort.buecher});
 					}
