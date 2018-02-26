@@ -10,7 +10,7 @@ define('db', ['dexie'], function (Dexie) {
         vplan: '++id,VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
         vplanAlle: '++id,VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
         buecher: '++id,bean,titel,ausleihdatum,kurs,anschaffungsjahr',
-        klausuren: '++id,',
+        klausuren: '++id',
         kursliste: '++id,kursnr,bezeichnung,kuerzel'
     });
 	db.open();
