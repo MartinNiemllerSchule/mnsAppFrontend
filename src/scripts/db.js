@@ -35,7 +35,6 @@ define('db', ['dexie'], function (Dexie) {
                     }
                     // müsste auf IOS
                     if ('splan' in antwort) {
-                        console.debug(antwort.splan);
                         $.each(antwort.splan, function () {
                             db.splan.put({
                                 bezeichnung: this.bezeichnung,
