@@ -51,7 +51,7 @@ requirejs(['./scripts/vapp.js'], function () {
 			/**
 			 * Methode, die die Stundenplan Arrays mit den Daten aus dem Jason Objekt befüllt
 			 */
-			pushJsonToArrays: function (callback) {
+			pushJsonToArrays: function () {
 				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanFirstWeek);
 				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanFirstWeekTable);
 				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeek);
@@ -66,7 +66,6 @@ requirejs(['./scripts/vapp.js'], function () {
 						Stundenplan.stundenplanSecondWeekTable[data.stunde - 1][data.tag - 1] = data.bezeichnung;
 					}
 				});
-				callback();
 			},
 
 			/**
