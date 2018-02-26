@@ -24,7 +24,7 @@ define('db', ['dexie'], function (Dexie) {
 		var db = this;
 		return new Dexie.Promise(function (resolve, reject) {
 			// Login war erfolgreich -> Datum des Login speichern
-			db.transaction('rw', db.config, function () {
+			db.transaction('rw', db.config, db.splan, function () {
 				db.config.put({key: 'loginDate', value: new Date()});
 				// Daten in die lokale Datenbank eintragen (falls vorhanden - unterscheidet sich für Schüler und Lehrer)
 				if (antwort.login === antwortLoginText) {
