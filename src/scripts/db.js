@@ -6,12 +6,12 @@ define('db', ['dexie'], function (Dexie) {
 	var db = new Dexie('Einstellungen');
 	db.version(1).stores({
         config: 'key,value',
-        splan: 'key,bezeichnung,tag,stunde,f,s',
-        vplan: 'key,VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
-        vplanAlle: 'key,VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
-        buecher: 'key,bean,titel,ausleihdatum,kurs,anschaffungsjahr',
-        klausuren: 'key,',
-        kursliste: 'key,kursnr,bezeichnung,kuerzel'
+        splan: 'bezeichnung,tag,stunde,f,s',
+        vplan: 'VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
+        vplanAlle: 'VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
+        buecher: 'bean,titel,ausleihdatum,kurs,anschaffungsjahr',
+        klausuren: '',
+        kursliste: 'kursnr,bezeichnung,kuerzel'
     });
 	db.open();
 
@@ -39,17 +39,14 @@ define('db', ['dexie'], function (Dexie) {
 					}
                     // neu für IOS
 					if ('splan' in antwort) {
-					    var i = 0;
                         $.each(antwort.splan, function () {
                             db.splan.put({
-                                key: i,
                                 bezeichnung: this.bezeichnung,
                                 tag: this.tag,
                                 stunde: this.stunde,
                                 f: this.f,
                                 s: this.s
                             });
-                            i++;
                         });
 					}
                     // neu für IOS
