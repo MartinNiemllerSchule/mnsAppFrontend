@@ -35,6 +35,13 @@ define('db', ['dexie'], function (Dexie) {
                     // nicht auf IOS
 					if ('splan' in antwort) {
 						db.config.put({key: 'splan', value: antwort.splan});
+						db.splan.put({
+                            bezeichnung: 'Q3INF001',
+                            tag: '1',
+                            stunde: '3',
+                            f: '1',
+                            s: '1'
+                        });
 					}
                     // nicht auf IOS
 					if ('vplan' in antwort) {
