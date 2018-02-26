@@ -27,13 +27,10 @@ requirejs(['./scripts/vapp.js'], function () {
 			stundenplanTableNaechste: null,
 
 			init: function () {
-				Stundenplan.doWithDataFromServer(function (data) {
-					Stundenplan.stundenplanJson = data.value;
 					Stundenplan.generateTableStructure(function () {
 						Stundenplan.appendTableToHtml(Stundenplan.stundenplanTableDiese);
 						Stundenplan.appendTableToHtml(Stundenplan.stundenplanTableNaechste);
 					});
-				})
 			},
 
 			/**
@@ -59,7 +56,7 @@ requirejs(['./scripts/vapp.js'], function () {
 				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanFirstWeekTable);
 				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeek);
 				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeekTable);
-				$.each(Stundenplan.stundenplanJson, function (key, val) {
+				db.splan.each(function (key, val) {
 					if (val.f === 1) {
 						Stundenplan.stundenplanFirstWeek[val.stunde - 1][val.tag - 1] = val.bezeichnung;
 						Stundenplan.stundenplanFirstWeekTable[val.stunde - 1][val.tag - 1] = val.bezeichnung;
