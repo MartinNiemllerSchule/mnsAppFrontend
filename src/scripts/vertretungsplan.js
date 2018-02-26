@@ -27,12 +27,12 @@ function getVertretungsplanTabelle(db, cb) {
 		});
 		var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
 		var vplanTBody = '';
-
-		for (var i = 0; i < vplan.length; i++) {
-			vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
-		}
-
-		cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
+		setTimeout(function () {
+            for (var i = 0; i < vplan.length; i++) {
+                vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
+            }
+            cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
+        },500);
 }
 function getVertretungsplanTabelleAlle(db, cb) {
 	var vplan = [];
@@ -43,10 +43,12 @@ function getVertretungsplanTabelleAlle(db, cb) {
 		});
 		var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
 		var vplanTBody = '';
+    setTimeout(function () {
 
 		for (var i = 0; i < vplan.length; i++) {
 			vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
 		}
 
 		cb('<table class="Vertretungsplan" id="selRightContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
+    },500);
 }
