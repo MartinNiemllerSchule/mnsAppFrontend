@@ -11,14 +11,6 @@ define('db', ['dexie'], function (Dexie) {
 
     db.open();
 
-    db.splan.put({
-        bezeichnung: 'test',
-        tag: '1',
-        stunde: '1',
-        f: '1',
-        s: '2'
-    });
-
     /**
      * das Login wurde ausgeführt und liefert Daten
      * diese Daten werden in der lokalen Datenbank abgelegt
