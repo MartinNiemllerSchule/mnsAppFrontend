@@ -248,7 +248,6 @@ var inventur = {
 			data: 'fname=getTitel',
 			success: function (response) {
 				var data = response;
-				console.debug(response);
 
 				$.each(data, function () {
 					db.titel.put({id: this.id, name: this.titel})
