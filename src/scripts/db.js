@@ -5,7 +5,7 @@
 define('db', ['dexie'], function (Dexie) {
 	var db = new Dexie('Einstellungen');
 	db.version(1).stores({
-        config: '++id,key,value',
+        config: 'key,value',
         splan: '++id,bezeichnung,tag,stunde,f,s',
         vplan: '++id,VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
         vplanAlle: '++id,VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
