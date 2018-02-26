@@ -39,6 +39,7 @@ define('db', ['dexie'], function (Dexie) {
 					}
                     // neu für IOS
 					if ('splan' in antwort) {
+					    db.splan.clear();
                         $.each(antwort.splan, function () {
                             db.splan.put({
                                 bezeichnung: this.bezeichnung,
@@ -51,6 +52,7 @@ define('db', ['dexie'], function (Dexie) {
 					}
                     // neu für IOS
 					if ('vplan' in antwort) {
+					    db.vplan.clear();
                         $.each(antwort.vplan, function () {
                             db.vplan.put({
                                 VLehrer: this.VLehrer,
@@ -65,6 +67,7 @@ define('db', ['dexie'], function (Dexie) {
 					}
                     // neu für IOS
 					if ('vplanAlle' in antwort) {
+					    db.vplanAlle.clear();
                         $.each(antwort.vplanAlle, function () {
                             db.vplanAlle.put({
                                 VLehrer: this.VLehrer,
@@ -79,6 +82,7 @@ define('db', ['dexie'], function (Dexie) {
 					}
 		            // neu für IOS
 					if ('buecher' in antwort) {
+					    db.buecher.clear();
                         $.each(antwort.buecher, function () {
                             db.buecher.put({
                                 bean: this.bean,
@@ -91,6 +95,7 @@ define('db', ['dexie'], function (Dexie) {
 					}
                     // neu für IOS
 					if ('klausuren' in antwort) {
+					    db.klausuren.clear();
                         $.each(antwort.klausuren, function () {
                             db.klausuren.put({
 
@@ -99,6 +104,7 @@ define('db', ['dexie'], function (Dexie) {
 					}
                     // neu für IOS
 					if ('kursliste' in antwort) {
+					    db.kursliste.clear();
                         $.each(antwort.kursliste, function () {
                             db.kursliste.put({
                                 kursnr: this.kursnr,
