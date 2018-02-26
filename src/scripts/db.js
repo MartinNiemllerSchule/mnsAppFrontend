@@ -4,7 +4,10 @@
 
 define('db', ['dexie'], function (Dexie) {
 	var db = new Dexie('Einstellungen');
-	db.version(1).stores({config: 'key,value'});
+	db.version(1).stores({
+        config: 'key,value',
+        splan: 'bezeichnung,tag,stunde,f,s'
+    });
 	db.open();
 
 	/**
