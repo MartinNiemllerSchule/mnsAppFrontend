@@ -38,32 +38,35 @@ requirejs(['./scripts/vapp.js'], function () {
 			 */
 			generateTableStructure: function (callback) {
 				Stundenplan.pushJsonToArrays(function () {
-                    Stundenplan.initStundenplanArrays(Stundenplan.stundenplanFirstWeek);
-                    Stundenplan.initStundenplanArrays(Stundenplan.stundenplanFirstWeekTable);
-                    Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeek);
-                    Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeekTable);
-                    db.splan.each(function (data) {
-                        if (data.f === 1) {
-                            Stundenplan.stundenplanFirstWeek[data.stunde - 1][data.tag - 1] = data.bezeichnung;
-                            Stundenplan.stundenplanFirstWeekTable[data.stunde - 1][data.tag - 1] = data.bezeichnung;
-                        }
-                        if (data.s === 1) {
-                            Stundenplan.stundenplanSecondWeek[data.stunde - 1][data.tag - 1] = data.bezeichnung;
-                            Stundenplan.stundenplanSecondWeekTable[data.stunde - 1][data.tag - 1] = data.bezeichnung;
-                        }
-                    });
-                }).then(function () {
                     Stundenplan.generateTableElementsInTableArrays(Stundenplan.stundenplanFirstWeek, Stundenplan.stundenplanFirstWeekTable);
                     Stundenplan.generateTableElementsInTableArrays(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
                     Stundenplan.stundenplanUngeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanFirstWeek, Stundenplan.stundenplanFirstWeekTable);
                     Stundenplan.stundenplanGeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
                     Stundenplan.generateTableString(Stundenplan.stundenplanGeradeWoche, Stundenplan.stundenplanUngeradeWoche);
-                }).catch(function () {
-					alert('fehler');
                 });
                     callback();
 			},
 
+			/**
+			 * Methode, die die Stundenplan Arrays mit den Daten aus dem Jason Objekt befüllt
+			 */
+			pushJsonToArrays: function (callback) {
+				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanFirstWeek);
+				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanFirstWeekTable);
+				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeek);
+				Stundenplan.initStundenplanArrays(Stundenplan.stundenplanSecondWeekTable);
+				db.splan.each(function (data) {
+					if (data.f === 1) {
+						Stundenplan.stundenplanFirstWeek[data.stunde - 1][data.tag - 1] = data.bezeichnung;
+						Stundenplan.stundenplanFirstWeekTable[data.stunde - 1][data.tag - 1] = data.bezeichnung;
+					}
+					if (data.s === 1) {
+						Stundenplan.stundenplanSecondWeek[data.stunde - 1][data.tag - 1] = data.bezeichnung;
+						Stundenplan.stundenplanSecondWeekTable[data.stunde - 1][data.tag - 1] = data.bezeichnung;
+					}
+				});
+				callback();
+			},
 
 			/**
 			 * Methode, die die Stundenplan Arrays initialisiert
