@@ -4,7 +4,15 @@
 
 define('db', ['dexie'], function (Dexie) {
 	var db = new Dexie('Einstellungen');
-	db.version(1).stores({config: 'key,value'});
+	db.version(1).stores({
+        config: 'key,value',
+        splan: '++id,bezeichnung,tag,stunde,f,s',
+        vplan: '++id,VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
+        vplanAlle: '++id,VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
+        buecher: '++id,bean,titel,ausleihdatum,kurs,anschaffungsjahr',
+        klausuren: '++id',
+        kursliste: '++id,kursnr,bezeichnung,kuerzel'
+    });
 	db.open();
 
 	/**
@@ -21,7 +29,7 @@ define('db', ['dexie'], function (Dexie) {
 		var db = this;
 		return new Dexie.Promise(function (resolve, reject) {
 			// Login war erfolgreich -> Datum des Login speichern
-			db.transaction('rw', db.config, function () {
+			db.transaction('rw', db.config, db.splan, db.vplan, db.vplanAlle, db.buecher, db.klausuren, db.kursliste, function () {
 				db.config.put({key: 'loginDate', value: new Date()});
 				// Daten in die lokale Datenbank eintragen (falls vorhanden - unterscheidet sich für Schüler und Lehrer)
 				if (antwort.login === antwortLoginText) {
@@ -29,35 +37,81 @@ define('db', ['dexie'], function (Dexie) {
 					if ('art' in antwort) {
 						db.config.put({key: 'art', value: antwort.art});
 					}
-                    // nicht auf IOS
+                    // neu für IOS
 					if ('splan' in antwort) {
-						var splan = antwort.splan;
-						db.config.put({key: 'splan', value: splan});
+					    db.splan.clear();
+                        $.each(antwort.splan, function () {
+                            db.splan.put({
+                                bezeichnung: this.bezeichnung,
+                                tag: this.tag,
+                                stunde: this.stunde,
+                                f: this.f,
+                                s: this.s
+                            });
+                        });
 					}
-                    // nicht auf IOS
+                    // neu für IOS
 					if ('vplan' in antwort) {
-						var vplan = antwort.vplan;
-						db.config.put({key: 'vplan', value: vplan});
+					    db.vplan.clear();
+                        $.each(antwort.vplan, function () {
+                            db.vplan.put({
+                                VLehrer: this.VLehrer,
+                                raum: this.raum,
+                                tag: this.tag,
+                                stunde: this.stunde,
+                                info: this.info,
+                                bezeichnung: this.bezeichnung,
+                                kuerzel: this.kuerzel
+                            });
+                        });
 					}
-                    // nicht auf IOS
+                    // neu für IOS
 					if ('vplanAlle' in antwort) {
-						var vplanAlle = antwort.vplanAlle;
-						db.config.put({key: 'vplanAlle', value: vplanAlle});
+					    db.vplanAlle.clear();
+                        $.each(antwort.vplanAlle, function () {
+                            db.vplanAlle.put({
+                                VLehrer: this.VLehrer,
+                                raum: this.raum,
+                                tag: this.tag,
+                                stunde: this.stunde,
+                                info: this.info,
+                                bezeichnung: this.bezeichnung,
+                                kuerzel: this.kuerzel
+                            });
+                        });
 					}
-					// nicht auf IOS
+		            // neu für IOS
 					if ('buecher' in antwort) {
-						var buecher = antwort.buecher;
-						db.config.put({key: 'buecher', value: buecher});
+					    db.buecher.clear();
+                        $.each(antwort.buecher, function () {
+                            db.buecher.put({
+                                bean: this.bean,
+                                titel: this.titel,
+                                ausleihdatum: this.ausleihdatum,
+                                kurs: this.kurs,
+                                anschaffungsjahr: this.anschaffungsjahr
+                            });
+                        });
 					}
-                    // nicht auf IOS
+                    // neu für IOS
 					if ('klausuren' in antwort) {
-						var klausuren = antwort.klausuren;
-						db.config.put({key: 'klausuren', value: klausuren});
+					    db.klausuren.clear();
+                        $.each(antwort.klausuren, function () {
+                            db.klausuren.put({
+
+                            });
+                        });
 					}
-                    // nicht auf IOS
+                    // neu für IOS
 					if ('kursliste' in antwort) {
-						var kursliste = antwort.kursliste;
-						db.config.put({key: 'kursliste', value: kursliste});
+					    db.kursliste.clear();
+                        $.each(antwort.kursliste, function () {
+                            db.kursliste.put({
+                                kursnr: this.kursnr,
+                                bezeichnung: this.bezeichnung,
+                                kuerzel: this.kuerzel
+                            });
+                        });
 					}
 					if ('events' in antwort) {
 						db.config.put({key: 'events', value: antwort.events});

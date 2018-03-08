@@ -28,6 +28,7 @@ requirejs.config({
 urlApi = './api/index.php';
 urlInventurApi = './inventur/api/index.php';
 zielNachLogin = '../klausuren.html';
+zielNachLogin = '../stundenplan.html';
 
 stunden = {
 	'1': '08:00',
