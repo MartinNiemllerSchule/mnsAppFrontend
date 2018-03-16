@@ -119,6 +119,8 @@
 </html>
 
 <script type="application/javascript">
+	const timeNextPost = 45;
+
 	var scrollwayVer = 0;
 	var scrollvarVer;
 	var scrollactiveVer = false;
@@ -142,10 +144,38 @@
 		}).then( function (antwort) {
 			var wordpress = $(antwort).find('div.content');
 			console.debug('antwort', antwort);
-			console.debug('body', $(wordpress).html())
+			console.debug('body', $(wordpress).html());
+			var post = $(wordpress).find('div.post');
+			if (post.length > 1) { // ein- und ausschalten der Divs veranlassen
+				post.hide();
+				post.first().show();
+				// TODO: Schriftgröße für einen Post verkleinern bis zu einem Minimum, solange dieser noch zu lang ist
+				setInterval(showNextPost, timeNextPost * 1000);
+			} else {
+				clearInterval(showNextPost);
+			}
 			$('#infos').html($(wordpress).html());
 			scrollcheckInfo();
 		});
+	}
+
+	function showNextPost() {
+		var visiblePost = $('div.post :visible').parent();
+//		console.debug('visibePost: ',visiblePost);
+		var nextUnvisiblePost = visiblePost.parent().next('div.post');
+//		console.debug('nextUnvisibleP',nextUnvisiblePost);
+		if (nextUnvisiblePost.length == 0) {
+//			console.debug('übertrag');
+			nextUnvisiblePost = $('div.post').first();
+//			console.debug('nextUnvisibleP',nextUnvisiblePost);
+		}
+		if ((visiblePost.length = 1) && (nextUnvisiblePost.length = 1)) {
+//			console.debug('up: ',visiblePost);
+			visiblePost.slideUp("slow", (ele) => {
+//				console.debug('down: ', ele);
+				nextUnvisiblePost.slideDown()
+			});
+		}
 	}
 
 	$(document).ready(function () {

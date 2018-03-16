@@ -15,7 +15,7 @@
       <paths name="vapp-frontend">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/src" web="/" />
           </mappings>
           <excludedPaths>
             <excludedPath path="/api" />
