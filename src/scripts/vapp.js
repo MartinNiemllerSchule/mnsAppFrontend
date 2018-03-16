@@ -10,15 +10,24 @@ requirejs.config({
 		sha512: './vendor/sha512.min',
 		moment: './vendor/moment.min',
 		fullCalendar: './vendor/fullcalendar',
-		fcLDe: './vendor/de'
+		fcLDe: './vendor/de',
+		firebase: 'https://www.gstatic.com/firebasejs/4.9.0/firebase',
+		firebaseApp: "https://www.gstatic.com/firebasejs/4.9.0/firebase-app",
+		firebaseMessaging: "https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging"
+
 	},
 	shim: {
-		fcLDe: ['fullCalendar']
+		fcLDe: ['fullCalendar'],
+		firebaseMessaging: ['firebaseApp'],
+		firebase: {
+			exports: 'firebase'
+		}
 	}
 });
 
 urlApi = './api/index.php';
-zielNachLogin = '../klausuren.html';
+urlInventurApi = './inventur/api/index.php';
+zielNachLogin = '../stundenplan.html';
 
 stunden = {
 	'1': '08:00',

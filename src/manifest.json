@@ -1,0 +1,32 @@
+{
+  "short_name": "vapp",
+  "name": "App der Martin-Niemöller-Schule",
+  "icons": [
+    {
+      "src": "images/mns-icon-1x.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "images/mns-icon-2x.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "images/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "350x350"
+    },
+    {
+      "src": "images/mns-icon-4x.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "index.html?launcher=true",
+  "background_color": "#7ABBFF",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#7ABBFF",
+  "gcm_sender_id": "103953800507"
+}

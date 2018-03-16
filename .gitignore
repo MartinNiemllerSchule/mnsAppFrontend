@@ -27,3 +27,4 @@
 whpush.php
 /src/api/*
 /src/api
+db.php

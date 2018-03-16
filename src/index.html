@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-	<meta charset="UTF-8" name="viewport" content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+	<meta charset="UTF-8" name="viewport" content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi">
+	<meta name="apple-mobile-web-app-title" content="MNS">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-ststus-bar-style" content="black-translucent">
 	<title>Login</title>
+	<script type="text/javascript" src="./scripts/vendor/staystandalone_ios.js"></script>
 	<script data-main="scripts/index" src="scripts/vendor/require.js" async></script>
 	<link rel="stylesheet" href="styles/main.css">
+	<link rel="manifest" href="/manifest.json">
 
 	<style>
 		body {
 			background-color: #7ABBFF;
 			width: 21em;
 		}
-
 		#vappIcon {
 			display: block;
 			margin: auto auto;
@@ -56,7 +60,7 @@
 		}
 
 		input[type="submit"] {
-			margin-left: 24em;
+			margin-left: 17em;
 			margin-top: 2em;
 			transform: scale(2);
 		}

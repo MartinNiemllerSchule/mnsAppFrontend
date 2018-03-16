@@ -21,40 +21,34 @@ requirejs(['./scripts/vapp.js'], function () {
 function getVertretungsplanTabelle(db, cb) {
 	var vplan = [];
 
-	db.config.get('vplan').then(function(dataO){
-		var data = dataO.value;
+	db.vplan.each(function (data) {
 
-		$.each(data, function (key, val) {
-
-			vplan.push([val.tag, val.stunde, val.bezeichnung, val.raum, val.VLehrer, val.info]);
+			vplan.push([data.tag, data.stunde, data.bezeichnung, data.raum, data.VLehrer, data.info]);
 		});
 		var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
 		var vplanTBody = '';
-
-		for (var i = 0; i < vplan.length; i++) {
-			vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
-		}
-
-		cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
-	});
+		setTimeout(function () {
+            for (var i = 0; i < vplan.length; i++) {
+                vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
+            }
+            cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
+        },500);
 }
 function getVertretungsplanTabelleAlle(db, cb) {
 	var vplan = [];
 
-	db.config.get('vplanAlle').then(function (dataO) {
-		var data = dataO.value;
+	db.vplanAlle.each(function (data) {
 
-		$.each(data, function (key, val) {
-
-			vplan.push([val.tag, val.stunde, val.bezeichnung, val.raum, val.VLehrer, val.info]);
+			vplan.push([data.tag, data.stunde, data.bezeichnung, data.raum, data.VLehrer, data.info]);
 		});
 		var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
 		var vplanTBody = '';
+    setTimeout(function () {
 
 		for (var i = 0; i < vplan.length; i++) {
 			vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
 		}
 
 		cb('<table class="Vertretungsplan" id="selRightContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
-	});
+    },500);
 }
