@@ -132,6 +132,7 @@
 
 <script type="application/javascript">
 	const timeNextPost = 45;
+	var intervallID = null;
 
 	var scrollwayVer = 0;
 	var scrollvarVer;
@@ -162,9 +163,10 @@
 				post.hide();
 				post.first().show();
 				// TODO: Schriftgröße für einen Post verkleinern bis zu einem Minimum, solange dieser noch zu lang ist
-				setInterval(showNextPost, timeNextPost * 1000);
+				if (intervallID === null) intervallID = setInterval(showNextPost, timeNextPost * 1000);
 			} else {
 				clearInterval(showNextPost);
+				intervallID = null;
 			}
 			$('#infos').html($(wordpress).html());
 			scrollcheckInfo();
@@ -173,18 +175,12 @@
 
 	function showNextPost() {
 		var visiblePost = $('div.post :visible').parent();
-//		console.debug('visibePost: ',visiblePost);
 		var nextUnvisiblePost = visiblePost.parent().next('div.post');
-//		console.debug('nextUnvisibleP',nextUnvisiblePost);
 		if (nextUnvisiblePost.length == 0) {
-//			console.debug('übertrag');
 			nextUnvisiblePost = $('div.post').first();
-//			console.debug('nextUnvisibleP',nextUnvisiblePost);
 		}
 		if ((visiblePost.length = 1) && (nextUnvisiblePost.length = 1)) {
-//			console.debug('up: ',visiblePost);
 			visiblePost.slideUp("slow", (ele) => {
-//				console.debug('down: ', ele);
 				nextUnvisiblePost.slideDown()
 			});
 		}
