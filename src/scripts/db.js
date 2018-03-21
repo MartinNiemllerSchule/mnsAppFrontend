@@ -5,14 +5,14 @@
 define('db', ['dexie'], function (Dexie) {
 	var db = new Dexie('Einstellungen');
 	db.version(1).stores({
-        config: 'key,value',
-        splan: '++id,bezeichnung,tag,stunde,f,s',
-        vplan: '++id,VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
-        vplanAlle: '++id,VLehrer,raum,tag,stunde,info,bezeichnung,kuerzel',
-        buecher: '++id,bean,titel,ausleihdatum,kurs,anschaffungsjahr',
-        klausuren: '++id',
-        kursliste: '++id,kursnr,bezeichnung,kuerzel'
-    });
+		config: 'key',
+		splan: '++id',
+		vplan: '++id',
+		vplanAlle: '++id',
+		buecher: '++id',
+		klausuren: '++id',
+		kursliste: '++id'
+	});
 	db.open();
 
 	/**
@@ -37,81 +37,85 @@ define('db', ['dexie'], function (Dexie) {
 					if ('art' in antwort) {
 						db.config.put({key: 'art', value: antwort.art});
 					}
-                    // neu für IOS
+					// neu für IOS
 					if ('splan' in antwort) {
-					    db.splan.clear();
-                        $.each(antwort.splan, function () {
-                            db.splan.put({
-                                bezeichnung: this.bezeichnung,
-                                tag: this.tag,
-                                stunde: this.stunde,
-                                f: this.f,
-                                s: this.s
-                            });
-                        });
+						db.splan.clear();
+						$.each(antwort.splan, function () {
+							db.splan.put({
+								bezeichnung: this.bezeichnung,
+								tag: this.tag,
+								stunde: this.stunde,
+								f: this.f,
+								s: this.s
+							});
+						});
 					}
-                    // neu für IOS
+					// neu für IOS
 					if ('vplan' in antwort) {
-					    db.vplan.clear();
-                        $.each(antwort.vplan, function () {
-                            db.vplan.put({
-                                VLehrer: this.VLehrer,
-                                raum: this.raum,
-                                tag: this.tag,
-                                stunde: this.stunde,
-                                info: this.info,
-                                bezeichnung: this.bezeichnung,
-                                kuerzel: this.kuerzel
-                            });
-                        });
+						db.vplan.clear();
+						$.each(antwort.vplan, function () {
+							db.vplan.put({
+								VLehrer: this.VLehrer,
+								raum: this.raum,
+								tag: this.tag,
+								stunde: this.stunde,
+								info: this.info,
+								bezeichnung: this.bezeichnung,
+								kuerzel: this.kuerzel
+							});
+						});
 					}
-                    // neu für IOS
+					// neu für IOS
 					if ('vplanAlle' in antwort) {
-					    db.vplanAlle.clear();
-                        $.each(antwort.vplanAlle, function () {
-                            db.vplanAlle.put({
-                                VLehrer: this.VLehrer,
-                                raum: this.raum,
-                                tag: this.tag,
-                                stunde: this.stunde,
-                                info: this.info,
-                                bezeichnung: this.bezeichnung,
-                                kuerzel: this.kuerzel
-                            });
-                        });
+						db.vplanAlle.clear();
+						$.each(antwort.vplanAlle, function () {
+							db.vplanAlle.put({
+								VLehrer: this.VLehrer,
+								raum: this.raum,
+								tag: this.tag,
+								stunde: this.stunde,
+								info: this.info,
+								bezeichnung: this.bezeichnung,
+								kuerzel: this.kuerzel
+							});
+						});
 					}
-		            // neu für IOS
+					// neu für IOS
 					if ('buecher' in antwort) {
-					    db.buecher.clear();
-                        $.each(antwort.buecher, function () {
-                            db.buecher.put({
-                                bean: this.bean,
-                                titel: this.titel,
-                                ausleihdatum: this.ausleihdatum,
-                                kurs: this.kurs,
-                                anschaffungsjahr: this.anschaffungsjahr
-                            });
-                        });
+						db.buecher.clear();
+						$.each(antwort.buecher, function () {
+							db.buecher.put({
+								bean: this.bean,
+								titel: this.titel,
+								ausleihdatum: this.ausleihdatum,
+								kurs: this.kurs,
+								anschaffungsjahr: this.anschaffungsjahr
+							});
+						});
 					}
-                    // neu für IOS
+					// neu für IOS
 					if ('klausuren' in antwort) {
-					    db.klausuren.clear();
-                        $.each(antwort.klausuren, function () {
-                            db.klausuren.put({
-
-                            });
-                        });
+						db.klausuren.clear();
+						$.each(antwort.klausuren, function () {
+							db.klausuren.put({
+								date: this.date,
+								stunde: this.stunde,
+								dauer: this.dauer,
+								bezeichnung: this.bezeichnung,
+								kursnr: this.kursnr
+							});
+						});
 					}
-                    // neu für IOS
+					// neu für IOS
 					if ('kursliste' in antwort) {
-					    db.kursliste.clear();
-                        $.each(antwort.kursliste, function () {
-                            db.kursliste.put({
-                                kursnr: this.kursnr,
-                                bezeichnung: this.bezeichnung,
-                                kuerzel: this.kuerzel
-                            });
-                        });
+						db.kursliste.clear();
+						$.each(antwort.kursliste, function () {
+							db.kursliste.put({
+								kursnr: this.kursnr,
+								bezeichnung: this.bezeichnung,
+								kuerzel: this.kuerzel
+							});
+						});
 					}
 					if ('events' in antwort) {
 						db.config.put({key: 'events', value: antwort.events});

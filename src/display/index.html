@@ -156,8 +156,8 @@
 			dataType: 'html'
 		}).then( function (antwort) {
 			var wordpress = $(antwort).find('div.content');
-			console.debug('antwort', antwort);
-			console.debug('body', $(wordpress).html());
+//			console.debug('antwort', antwort);
+//			console.debug('body', $(wordpress).html());
 			var post = $(wordpress).find('div.post');
 			if (post.length > 1) { // ein- und ausschalten der Divs veranlassen
 				post.hide();
