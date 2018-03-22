@@ -13,7 +13,8 @@ requirejs.config({
 		fcLDe: './vendor/de',
 		firebase: 'https://www.gstatic.com/firebasejs/4.9.0/firebase',
 		firebaseApp: "https://www.gstatic.com/firebasejs/4.9.0/firebase-app",
-		firebaseMessaging: "https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging"
+		firebaseMessaging: "https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging",
+        quagga: '../../scripts/vendor/quagga',
 
 	},
 	shim: {
