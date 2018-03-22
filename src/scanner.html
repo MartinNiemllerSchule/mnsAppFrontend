@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport"
+          content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <meta name="apple-mobile-web-app-title" content="MNS">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-ststus-bar-style" content="black-translucent">
+    <title>QR-Scan</title>
+
+    <script data-main="./scripts/scanner.js" src="../scripts/vendor/require.js" async></script>
+
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+<div id="Sidebar-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+<div id="topbar">Inventur</div>
+<div id="topbar-placeholder"></div>
+<div id="grün"></div>
+<div class="contentBox">
+    <!-- Div to show the scanner -->
+    <div id="scanner-container"></div>
+
+    <div id="Titel"></div>
+    <div id="Nummer">
+        <input id="scanner_input" class="form-control" placeholder=" " type="text"/>
+    </div>
+    <input type="button" id="btn" class="btnGroup" value="Scanner starten/stoppen"/>
+    <div class="modal" id="livestream_scanner">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body" style="position: static">
+                    <div id="interactive" class="viewport"></div>
+                    <div class="error"></div>
+                </div>
+                <div class="modal-footer">
+                    <label class="btnGroup btn-default pull-left">
+                        <i class="fa fa-camera"></i> Bild benutzen
+                        <input type="file" accept="image/*;capture=camera" capture="camera" class="hidden"/>
+                    </label>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+</div>
+</body>
+</html>
