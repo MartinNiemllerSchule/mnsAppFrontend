@@ -1,8 +1,8 @@
 /**
  * Created by Media on 22.03.2018.
  */
-requirejs(['requirejsconfig'], function () {
-    requirejs(['dexie', 'jquery', 'quagga'], function (Dexie) {
+requirejs(['./scripts/vapp.js'], function () {
+    requirejs(['db', 'jquery', 'quagga','menu'], function (db) {
         "use strict";
 
 
