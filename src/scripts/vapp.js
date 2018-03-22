@@ -14,7 +14,7 @@ requirejs.config({
 		firebase: 'https://www.gstatic.com/firebasejs/4.9.0/firebase',
 		firebaseApp: "https://www.gstatic.com/firebasejs/4.9.0/firebase-app",
 		firebaseMessaging: "https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging",
-        quagga: '../../scripts/vendor/quagga',
+        quagga: './vendor/quagga',
 
 	},
 	shim: {
