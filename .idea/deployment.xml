@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="vapp-frontend">
+  <component name="PublishConfigData" serverName="vapp_qr">
     <serverData>
-      <paths name="niemoeller.schule">
+      <paths name="vapp_qr">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
-          <excludedPaths>
-            <excludedPath path="/api" />
-          </excludedPaths>
-        </serverdata>
-      </paths>
-      <paths name="vapp-frontend">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$/src" web="/" />
-          </mappings>
-          <excludedPaths>
-            <excludedPath path="/api" />
-          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
