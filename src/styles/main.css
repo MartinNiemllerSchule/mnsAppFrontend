@@ -4,6 +4,11 @@ body {
 	font-family: Arial;
 }
 
+a {
+	color: #7ABBFF;
+	text-decoration: none;
+}
+
 #Sidebar {
 	background-color: #FFFFFF;
 	width: 200px;

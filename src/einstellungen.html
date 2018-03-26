@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+	<title>Einstellungen</title>
 	<meta charset="UTF-8" name="viewport"
 	      content="width=device-width , initial-scale=1.0 , maximum-scale=1.0 , minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
 	<meta name="apple-mobile-web-app-title" content="MNS">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-ststus-bar-style" content="black-translucent">
 	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/einstellungen.css">
 	<link rel="manifest" href="/manifest.json">
-	<title>Stundenplan</title>
 	<script type="text/javascript" src="./scripts/vendor/staystandalone_ios.js"></script>
-	<script data-main="scripts/stundenplan" src="scripts/vendor/require.js" async></script>
+	<script data-main="scripts/einstellungen" src="scripts/vendor/require.js" async></script>
 </head>
-
 <body>
 <div id="Sidebar"></div>
 <div id="Sidebar-cls"></div>
 <div id="Sidebar-btn"><span></span><span></span><span></span></div>
 
-<div id="topbar">Stundenplan</div>
+<div id="topbar">Einstellungen</div>
 <div id="topbar-placeholder"></div>
+<!--
 <div id="selector">
 	<div id="selRight" class="selectorOption">Nächste Woche</div>
 	<div id="selLeft" class="selectorOption active">Diese Woche</div>
 </div>
+-->
+<div id="Einstellungen" class="contentBox">
+	<div>
+		<label id="labelBenachrichtigungen" for="switchBenachrichtigungen">
+			Benachrichtigungen:
+		</label>
+		<div class="onoffswitch" id="switchBenachrichtigungen">
+			<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switchBen">
+			<label class="onoffswitch-label" for="switchBen">
+				<span class="onoffswitch-inner"></span>
+				<span class="onoffswitch-switch"></span>
+			</label>
+		</div>
+	</div>
+	<div>Schalte Benachrichtigungen ein, falls Du über Änderungen im Vertretungsplan oder andere relevante Nachrichten
+		zeitnah informiert werden möchtest. Beachte unsere <a href="#TODO">Datenschutzhinweise</a>.
+	</div>
 
-<div id="StundenplanTabelle" class="contentBox"></div>
+</div>
 </body>
 </html>
