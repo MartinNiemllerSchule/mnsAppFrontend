@@ -84,6 +84,17 @@
 /*
 	ENDE: On/Off Button
  */
+#Benachrichtigungen img {
+	margin-left: 1ex;
+	display: none;
+}
+
+#Benachrichtigungen img + span {
+	position: relative;
+	left: -.75ex;
+	top: -1.3ex;
+	display: none;
+}
 
 label#labelBenachrichtigungen {
 	position: relative;
