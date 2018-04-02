@@ -11,7 +11,7 @@ define('db', ['dexie'], function (Dexie) {
 		vplanAlle: '++id',
 		buecher: '++id',
 		klausuren: '++id',
-		kursliste: '++id'
+		kursliste: 'kursnr'
 	});
 	db.open();
 

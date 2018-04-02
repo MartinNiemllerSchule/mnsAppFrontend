@@ -60,18 +60,19 @@ define('fbm', ['firebase'], function (firebase) {
 	}); // [END receive_message]
 
 	messaging.ein = function () {
-		messaging.getToken()
-			.then(function (currentToken) {
-				return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
+			messaging.getToken()
+				.then(function (currentToken) {
 					if (currentToken) {
+						console.log('[messaging.ein] Token gefunden');
 						resolve({'token': currentToken});
 					} else {
 						// hole Erlaubnis ein
-						console.log('Requesting permission...');
+						console.log('[messaging.ein] Requesting permission...');
 						// [START request_permission]
 						messaging.requestPermission()
 							.then(function () {
-								console.log('Notification permission granted.');
+								console.log('[messaging.ein] Notification permission granted.');
 								setTokenSentToServer(false);
 								// Retrieve an Instance ID token for use with FCM.
 								messaging.getToken()
@@ -80,16 +81,17 @@ define('fbm', ['firebase'], function (firebase) {
 										resolve({'token': cToken});
 									})
 									.catch(() => {
-										reject('requestPermission gescheitert');
+										reject('[messaging.ein] requestPermission gescheitert');
 									});
 							})
 							.catch(function (err) {
-								reject('Unable to get permission to notify.' + err);
+								reject('[messaging.ein] Unable to get permission to notify.' + err);
 							});
 						// [END request_permission]
 					}
-				});
-			});
+				})
+				.catch(e => { reject('[messaging.ein.getToken] gescheitert: ' + e); });
+		});
 	};
 
 	messaging.aus = function () {
