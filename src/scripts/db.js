@@ -37,7 +37,7 @@ define('db', ['dexie'], function (Dexie) {
 					if ('art' in antwort) {
 						db.config.put({key: 'art', value: antwort.art});
 					}
-					// neu für IOS
+
 					if ('splan' in antwort) {
 						db.splan.clear();
 						$.each(antwort.splan, function () {
@@ -50,7 +50,7 @@ define('db', ['dexie'], function (Dexie) {
 							});
 						});
 					}
-					// neu für IOS
+
 					if ('vplan' in antwort) {
 						db.vplan.clear();
 						$.each(antwort.vplan, function () {
@@ -65,7 +65,7 @@ define('db', ['dexie'], function (Dexie) {
 							});
 						});
 					}
-					// neu für IOS
+
 					if ('vplanAlle' in antwort) {
 						db.vplanAlle.clear();
 						$.each(antwort.vplanAlle, function () {
@@ -80,7 +80,7 @@ define('db', ['dexie'], function (Dexie) {
 							});
 						});
 					}
-					// neu für IOS
+
 					if ('buecher' in antwort) {
 						db.buecher.clear();
 						$.each(antwort.buecher, function () {
@@ -93,7 +93,7 @@ define('db', ['dexie'], function (Dexie) {
 							});
 						});
 					}
-					// neu für IOS
+
 					if ('klausuren' in antwort) {
 						db.klausuren.clear();
 						$.each(antwort.klausuren, function () {
@@ -106,7 +106,7 @@ define('db', ['dexie'], function (Dexie) {
 							});
 						});
 					}
-					// neu für IOS
+
 					if ('kursliste' in antwort) {
 						db.kursliste.clear();
 						$.each(antwort.kursliste, function () {
