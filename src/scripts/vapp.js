@@ -16,7 +16,7 @@ requirejs.config({
 		firebaseMessaging: "https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging",
 		quagga: './vendor/quagga',
 		text: './vendor/text', // existiert nicht!
-		template_menu: './../template/menu.html'
+		template_menu: '../template/menu.html'
 
 	},
 	shim: {
