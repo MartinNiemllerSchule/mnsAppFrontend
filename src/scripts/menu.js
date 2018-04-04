@@ -3,7 +3,7 @@
  */
 
 "use strict";
-define(['db', 'text!./../template/menu.html', 'jquery'], function (db, menuTmpl) {
+define(['db', 'template_menu', 'jquery'], function (db, menuTmpl) {
 	var menu = {
 		/**
 		 * setzt alle Handler (wie zuvor in stundenplan.html)
