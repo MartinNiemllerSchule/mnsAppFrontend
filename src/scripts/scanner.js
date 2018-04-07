@@ -117,7 +117,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 crossDomain: true,
                                 data: sendData,
                                 success: function (response) {
-                                    if (response[0].bean == undefined || response.bean[0] == "") {
+                                    if (response[0].bean == undefined || response[0].bean == "") {
                                         console.debug("Buch nicht gefunden")
                                         console.debug(response.bean);
                                     }
