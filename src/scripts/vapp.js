@@ -14,7 +14,9 @@ requirejs.config({
 		firebase: 'https://www.gstatic.com/firebasejs/4.9.0/firebase',
 		firebaseApp: "https://www.gstatic.com/firebasejs/4.9.0/firebase-app",
 		firebaseMessaging: "https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging",
-        quagga: './vendor/quagga',
+		quagga: './vendor/quagga',
+		text: './vendor/text', // existiert nicht!
+		template_menu: '../template/menu.html'
 
 	},
 	shim: {
@@ -26,6 +28,10 @@ requirejs.config({
 	}
 });
 
+<<<<<<< HEAD
+=======
+//urlApi = './api/index.php';
+>>>>>>> 72b9a7f21dab009add15e11b5c7c6d222f25cd4d
 urlApi = 'https://vapp.niemoeller.schule/api/index.php';
 urlInventurApi = './inventur/api/index.php';
 zielNachLogin = '../stundenplan.html';
