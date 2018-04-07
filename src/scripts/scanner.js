@@ -107,15 +107,9 @@ requirejs(['./scripts/vapp.js'], function () {
                         $('#scanner_input').val(code);
                         var buchNr = $('#scanner_input').val();
                         var id;
-                        db.config.get('inventurTitel').then(function (data0) {
-                            console.debug(data0);
-                            console.debug(data0.value);
-                            id = data0.value;
-                            console.debug(id);
 
-
-                            console.debug("Buchnummer" + buchNr);
-                            var sendData = "fname=setBuchLastSeen&bean=" + buchNr + "&tid=" + id;
+                        console.debug("Buchnummer" + buchNr);
+                            var sendData = "fname=setBuchLastSeen&bean=" + buchNr;
                             console.debug("Ajax senddata" + sendData);
                             $.ajax({
                                 url: urlInventurApi,
@@ -123,35 +117,23 @@ requirejs(['./scripts/vapp.js'], function () {
                                 crossDomain: true,
                                 data: sendData,
                                 success: function (response) {
-                                    if (response.erfolg == false) {
-                                        console.debug("Buch nicht gefunden (response is false)");
-                                        playSound('erro');
-                                        $('#grün').removeClass("weiß");
-                                        $('#grün').addClass("rot");
-                                        setTimeout(function () {
-                                            $('#grün').removeClass("rot");
-                                            $('#grün').addClass("weiß");
-                                        },200)
-                                    } else {
-                                        console.debug(response);
-                                        playSound('succ');
+                                    if (response[0].bean == undefined || response.bean[0] == "") {
+                                        console.debug("Buch nicht gefunden")
+                                        console.debug(response.bean);
+                                    }
+                                    else {
+                                        getBuecherplanTable(response);
                                         $('#Titel').text(response.title);
                                         console.debug("Antwort wird zurückgegeben");
-                                        $('#grün').removeClass("weiß");
-                                        $('#grün').addClass("grün");
-                                        setTimeout(function () {
-                                            $('#grün').removeClass("grün");
-                                            $('#grün').addClass("weiß");
-                                        },200)
+                                        Quagga.stop();
                                     }
                                 },
                                 error: function (response, textStatus, e) {
-                                    console.debug("Antwort auf setBuch gescheitert", textStatus, e);
-                                    playSound('erro')
+                                    console.debug("Antwort auf getBuch gescheitert", textStatus, e);
                                 }
                             });
 
-                        });
+
 
                     }
 
@@ -259,4 +241,22 @@ requirejs(['./scripts/vapp.js'], function () {
             }
         });
     });
+    function getBuecherplanTable(response) {
+        var buecherplan = [];
+
+        // initialisiere Stundenplan-Array splan mit leeren Werten
+        // trage alle gefundenen Daten ein
+        var data = response;
+        $.each(data, function (key, val) {
+            buecherplan.push([val.bean, val.titel, val.ausleihdatum, val.kurs, val.anschaffungsjahr, val.bibo_ean8, val.firstname, val.name, val.isbn, val.jg, val.kuerzel, val.kursnr, val.last_seen, val.lname, val.snr, ]);
+        });
+
+        var buecherTHead = '<thead><tr><th>BEAN</th><th>Titel</th><th>Ausleihdatum</th><th>Kurs</th><th>Anschaffungsjahr</th><th>bibo_ean8</th><th>Vorname</th><th>Nachname</th><th>ISBN</th><th>Jahrgang</th><th>Kuerzel</th><th>KursNr</th><th>Last Seen</th><th>Lehrer</th><th>Schueler Nummer</th></tr></thead>';
+
+        var bplan = '';
+        for (var i = 0; i < buecherplan.length; i++) {
+            bplan += '<tr><td>' + buecherplan[i].join('</td><td>') + '</td></tr>';
+        }
+        $('#buchausgabe').append('<table class="Buecherliste">' + buecherTHead + bplan + '</table>');
+    }
 });
