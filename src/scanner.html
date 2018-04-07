@@ -18,6 +18,30 @@
     <link rel="manifest" href="/manifest.json">
 </head>
 <body>
+<div id="Sidebar">
+    <ul class="Sidebar">
+        <li id="btn">
+            <div id="Sidebar-btn-open">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </li>
+        <li>
+            <div id="mns-pic"><img src="images/mns.png" alt=""></div>
+        </li>
+        <li><a href="stundenplan.html"><img src="images/stundenplan.png" alt="Stundenplan">Stundenplan</a></li>
+        <li><a href="vertretungsplan.html"><img src="images/vertretungsplan.png" alt="Vertretungsplan">Vertretungsplan</a>
+        </li>
+        <li id="liBuecherListe"><a href="buecher.html" id="active"><img src="images/buecher.png"
+                                                                        alt="Buecher">Bücherliste</a></li>
+        <li><a href="klausuren.html"><img src="images/calendar.png" alt="Klausuren">Klausuren</a></li>
+        <li><a href="index.html" id="logOut"><img src="images/logout.png" alt="Logout">Logout</a></li>
+    </ul>
+</div>
+<div id="Sidebar-cls">
+</div>
+
 <div id="Sidebar-btn">
     <span></span>
     <span></span>
@@ -34,7 +58,7 @@
     <div id="Nummer">
         <input id="scanner_input" class="form-control" placeholder=" " type="text"/>
     </div>
-    <input type="button" id="btn" class="btnGroup" value="Scanner starten/stoppen"/>
+    <input type="button" id="btn1" class="btnGroup" value="Scanner starten/stoppen"/>
     <div class="modal" id="livestream_scanner">
         <div class="modal-dialog">
             <div class="modal-content">

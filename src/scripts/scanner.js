@@ -128,7 +128,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                         Quagga.stop();
                                         $("#scanner-container").addClass("hiddenByCss");
                                         $("#scanner_input").addClass("hiddenByCss");
-                                        $("#btn").addClass("hiddenByCss");
+                                        $("#btn1").addClass("hiddenByCss");
                                     }
                                 },
                                 error: function (response, textStatus, e) {
