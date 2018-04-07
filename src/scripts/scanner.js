@@ -161,7 +161,7 @@ requirejs(['./scripts/vapp.js'], function () {
              }
              });
              */
-           
+
 
             function playSound(status) {
                 var audio;
