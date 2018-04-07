@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="mns" type="JavascriptDebugType" factoryName="JavaScript Debug" engineId="c5322926-77c7-4adf-a02c-853ca4ffa641" uri="http://localhost:63342/mns_vapp_frontend/src/index.html">
+  <configuration default="false" name="mns" type="JavascriptDebugType" factoryName="JavaScript Debug" uri="http://localhost:63342/mns_vapp_frontend/src/index.html">
     <method />
   </configuration>
 </component>
