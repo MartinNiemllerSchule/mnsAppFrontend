@@ -8,7 +8,7 @@
  */
 
 requirejs(['./scripts/vapp.js'], function () {
-	requirejs(['db', 'menu', 'jquery'], function (db) {
+	requirejs(['db', 'jquery', 'menu'], function (db) {
 		"use strict";
 		/**
 		 * Kapselung, für alles, was mit dem Stundenplan zusammenhängt
