@@ -1,7 +1,7 @@
 /**
  * Created by Media on 22.03.2018.
  */
-requirejs(['./vapp.js'], function () {
+requirejs(['./scripts/vapp.js'], function () {
     requirejs(['db', 'jquery','quagga','menu'], function (db) {
         "use strict";
 
