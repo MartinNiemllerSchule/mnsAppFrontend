@@ -7,10 +7,7 @@ requirejs(['./scripts/vapp.js'], function () {
 
 
         $(function () {
-            var db = new Dexie("Inventur");
-            db.version(1).stores({
-                config: 'key,value'
-            });
+           
             // Create the QuaggaJS config object for the live stream
             var _scannerIsRunning = false;
             var lastResult = null;
