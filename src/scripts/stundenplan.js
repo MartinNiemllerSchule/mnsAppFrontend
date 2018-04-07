@@ -26,7 +26,7 @@ requirejs(['./scripts/vapp.js'], function () {
             stundenplanTableHead: null,
             stundenplanTableDiese: null,
             stundenplanTableNaechste: null,
-			aktuelleKalenderwoche: null,
+            aktuelleKalenderwoche: null,
 
             init: function () {
                 Stundenplan.generateTableStructure(function () {
@@ -41,12 +41,12 @@ requirejs(['./scripts/vapp.js'], function () {
             generateTableStructure: function (callback) {
                 Stundenplan.pushJsonToArrays(function () {
                     setTimeout(function () {
+                        Stundenplan.vplanDatumZuTag();
                         Stundenplan.generateTableElementsInTableArrays(Stundenplan.stundenplanFirstWeek, Stundenplan.stundenplanFirstWeekTable);
                         Stundenplan.generateTableElementsInTableArrays(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
                         Stundenplan.stundenplanUngeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanFirstWeek, Stundenplan.stundenplanFirstWeekTable);
                         Stundenplan.stundenplanGeradeWoche = Stundenplan.tableArraysToString(Stundenplan.stundenplanSecondWeek, Stundenplan.stundenplanSecondWeekTable);
                         Stundenplan.generateTableString(Stundenplan.stundenplanGeradeWoche, Stundenplan.stundenplanUngeradeWoche);
-                        Stundenplan.vplanDatumZuTag();
                         callback();
                     }, 500);
                 });
@@ -93,29 +93,223 @@ requirejs(['./scripts/vapp.js'], function () {
              * @param stundenplanTable {array}
              */
             generateTableElementsInTableArrays: function (stundenplan, stundenplanTable) {
-                for (var i = 1; i < 12; i++) {
-                    for (var j = 0; j < 5; j++) {
-                    	if(stundenplan == Stundenplan.stundenplanFirstWeek){
-							console.debug('erste');
-						}
-                        if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
-                            stundenplanTable[i - 1][j] = '<td rowspan="2">' + stundenplan[i - 1][j] + '</td>';
-                            stundenplanTable[i][j] = "";
-                            if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
-                                stundenplanTable[i - 2][j] = '<td rowspan="3">' + stundenplan[i - 2][j] + '</td>';
-                                stundenplanTable[i - 1][j] = "";
-                                stundenplanTable[i][j] = "";
+                var match = false;
+                var k = 0;
+                if (stundenplan === Stundenplan.stundenplanFirstWeek && Stundenplan.aktuelleKalenderwoche === 1) {
+                    //this
+                    for (var i = 1; i < 12; i++) {
+                        for (var j = 0; j < 5; j++) {
+                            k = 0;
+                            match = false;
+                            while (match === false && k < Stundenplan.vertretungsplan.length){
+                                if (stundenplan[i][j] === Stundenplan.vertretungsplan[k][2] && Stundenplan.vertretungsplan[k][3] === "this" && Stundenplan.vertretungsplan[k][4] === (j + 1) && Stundenplan.vertretungsplan[k][1] === i){
+                                    match = true;
+                                }else{
+                                    k++;
+                                }
                             }
-                        } else {
-                            if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
-                                stundenplanTable[i - 1][j] = "";
-                                stundenplanTable[i][j] = '<td>' + stundenplan[i][j] + '</td>';
-                            } else {
-                                stundenplanTable[i - 1][j] = '<td>' + stundenplan[i - 1][j] + '</td>';
-                                stundenplanTable[i][j] = '<td>' + stundenplan[i][j] + '</td>';
+                            if (match){
+                                if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                    stundenplanTable[i - 1][j] = '<td rowspan="2" style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
+                                    stundenplanTable[i][j] = "";
+                                    if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
+                                        stundenplanTable[i - 2][j] = '<td rowspan="3" style="background-color:darkorange">' + stundenplan[i - 2][j] + '</td>';
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = "";
+                                    }
+                                } else {
+                                    if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                    } else {
+                                        stundenplanTable[i - 1][j] = '<td style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                    }
+                                }
+                            }else{
+                                if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                    stundenplanTable[i - 1][j] = '<td rowspan="2">' + stundenplan[i - 1][j] + '</td>';
+                                    stundenplanTable[i][j] = "";
+                                    if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
+                                        stundenplanTable[i - 2][j] = '<td rowspan="3">' + stundenplan[i - 2][j] + '</td>';
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = "";
+                                    }
+                                } else {
+                                    if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = '<td>' + stundenplan[i][j] + '</td>';
+                                    } else {
+                                        stundenplanTable[i - 1][j] = '<td>' + stundenplan[i - 1][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td>' + stundenplan[i][j] + '</td>';
+                                    }
+                                }
+
                             }
                         }
                     }
+                } else if (stundenplan === Stundenplan.stundenplanSecondWeek && Stundenplan.aktuelleKalenderwoche === 0) {
+                    //this
+                    for (var i = 1; i < 12; i++) {
+                        for (var j = 0; j < 5; j++) {
+                            k = 0;
+                            match = false;
+                            while (match === false && k < Stundenplan.vertretungsplan.length){
+                                if (stundenplan[i][j] === Stundenplan.vertretungsplan[k][2] && Stundenplan.vertretungsplan[k][3] === "this" && Stundenplan.vertretungsplan[k][4] === (j + 1) && Stundenplan.vertretungsplan[k][1] === i){
+                                    match = true;
+                                }else{
+                                    k++;
+                                }
+                            }
+                            if (match){
+                                if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                    stundenplanTable[i - 1][j] = '<td rowspan="2" style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
+                                    stundenplanTable[i][j] = "";
+                                    if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
+                                        stundenplanTable[i - 2][j] = '<td rowspan="3" style="background-color:darkorange">' + stundenplan[i - 2][j] + '</td>';
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = "";
+                                    }
+                                } else {
+                                    if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                    } else {
+                                        stundenplanTable[i - 1][j] = '<td style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                    }
+                                }
+                            }else{
+                                if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                    stundenplanTable[i - 1][j] = '<td rowspan="2">' + stundenplan[i - 1][j] + '</td>';
+                                    stundenplanTable[i][j] = "";
+                                    if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
+                                        stundenplanTable[i - 2][j] = '<td rowspan="3">' + stundenplan[i - 2][j] + '</td>';
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = "";
+                                    }
+                                } else {
+                                    if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = '<td>' + stundenplan[i][j] + '</td>';
+                                    } else {
+                                        stundenplanTable[i - 1][j] = '<td>' + stundenplan[i - 1][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td>' + stundenplan[i][j] + '</td>';
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                    //this
+                } else if (stundenplan === Stundenplan.stundenplanFirstWeek && Stundenplan.aktuelleKalenderwoche === 0) {
+                    //this
+                    for (var i = 1; i < 12; i++) {
+                        for (var j = 0; j < 5; j++) {
+                            k = 0;
+                            match = false;
+                            while (match === false && k < Stundenplan.vertretungsplan.length){
+                                if (stundenplan[i][j] === Stundenplan.vertretungsplan[k][2] && Stundenplan.vertretungsplan[k][3] === "next" && Stundenplan.vertretungsplan[k][4] === (j + 1) && Stundenplan.vertretungsplan[k][1] === i){
+                                    match = true;
+                                }else{
+                                    k++;
+                                }
+                            }
+                            if (match){
+                                if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                    stundenplanTable[i - 1][j] = '<td rowspan="2" style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
+                                    stundenplanTable[i][j] = "";
+                                    if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
+                                        stundenplanTable[i - 2][j] = '<td rowspan="3" style="background-color:darkorange">' + stundenplan[i - 2][j] + '</td>';
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = "";
+                                    }
+                                } else {
+                                    if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                    } else {
+                                        stundenplanTable[i - 1][j] = '<td style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                    }
+                                }
+                            }else{
+                                if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                    stundenplanTable[i - 1][j] = '<td rowspan="2">' + stundenplan[i - 1][j] + '</td>';
+                                    stundenplanTable[i][j] = "";
+                                    if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
+                                        stundenplanTable[i - 2][j] = '<td rowspan="3">' + stundenplan[i - 2][j] + '</td>';
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = "";
+                                    }
+                                } else {
+                                    if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = '<td>' + stundenplan[i][j] + '</td>';
+                                    } else {
+                                        stundenplanTable[i - 1][j] = '<td>' + stundenplan[i - 1][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td>' + stundenplan[i][j] + '</td>';
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                    //next
+                } else if (stundenplan === Stundenplan.stundenplanSecondWeek && Stundenplan.aktuelleKalenderwoche === 1) {
+                    //this
+                    for (var i = 1; i < 12; i++) {
+                        for (var j = 0; j < 5; j++) {
+                            k = 0;
+                            match = false;
+                            while (match === false && k < Stundenplan.vertretungsplan.length){
+                                if (stundenplan[i][j] === Stundenplan.vertretungsplan[k][2] && Stundenplan.vertretungsplan[k][3] === "next" && Stundenplan.vertretungsplan[k][4] === (j + 1) && Stundenplan.vertretungsplan[k][1] === i){
+                                    match = true;
+                                }else{
+                                    k++;
+                                }
+                            }
+                            if (match){
+                                if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                    stundenplanTable[i - 1][j] = '<td rowspan="2" style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
+                                    stundenplanTable[i][j] = "";
+                                    if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
+                                        stundenplanTable[i - 2][j] = '<td rowspan="3" style="background-color:darkorange">' + stundenplan[i - 2][j] + '</td>';
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = "";
+                                    }
+                                } else {
+                                    if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                    } else {
+                                        stundenplanTable[i - 1][j] = '<td style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                    }
+                                }
+                            }else{
+                                if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                    stundenplanTable[i - 1][j] = '<td rowspan="2">' + stundenplan[i - 1][j] + '</td>';
+                                    stundenplanTable[i][j] = "";
+                                    if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
+                                        stundenplanTable[i - 2][j] = '<td rowspan="3">' + stundenplan[i - 2][j] + '</td>';
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = "";
+                                    }
+                                } else {
+                                    if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
+                                        stundenplanTable[i - 1][j] = "";
+                                        stundenplanTable[i][j] = '<td>' + stundenplan[i][j] + '</td>';
+                                    } else {
+                                        stundenplanTable[i - 1][j] = '<td>' + stundenplan[i - 1][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td>' + stundenplan[i][j] + '</td>';
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                    //next
                 }
             },
 
@@ -154,7 +348,7 @@ requirejs(['./scripts/vapp.js'], function () {
              * @returns {number}
              */
             kalenderwoche: function (date) {
-                if(date != undefined) var KWDatum = new Date(date);
+                if (date != undefined) var KWDatum = new Date(date);
                 else var KWDatum = new Date();
                 var day = KWDatum.getDay();
                 var DonnerstagDat = new Date(KWDatum.getTime() +
@@ -181,17 +375,17 @@ requirejs(['./scripts/vapp.js'], function () {
                 var datum = new Date();
                 var aktTag = datum.getDate();
                 var aktMonat = (datum.getMonth() + 1);
-                if(aktTag < 10) aktTag = "0" + aktTag;
-                if(aktMonat < 10) aktMonat = "0" + aktMonat;
+                if (aktTag < 10) aktTag = "0" + aktTag;
+                if (aktMonat < 10) aktMonat = "0" + aktMonat;
                 var aktDatum = "" + datum.getFullYear() + "-" + aktMonat + "-" + aktTag;
                 console.debug(aktDatum);
                 console.debug(Stundenplan.vertretungsplan);
                 Stundenplan.vertretungsplan.forEach(function (data) {
-                    if(Stundenplan.kalenderwoche(data[0]) === Stundenplan.kalenderwoche()){
+                    if (Stundenplan.kalenderwoche(data[0]) === Stundenplan.kalenderwoche()) {
                         data.push("this");
-                    }else if(Stundenplan.kalenderwoche(data[0]) === (Stundenplan.kalenderwoche() + 1)){
+                    } else if (Stundenplan.kalenderwoche(data[0]) === (Stundenplan.kalenderwoche() + 1)) {
                         data.push("next");
-                    }else{
+                    } else {
                         data.push("later");
                     }
                     var tag = new Date(data[0]);
