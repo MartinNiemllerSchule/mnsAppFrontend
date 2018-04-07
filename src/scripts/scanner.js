@@ -161,77 +161,7 @@ requirejs(['./scripts/vapp.js'], function () {
              }
              });
              */
-            $("#livestream_scanner input:file").change(function (e) {
-                if (e.target.files && e.target.files.length) {
-                    Quagga.decodeSingle({
-                        decoder: {
-                            readers: ["ean_reader"] // List of active readers
-                        },
-                        locate: true, // try to locate the barcode in the image
-                        src: URL.createObjectURL(this.files[0])
-                    }, function (result) {
-                        var code = result.codeResult.code;
-
-                        if (lastResult !== code) {
-                            lastResult = code;
-                            console.debug(result);
-                            if (code) {
-                                $('#scanner_input').val(code);
-                                var buchNr = $('#scanner_input').val();
-                                console.debug("Buchnummer" + buchNr);
-                                console.debug(db);
-                                var id;
-
-                                db.config.get('inventurTitel').then(function (data0) {
-                                    console.debug(data0);
-                                    console.debug(data0.value);
-                                    id = data0.value;
-                                    console.debug(id);
-                                    var sendData = "fname=setBuchLastSeen&bean=" + buchNr + "&tid=" + id;
-                                    console.debug("Ajax senddata" + sendData);
-                                    $(".drawingBuffer").addClass("hiddenByCss");
-                                    $.ajax({
-                                        url: urlInventurApi,
-                                        dataType: 'json',
-                                        crossDomain: true,
-                                        data: sendData,
-                                        success: function (response) {
-                                            if (response.erfolg == false) {
-                                                console.debug("Buch nicht gefunden (response is false)");
-                                                playSound('erro');
-                                                $('#grün').removeClass("weiß");
-                                                $('#grün').addClass("rot");
-                                                setTimeout(function () {
-                                                    $('#grün').removeClass("rot");
-                                                    $('#grün').addClass("weiß");
-                                                },200)
-                                            } else {
-                                                console.debug(response);
-                                                playSound('succ');
-                                                $('#Titel').text(response.title);
-                                                console.debug("Antwort wird zurückgegeben");
-                                                $('#grün').removeClass("weiß");
-                                                $('#grün').addClass("grün");
-                                                setTimeout(function () {
-                                                    $('#grün').removeClass("grün");
-                                                    $('#grün').addClass("weiß");
-                                                },200)
-                                            }
-                                        },
-                                        error: function (response, textStatus, e) {
-                                            console.debug("Antwort auf setBuch gescheitert", textStatus, e);
-                                            playSound('erro')
-                                        }
-                                    });
-                                });
-
-
-                            }
-                        }
-                    });
-
-                }
-            });
+           
 
             function playSound(status) {
                 var audio;
