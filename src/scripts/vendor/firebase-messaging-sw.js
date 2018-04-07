@@ -1,5 +1,5 @@
-importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging.js');
 firebase.initializeApp({
 	messagingSenderId: '289478987889'
 });
@@ -36,7 +36,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
 	const notificationTitle = 'MNS sagt';
 	const notificationOptions = {
 		body: 'Background Message body.',
-		icon: '/firebase-logo.png'
+		icon: './images/fcmLogo.svg'
 	};
 
 	return self.registration.showNotification(notificationTitle,notificationOptions);

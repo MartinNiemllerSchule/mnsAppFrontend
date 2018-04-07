@@ -26,12 +26,12 @@ define('fbm', ['firebase'], function (firebase) {
 	// Callback fired if Instance ID token is updated.
 	messaging.onTokenRefresh(function () {
 		messaging.getToken()
-			.then(function (refreshedToken) {
+			.then( refreshedToken => {
 				console.log('Token refreshed.');
 				// Indicate that the new Instance ID token has not yet been sent to the app server.
-				setTokenSentToServer(false);
+				messaging.setTokenSentToServer(false);
 				// Send Instance ID token to app server.
-				sendTokenToServer(refreshedToken);
+				messaging.sendTokenToServer(refreshedToken);
 				/*
 				// [START_EXCLUDE]
 				// Display new Instance ID token and clear UI of all previous messages.
@@ -60,19 +60,20 @@ define('fbm', ['firebase'], function (firebase) {
 	}); // [END receive_message]
 
 	messaging.ein = function () {
-		messaging.getToken()
-			.then(function (currentToken) {
-				return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
+			messaging.getToken()
+				.then(function (currentToken) {
 					if (currentToken) {
+						console.log('[messaging.ein] Token gefunden');
 						resolve({'token': currentToken});
 					} else {
 						// hole Erlaubnis ein
-						console.log('Requesting permission...');
+						console.log('[messaging.ein] Requesting permission...');
 						// [START request_permission]
 						messaging.requestPermission()
 							.then(function () {
-								console.log('Notification permission granted.');
-								setTokenSentToServer(false);
+								console.log('[messaging.ein] Notification permission granted.');
+								messaging.setTokenSentToServer(false);
 								// Retrieve an Instance ID token for use with FCM.
 								messaging.getToken()
 									.then((cToken) => {
@@ -80,20 +81,58 @@ define('fbm', ['firebase'], function (firebase) {
 										resolve({'token': cToken});
 									})
 									.catch(() => {
-										reject('requestPermission gescheitert');
+										reject('[messaging.ein] requestPermission gescheitert');
 									});
 							})
 							.catch(function (err) {
-								reject('Unable to get permission to notify.' + err);
+								reject('[messaging.ein] Unable to get permission to notify.' + err);
 							});
 						// [END request_permission]
 					}
+				})
+				.catch(e => {
+					reject('[messaging.ein.getToken] gescheitert: ' + e);
 				});
-			});
+		});
 	};
 
 	messaging.aus = function () {
-
+		return new Promise((resolve, reject) => {
+			// Delete Instance ID token.
+			// [START delete_token]
+			messaging.getToken()
+				.then(function (currentToken) {
+					// vom Server entfernen
+					const sendData = 'fname=deleteToken&token=' + currentToken;
+					$.ajax({
+						url: urlApi,
+						dataType: 'json',
+						crossDomain: true,
+						data: sendData,
+						success: (response) => {
+							console.debug('[messaging.aus] Token vom Server entfernt', response);
+							messaging.deleteToken(currentToken)
+								.then(function () {
+									console.log('[messaging.aus] Token deleted.');
+									setTokenSentToServer(false);
+									resolve(response);
+								})
+								.catch(err => {
+									console.log('[messaging.aus] Unable to delete token. ', err);
+									reject(err);
+								});
+						},
+						error: (response, textStatus, e) => {
+							console.debug('[messaging.aus] Token wurde nicht richtig vom Server entfernt (ajax)', response, textStatus, e);
+							reject({'response': response, 'textStatus': textStatus, 'err': e});
+						}
+					});
+					// [END delete_token]
+				})
+				.catch(function (err) {
+					console.log('Error retrieving Instance ID token. ', err);
+				});
+		});
 	};
 
 	/*
@@ -104,7 +143,7 @@ define('fbm', ['firebase'], function (firebase) {
 	// - send messages back to this app
 	// - subscribe/unsubscribe the token from topics
 	messaging.sendTokenToServer = function (currentToken) {
-		if (!isTokenSentToServer()) {
+		if (!messaging.isTokenSentToServer()) {
 			console.log('Sending token to server...');
 
 			// Send the current token to your server.
@@ -115,7 +154,7 @@ define('fbm', ['firebase'], function (firebase) {
 				crossDomain: true,
 				data: sendData,
 				success: function (response) {
-					if (response.erfolg) setTokenSentToServer(true);
+					if (response.erfolg) messaging.setTokenSentToServer(true);
 				},
 				error: function (response, textStatus, e) {
 					console.debug('FCM Token wurde nicht richtig übermittelt (ajax)', response, textStatus, e);
@@ -125,57 +164,10 @@ define('fbm', ['firebase'], function (firebase) {
 		} else {
 			console.log('Token already sent to server so won\'t send it again unless it changes');
 		}
-	}
+	};
 
-	function isTokenSentToServer() {
-		return window.localStorage.getItem('sentToServer') == 1;
-	}
-
-	function setTokenSentToServer(sent) {
-		window.localStorage.setItem('sentToServer', sent ? 1 : 0);
-	}
-
-	function deleteToken() {
-		// Delete Instance ID token.
-		// [START delete_token]
-		messaging.getToken()
-			.then(function (currentToken) {
-				// vom Server entfernen
-				const sendData = 'fname=deleteToken&token=' + currentToken;
-				$.ajax({
-					url: urlApi,
-					dataType: 'json',
-					crossDomain: true,
-					data: sendData,
-					success: function (response) {
-						console.debug('FCM Token vom Server entfernt');
-					},
-					error: function (response, textStatus, e) {
-						console.debug('FCM Token wurde nicht richtig entfernt (ajax)', response, textStatus, e);
-					}
-				});
-				messaging.deleteToken(currentToken)
-					.then(function () {
-						console.log('Token deleted.');
-						setTokenSentToServer(false);
-						/*
-						// [START_EXCLUDE]
-						// Once token is deleted update UI.
-						resetUI();
-						// [END_EXCLUDE]
-						*/
-					})
-					.catch(function (err) {
-						console.log('Unable to delete token. ', err);
-					});
-				// [END delete_token]
-			})
-			.catch(function (err) {
-				console.log('Error retrieving Instance ID token. ', err);
-				// showToken('Error retrieving Instance ID token. ', err);
-			});
-
-	}
+	messaging.isTokenSentToServer = () => window.localStorage.getItem('sentToServer') == 1;
+	messaging.setTokenSentToServer = (sent) => { window.localStorage.setItem('sentToServer', sent ? 1 : 0);	};
 
 	return messaging;
 });
