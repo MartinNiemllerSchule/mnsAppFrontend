@@ -109,7 +109,7 @@ requirejs(['./scripts/vapp.js'], function () {
                         var id;
 
                         console.debug("Buchnummer" + buchNr);
-                            var sendData = "fname=setBuchLastSeen&bean=" + buchNr;
+                            var sendData = "fname=getBuch&bnr=" + buchNr;
                             console.debug("Ajax senddata" + sendData);
                             $.ajax({
                                 url: urlInventurApi,
