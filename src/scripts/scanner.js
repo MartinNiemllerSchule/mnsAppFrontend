@@ -146,7 +146,7 @@ requirejs(['./scripts/vapp.js'], function () {
 
 
             // Stop quagga in any case, when the modal is closed
-            document.getElementById("btn").addEventListener("click", function () {
+            document.getElementById("btn1").addEventListener("click", function () {
                 if (_scannerIsRunning == true) {
                     Quagga.stop();
                 } else {
