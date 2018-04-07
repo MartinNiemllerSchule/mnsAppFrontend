@@ -126,6 +126,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                         $('#Titel').text(response.title);
                                         console.debug("Antwort wird zurückgegeben");
                                         Quagga.stop();
+                                        $("#scanner-container").addClass("hiddenByCss");
                                     }
                                 },
                                 error: function (response, textStatus, e) {
