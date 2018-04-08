@@ -15,9 +15,7 @@ requirejs.config({
 		firebaseApp: "https://www.gstatic.com/firebasejs/4.9.0/firebase-app",
 		firebaseMessaging: "https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging",
 		quagga: './vendor/quagga',
-		text: './vendor/text',
-		template_menu: '../template/menu.html'
-
+		text: './vendor/text'
 	},
 	shim: {
 		fcLDe: ['fullCalendar'],
