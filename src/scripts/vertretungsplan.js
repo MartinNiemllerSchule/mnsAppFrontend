@@ -30,7 +30,7 @@ function getVertretungsplanTabelle(db, cb) {
 		setTimeout(function () {
             for (var i = 0; i < vplan.length; i++) {
 
-            	if (vplan[i + 1] != null && vplan[i].tag == vplan[i + 1].tag && vplan[i].bezeichnung == vplan[i + 1].bezeichnung
+            	if (vplan[i + 1] != null && vplan[i][0] == vplan[i + 1][0] && vplan[i].bezeichnung == vplan[i + 1].bezeichnung
 					&& vplan[i].raum == vplan[i + 1].raum && ((vplan[i + 1].stunde - vplan[i].stunde) == 1)) {
 
 					vplanTBody += '<tr><td>' + vplan[i].tag + '</td><td>' + vplan[i].stunde + ' + ' + i + 1 + '</td><td>'
