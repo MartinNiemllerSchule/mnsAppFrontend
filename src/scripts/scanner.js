@@ -182,18 +182,8 @@ requirejs(['./scripts/vapp.js'], function () {
         var data = response;
         $.each(data, function (key, val) {
             $('#buchausgabe')
-                .append('<span>').addClass('scannerSpalte1').text('BEAN:')
-                .append('<span>').addClass('scannerSpalte2').text(val.bean + '<br>')
-                .append('<span>').addClass('scannerSpalte1').text('Titel:')
-                .append('<span>').addClass('scannerSpalte2').text(val.titel + '<br>')
-                .append('<span>').addClass('scannerSpalte1').text('Ausleihdatum:')
-                .append('<span>').addClass('scannerSpalte2').text(val.ausleihdatum + '<br>')
-                .append('<span>').addClass('scannerSpalte1').text('Kurs:')
-                .append('<span>').addClass('scannerSpalte2').text(val.kurs + '<br>')
-                .append('<span>').addClass('scannerSpalte1').text('Vorname:')
-                .append('<span>').addClass('scannerSpalte2').text(val.firstname + '<br>')
-                .append('<span>').addClass('scannerSpalte1').text('Nachname:')
-                .append('<span>').addClass('scannerSpalte2').text(val.name + '<br>')
+                .append("<span class='scannerSpalte1'>BEAN:</span><span class='scannerSpalte2'>"+val.bean+"</span><br>");
+
             ;
             //buecherplan.push([val.bean, val.titel, val.ausleihdatum, val.kurs, val.firstname,val.name ]);
         });
