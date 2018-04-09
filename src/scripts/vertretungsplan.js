@@ -29,8 +29,18 @@ function getVertretungsplanTabelle(db, cb) {
 		var vplanTBody = '';
 		setTimeout(function () {
             for (var i = 0; i < vplan.length; i++) {
-                vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
+            	if (vplan[i + 1] != null && vplan[i].tag == vplan[i + 1].tag && vplan[i].bezeichnung == vplan[i + 1].bezeichnung
+					&& vplan[i].raum == vplan[i + 1].raum && ((vplan[i + 1].stunde - vplan[i].stunde) == 1)) {
+
+					vplanTBody += '<tr><td>' + vplan[i].tag + '</td><td>' + vplan[i].stunde + ' + ' + i + 1 + '</td><td>'
+						+ vplan[i].bezeichnung + '</td><td>' + vplan[i].raum + '</td><td>' + vplan[i].VLehrer + '</td><td>'
+						+ vplan[i].info + '</td></tr>';
+					i++;
+
+				} else vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
+
             }
+
             cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
         },500);
 }
@@ -46,8 +56,16 @@ function getVertretungsplanTabelleAlle(db, cb) {
     setTimeout(function () {
 
 		for (var i = 0; i < vplan.length; i++) {
-			vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
-		}
+            if (vplan[i + 1] != null && vplan[i].tag == vplan[i + 1].tag && vplan[i].bezeichnung == vplan[i + 1].bezeichnung
+                && vplan[i].raum == vplan[i + 1].raum && ((vplan[i + 1].stunde - vplan[i].stunde) == 1)) {
+
+            	vplanTBody += '<tr><td>' + vplan[i].tag + '</td><td>' + vplan[i].stunde + ' + ' + i + 1 + '</td><td>'
+                    + vplan[i].bezeichnung + '</td><td>' + vplan[i].raum + '</td><td>' + vplan[i].VLehrer + '</td><td>'
+                    + vplan[i].info + '</td></tr>';
+                i++;
+
+            } else vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
+        }
 
 		cb('<table class="Vertretungsplan" id="selRightContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
     },500);
