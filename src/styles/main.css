@@ -203,6 +203,7 @@ a {
 .scannerSpalte1 {
 	min-width: 13em;
 	text-align: right;
+	display:inline-block;
 }
 .scannerSpalte2 {
 	margin-left: 1em;
