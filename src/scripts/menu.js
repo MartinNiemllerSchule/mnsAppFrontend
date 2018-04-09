@@ -58,11 +58,11 @@ define(['db', 'text!./template/menu.html', 'jquery'], function (db, menuTmpl) {
 					});
 
 					// setze Funktionalität des Logout-Button
-					$('#logout').click(function () {
+					$('#logOut').click(function () {
 						db.config.transaction('rw', config, function () {
-							var autoLogin = db.config.get('autoLogin');
+							//var autoLogin = db.config.get('autoLogin');
 							db.config.clear();
-							db.config.put({'key': 'autoLogin', 'value': autoLogin});
+							//db.config.put({'key': 'autoLogin', 'value': autoLogin});
 						}).catch(function (e) {
 							console.debug('Datenbankfehler in lokaler DB bei Logout:', e.stack || e);
 						})
