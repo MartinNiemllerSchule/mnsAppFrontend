@@ -62,6 +62,12 @@ define(['db', 'text!./template/menu.html', 'jquery'], function (db, menuTmpl) {
 						db.config.transaction('rw', config, function () {
 							//var autoLogin = db.config.get('autoLogin');
 							db.config.clear();
+							db.buecher.clear();
+							db.klausuren.clear();
+							db.kursliste.clear();
+							db.splan.clear();
+							db.vplan.clear();
+							db.vplanAlle.clear();
 							//db.config.put({'key': 'autoLogin', 'value': autoLogin});
 						}).catch(function (e) {
 							console.debug('Datenbankfehler in lokaler DB bei Logout:', e.stack || e);
