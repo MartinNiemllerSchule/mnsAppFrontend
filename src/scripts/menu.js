@@ -44,7 +44,7 @@ define(['db', 'text!./template/menu.html', 'jquery'], function (db, menuTmpl) {
 
                     // setze Funktionalität des Logout-Button
                     $('#logOut').click(function () {
-                        db.config.transaction('rw', db.config, db.buecher, db.klausuren, db.kursliste, db.splan, db.vplan, db.vplanAlle, function () {
+                        db.transaction('rw', db.config, db.buecher, db.klausuren, db.kursliste, db.splan, db.vplan, db.vplanAlle, function () {
                             //var autoLogin = db.config.get('autoLogin');
                             db.config.delete();
                             db.buecher.delete();
