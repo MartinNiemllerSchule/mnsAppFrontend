@@ -104,8 +104,8 @@ requirejs(['./scripts/vapp.js'], function () {
                     if (lastResult !== code) {
                         lastResult = code;
 
-                        $('#scanner_input').val(code);
-                        var buchNr = $('#scanner_input').val();
+                        
+                        var buchNr = code;
                         var id;
 
                         console.debug("Buchnummer" + buchNr);
