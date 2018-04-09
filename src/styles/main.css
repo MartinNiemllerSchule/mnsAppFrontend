@@ -201,7 +201,7 @@ a {
 }
 
 .scannerSpalte1 {
-	min-width: 13em;
+	min-width: 13ex;
 	text-align: right;
 	display:inline-block;
 }
