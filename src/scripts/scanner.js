@@ -182,8 +182,12 @@ requirejs(['./scripts/vapp.js'], function () {
         var data = response;
         $.each(data, function (key, val) {
             $('#buchausgabe')
-                .append("<span class='scannerSpalte1'>BEAN:</span><span class='scannerSpalte2'>"+val.bean+"</span><br>");
-
+                .append("<span class='scannerSpalte1'>BEAN: </span><span class='scannerSpalte2'>"+val.bean+"</span><br>")
+                .append("<span class='scannerSpalte1'>Titel: </span><span class='scannerSpalte2'>"+val.titel+"</span><br>")
+                .append("<span class='scannerSpalte1'>Ausleihdatum: </span><span class='scannerSpalte2'>"+val.ausleihdatum+"</span><br>")
+                .append("<span class='scannerSpalte1'>Kurs: </span><span class='scannerSpalte2'>"+val.kurs+"</span><br>")
+                .append("<span class='scannerSpalte1'>Vorname: </span><span class='scannerSpalte2'>"+val.firstname+"</span><br>")
+                .append("<span class='scannerSpalte1'>Name: </span><span class='scannerSpalte2'>"+val.name+"</span><br>")
             ;
             //buecherplan.push([val.bean, val.titel, val.ausleihdatum, val.kurs, val.firstname,val.name ]);
         });
