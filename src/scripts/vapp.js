@@ -29,7 +29,7 @@ requirejs.config({
 //urlApi = './api/index.php';
 urlApi = 'https://vapp.niemoeller.schule/api/index.php';
 urlInventurApi = './inventur/api/index.php';
-zielNachLogin = './einstellungen.html';
+zielNachLogin = './stundenplan.html';
 
 stunden = {
 	'1': '08:00',
