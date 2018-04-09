@@ -200,6 +200,15 @@ a {
 	width: calc(100% - 200px);
 }
 
+.scannerSpalte1 {
+	min-width: 13em;
+	text-align: right;
+}
+.scannerSpalte2 {
+	margin-left: 1em;
+}
+
+
 @media only screen and (max-width: 950px) {
 
 	.ui-page.ui-page-theme-a.ui-page-active {
