@@ -181,10 +181,10 @@ requirejs(['./scripts/vapp.js'], function () {
         // trage alle gefundenen Daten ein
         var data = response;
         $.each(data, function (key, val) {
-            buecherplan.push([val.bean, val.titel, val.ausleihdatum, val.kurs, val.anschaffungsjahr, val.bibo_ean8, val.firstname, val.name, val.isbn, val.jg, val.kuerzel, val.kursnr, val.last_seen, val.lname, val.snr, ]);
+            buecherplan.push([val.bean, val.titel, val.ausleihdatum, val.kurs, val.firstname,val.name ]);
         });
 
-        var buecherTHead = '<thead><tr><th>BEAN</th><th>Titel</th><th>Ausleihdatum</th><th>Kurs</th><th>Anschaffungsjahr</th><th>bibo_ean8</th><th>Vorname</th><th>Nachname</th><th>ISBN</th><th>Jahrgang</th><th>Kuerzel</th><th>KursNr</th><th>Last Seen</th><th>Lehrer</th><th>Schueler Nummer</th></tr></thead>';
+        var buecherTHead = '<thead><tr><th>BEAN</th><th>Titel</th><th>Ausleihdatum</th><th>Kurs</th><th>Vorname</th><th>Nachname</th></tr></thead>';
 
         var bplan = '';
         for (var i = 0; i < buecherplan.length; i++) {
