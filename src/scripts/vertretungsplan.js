@@ -29,6 +29,7 @@ function getVertretungsplanTabelle(db, cb) {
 		var vplanTBody = '';
 		setTimeout(function () {
             for (var i = 0; i < vplan.length; i++) {
+
             	if (vplan[i + 1] != null && vplan[i].tag == vplan[i + 1].tag && vplan[i].bezeichnung == vplan[i + 1].bezeichnung
 					&& vplan[i].raum == vplan[i + 1].raum && ((vplan[i + 1].stunde - vplan[i].stunde) == 1)) {
 
@@ -56,6 +57,7 @@ function getVertretungsplanTabelleAlle(db, cb) {
     setTimeout(function () {
 
 		for (var i = 0; i < vplan.length; i++) {
+
             if (vplan[i + 1] != null && vplan[i].tag == vplan[i + 1].tag && vplan[i].bezeichnung == vplan[i + 1].bezeichnung
                 && vplan[i].raum == vplan[i + 1].raum && ((vplan[i + 1].stunde - vplan[i].stunde) == 1)) {
 
