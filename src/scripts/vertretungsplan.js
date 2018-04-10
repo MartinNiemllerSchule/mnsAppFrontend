@@ -27,7 +27,6 @@ function getVertretungsplanTabelle(db, cb) {
         var test = vplan[0][j];
 
 
-
         vplan.push([data.tag, data.stunde, data.bezeichnung, data.raum, data.VLehrer, data.info]);
     });
     var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
