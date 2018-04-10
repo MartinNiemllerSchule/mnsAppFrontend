@@ -21,7 +21,7 @@ requirejs(['./scripts/vapp.js'], function () {
 			db.config.get('autoLogin')
 				.then(function (autoLogin) {
 					if (!autoLogin.value) {
-						$('#autoLogin').prop('checked', false);
+						$('#autoLogin').is(':checked');
 					}
 				}).catch(function (e) {
 				console.debug('autoLogin wurde in der Datenbank nicht gefunden', e.stack || e);
