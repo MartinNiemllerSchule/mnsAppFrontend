@@ -19,24 +19,26 @@ requirejs(['./scripts/vapp.js'], function () {
 });
 
 function getVertretungsplanTabelle(db, cb) {
-    var vplan = [];
+    /*    var vplan = [];
 
-    db.vplan.each(function (data) {
+        db.vplan.each(function (data) {
 
-        var j = vplan.length - 1;
-        var test = vplan[0][j];
+            var j = vplan.length - 1;
+            var test = vplan[0][j];
 
 
-        vplan.push([data.tag, data.stunde, data.bezeichnung, data.raum, data.VLehrer, data.info]);
-    });
-    var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
-    var vplanTBody = '';
-    setTimeout(function () {
+            vplan.push([data.tag, data.stunde, data.bezeichnung, data.raum, data.VLehrer, data.info]);
+        });
+       */
+    var vplan = db.vplan.toArray().then(vplan => {
+        var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
+        var vplanTBody = '';
         for (var i = 0; i < vplan.length; i++) {
             vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
         }
         cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
-    },500);
+    });
+
 }
 
 function getVertretungsplanTabelleAlle(db, cb) {
