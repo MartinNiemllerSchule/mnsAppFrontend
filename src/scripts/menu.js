@@ -45,20 +45,13 @@ define(['db', 'text!./template/menu.html', 'jquery'], function (db, menuTmpl) {
                     // setze Funktionalität des Logout-Button
                     $('#logOut').click(function () {
                         db.transaction('rw', db.config, db.buecher, db.klausuren, db.kursliste, db.splan, db.vplan, db.vplanAlle, function () {
-                            //var autoLogin = db.config.get('autoLogin');
-                            db.config.clear().then(() => {
-                                console.debug("Database successfully deleted");
-                            }).catch((err) => {
-                                console.debug("Could not delete database");
-                            });
+                            db.config.clear();
                             db.buecher.clear();
                             db.klausuren.clear();
                             db.kursliste.clear();
                             db.splan.clear();
                             db.vplan.clear();
                             db.vplanAlle.clear();
-                            console.debug(db.config);
-                            //db.config.put({'key': 'autoLogin', 'value': autoLogin});
                         }).catch(function (e) {
                             console.debug('Datenbankfehler in lokaler DB bei Logout:', e.stack || e);
                         })
