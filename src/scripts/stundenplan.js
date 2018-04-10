@@ -378,8 +378,6 @@ requirejs(['./scripts/vapp.js'], function () {
                 if (aktTag < 10) aktTag = "0" + aktTag;
                 if (aktMonat < 10) aktMonat = "0" + aktMonat;
                 var aktDatum = "" + datum.getFullYear() + "-" + aktMonat + "-" + aktTag;
-                console.debug(aktDatum);
-                console.debug(Stundenplan.vertretungsplan);
                 Stundenplan.vertretungsplan.forEach(function (data) {
                     if (Stundenplan.kalenderwoche(data[0]) === Stundenplan.kalenderwoche()) {
                         data.push("this");
@@ -392,7 +390,6 @@ requirejs(['./scripts/vapp.js'], function () {
                     data.push(tag.getDay());
                 });
                 Stundenplan.aktuelleKalenderwoche = (Stundenplan.kalenderwoche() % 2);
-                console.debug(Stundenplan.aktuelleKalenderwoche);
             },
 
             /**

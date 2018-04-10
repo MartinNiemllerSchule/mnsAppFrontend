@@ -46,17 +46,17 @@ define(['db', 'text!./template/menu.html', 'jquery'], function (db, menuTmpl) {
                     $('#logOut').click(function () {
                         db.transaction('rw', db.config, db.buecher, db.klausuren, db.kursliste, db.splan, db.vplan, db.vplanAlle, function () {
                             //var autoLogin = db.config.get('autoLogin');
-                            db.config.delete().then(() => {
+                            db.config.clear().then(() => {
                                 console.debug("Database successfully deleted");
                             }).catch((err) => {
                                 console.debug("Could not delete database");
                             });
-                            db.buecher.delete();
-                            db.klausuren.delete();
-                            db.kursliste.delete();
-                            db.splan.delete();
-                            db.vplan.delete();
-                            db.vplanAlle.delete();
+                            db.buecher.clear();
+                            db.klausuren.clear();
+                            db.kursliste.clear();
+                            db.splan.clear();
+                            db.vplan.clear();
+                            db.vplanAlle.clear();
                             console.debug(db.config);
                             //db.config.put({'key': 'autoLogin', 'value': autoLogin});
                         }).catch(function (e) {
