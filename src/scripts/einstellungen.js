@@ -12,7 +12,9 @@ requirejs(['./scripts/vapp.js'], function () {
 
 			init: function () {
 				// UI - Icon-OK-Größe anpassen
-				$('#Benachrichtigungen img').height($('#switchBenachrichtigungen').height());
+				$('#Benachrichtigungen img')
+					.click(einstellungen.sendTokenToServer)
+					.height($('#switchBenachrichtigungen').height());
 
 				einstellungen.switchBen = $('#switchBen');
 				// Schalter auf den in der Datenbank hinterlegten Wert stellen
@@ -22,18 +24,20 @@ requirejs(['./scripts/vapp.js'], function () {
 						einstellungen.switchBen.prop('checked', ben.value);
 						if (ben.value) {
 							// UI - Icon und Hinweis anzeigen, falls ein Token vorhanden ist
-							einstellungen.uiVerbunden(fcm.ein());
+							fcm.ein()
+								.then(oToken => {einstellungen.uiVerbunden(oToken);})
+								.catch(e => {console.debug('[einstellungen.init] fcm.ein gescheitert: '+e);});
 						} else {
-							fcm.aus();
-							einstellungen.uiNichtVerbunden();
+							fcm.aus()
+								.then(einstellungen.uiNichtVerbunden())
+								.catch(e => {console.debug('[einstellungen.init] fcm.aus gescheitert: '+e);});
 						}
 					})
 					.catch(function () {
 						// auf AUS stellen und so auch erstmal in die Datenbank eintragen
 						if (einstellungen.switchBen.is(':checked')) {
 							einstellungen.switchBen.prop('checked', false);
-						}
-						;
+						};
 						db.config.put({key: 'benachrichtigungen', value: false});
 					});self
 				einstellungen.switchBen.change(einstellungen.handleBenachrichtungenChanged);
@@ -84,6 +88,31 @@ requirejs(['./scripts/vapp.js'], function () {
 						}
 					})
 					.catch(e => { console.debug('[handleBenachrichtigungenChanged] Fehler in db..put(benachrichtigungen: '+e); });
+			},
+
+			sendTokenToServer: (imgEle) => {
+				console.debug('[einstellungen.sendTokenToServer]',imgEle);
+
+				// Token erneut zum Server senden, falls das verbunden-Bild angeklickt wird
+				if ($(imgEle.currentTarget).prop('title')) {
+					const titelArr = $(imgEle.currentTarget).prop('title').split(' ');
+					if (titelArr.length === 2 && titelArr[0] === 'Token:' && titelArr[1].length >= 95 ) {
+						// Send the current token to your server.
+						const sendData = 'fname=setToken&token=' + titelArr[1];
+						$.ajax({
+							url: urlApi,
+							dataType: 'json',
+							crossDomain: true,
+							data: sendData,
+							success: function (response) {
+								if (response.erfolg) fcm.setTokenSentToServer(true);
+							},
+							error: function (response, textStatus, e) {
+								console.debug('FCM Token wurde nicht richtig übermittelt (ajax)', response, textStatus, e);
+							}
+						});
+					} else console.debug('[einstellungen.sendTokenToServer] Fehler titelArr: ', titelArr);
+				} else console.debug('[einstellungen.sendTokenToServer] Fehler in imgEle: ', imgEle);
 			}
 		};
 
