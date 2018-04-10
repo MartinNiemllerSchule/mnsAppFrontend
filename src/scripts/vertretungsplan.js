@@ -34,6 +34,7 @@ function getVertretungsplanTabelle(db, cb) {
         cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
     },500);
 }
+
 function getVertretungsplanTabelleAlle(db, cb) {
     var vplan = [];
 
