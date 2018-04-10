@@ -30,7 +30,7 @@ function getVertretungsplanTabelle(db, cb) {
 		setTimeout(function () {
             for (var i = 0; i < vplan.length; i++) {
 
-            	var test = concole.debug(vplan[0][0]);
+            	var test = vplan[0][0];
 
             	if (vplan[i + 1] != null && vplan[i][0] == vplan[i + 1][0] && vplan[i][2] == vplan[i + 1][2]
 					&& vplan[i].raum == vplan[i + 1].raum && ((vplan[i + 1].stunde - vplan[i].stunde) == 1)) {
