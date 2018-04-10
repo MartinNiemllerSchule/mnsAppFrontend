@@ -9,21 +9,21 @@
     <meta name="apple-mobile-web-app-title" content="MNS">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-ststus-bar-style" content="black-translucent">
-    <title>QR-Scan</title>
+    <title>Scanner</title>
 
     <script data-main="./scripts/scanner.js" src="../scripts/vendor/require.js" async></script>
 
-    <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="./inventur/styles/index.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <script type="text/javascript" src="./scripts/vendor/staystandalone_ios.js"></script>
     <link rel="manifest" href="/manifest.json">
 </head>
 <body>
-<div id="Sidebar-btn">
-    <span></span>
-    <span></span>
-    <span></span>
+<div id="Sidebar"></div>
+<div id="Sidebar-cls"></div>
+<div id="Sidebar-btn"><span></span><span></span><span></span></div>
 </div>
-<div id="topbar">Inventur</div>
+<div id="topbar">Scanner</div>
 <div id="topbar-placeholder"></div>
 <div id="grün"></div>
 <div class="contentBox">
@@ -31,10 +31,8 @@
     <div id="scanner-container"></div>
 
     <div id="Titel"></div>
-    <div id="Nummer">
-        <input id="scanner_input" class="form-control" placeholder=" " type="text"/>
-    </div>
-    <input type="button" id="btn" class="btnGroup" value="Scanner starten/stoppen"/>
+
+    <input type="button" id="btn1" class="btnGroup" value="Scanner starten/stoppen"/>
     <div class="modal" id="livestream_scanner">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -44,15 +42,11 @@
                     <div class="error"></div>
                 </div>
                 <div class="modal-footer">
-                    <label class="btnGroup btn-default pull-left">
-                        <i class="fa fa-camera"></i> Bild benutzen
-                        <input type="file" accept="image/*;capture=camera" capture="camera" class="hidden"/>
-                    </label>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
+<div id="buchausgabe"></div>
 
 </div>
 </body>

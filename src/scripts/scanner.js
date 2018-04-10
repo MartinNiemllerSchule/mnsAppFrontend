@@ -7,10 +7,7 @@ requirejs(['./scripts/vapp.js'], function () {
 
 
         $(function () {
-            var db = new Dexie("Inventur");
-            db.version(1).stores({
-                config: 'key,value'
-            });
+           
             // Create the QuaggaJS config object for the live stream
             var _scannerIsRunning = false;
             var lastResult = null;
@@ -107,18 +104,12 @@ requirejs(['./scripts/vapp.js'], function () {
                     if (lastResult !== code) {
                         lastResult = code;
 
-                        $('#scanner_input').val(code);
-                        var buchNr = $('#scanner_input').val();
+                        
+                        var buchNr = code;
                         var id;
-                        db.config.get('inventurTitel').then(function (data0) {
-                            console.debug(data0);
-                            console.debug(data0.value);
-                            id = data0.value;
-                            console.debug(id);
 
-
-                            console.debug("Buchnummer" + buchNr);
-                            var sendData = "fname=setBuchLastSeen&bean=" + buchNr + "&tid=" + id;
+                        console.debug("Buchnummer" + buchNr);
+                            var sendData = "fname=getBuch&bnr=" + buchNr;
                             console.debug("Ajax senddata" + sendData);
                             $.ajax({
                                 url: urlInventurApi,
@@ -126,35 +117,26 @@ requirejs(['./scripts/vapp.js'], function () {
                                 crossDomain: true,
                                 data: sendData,
                                 success: function (response) {
-                                    if (response.erfolg == false) {
-                                        console.debug("Buch nicht gefunden (response is false)");
-                                        playSound('erro');
-                                        $('#grün').removeClass("weiß");
-                                        $('#grün').addClass("rot");
-                                        setTimeout(function () {
-                                            $('#grün').removeClass("rot");
-                                            $('#grün').addClass("weiß");
-                                        },200)
-                                    } else {
-                                        console.debug(response);
-                                        playSound('succ');
+                                    if (response[0].bean == undefined || response[0].bean == "") {
+                                        console.debug("Buch nicht gefunden")
+                                        console.debug(response.bean);
+                                    }
+                                    else {
+                                        getBuecherplanTable(response);
                                         $('#Titel').text(response.title);
                                         console.debug("Antwort wird zurückgegeben");
-                                        $('#grün').removeClass("weiß");
-                                        $('#grün').addClass("grün");
-                                        setTimeout(function () {
-                                            $('#grün').removeClass("grün");
-                                            $('#grün').addClass("weiß");
-                                        },200)
+                                        Quagga.stop();
+                                        $("#scanner-container").addClass("hiddenByCss");
+                                        $("#scanner_input").addClass("hiddenByCss");
+                                        $("#btn1").addClass("hiddenByCss");
                                     }
                                 },
                                 error: function (response, textStatus, e) {
-                                    console.debug("Antwort auf setBuch gescheitert", textStatus, e);
-                                    playSound('erro')
+                                    console.debug("Antwort auf getBuch gescheitert", textStatus, e);
                                 }
                             });
 
-                        });
+
 
                     }
 
@@ -164,7 +146,7 @@ requirejs(['./scripts/vapp.js'], function () {
 
 
             // Stop quagga in any case, when the modal is closed
-            document.getElementById("btn").addEventListener("click", function () {
+            document.getElementById("btn1").addEventListener("click", function () {
                 if (_scannerIsRunning == true) {
                     Quagga.stop();
                 } else {
@@ -179,77 +161,7 @@ requirejs(['./scripts/vapp.js'], function () {
              }
              });
              */
-            $("#livestream_scanner input:file").change(function (e) {
-                if (e.target.files && e.target.files.length) {
-                    Quagga.decodeSingle({
-                        decoder: {
-                            readers: ["ean_reader"] // List of active readers
-                        },
-                        locate: true, // try to locate the barcode in the image
-                        src: URL.createObjectURL(this.files[0])
-                    }, function (result) {
-                        var code = result.codeResult.code;
 
-                        if (lastResult !== code) {
-                            lastResult = code;
-                            console.debug(result);
-                            if (code) {
-                                $('#scanner_input').val(code);
-                                var buchNr = $('#scanner_input').val();
-                                console.debug("Buchnummer" + buchNr);
-                                console.debug(db);
-                                var id;
-
-                                db.config.get('inventurTitel').then(function (data0) {
-                                    console.debug(data0);
-                                    console.debug(data0.value);
-                                    id = data0.value;
-                                    console.debug(id);
-                                    var sendData = "fname=setBuchLastSeen&bean=" + buchNr + "&tid=" + id;
-                                    console.debug("Ajax senddata" + sendData);
-                                    $(".drawingBuffer").addClass("hiddenByCss");
-                                    $.ajax({
-                                        url: urlInventurApi,
-                                        dataType: 'json',
-                                        crossDomain: true,
-                                        data: sendData,
-                                        success: function (response) {
-                                            if (response.erfolg == false) {
-                                                console.debug("Buch nicht gefunden (response is false)");
-                                                playSound('erro');
-                                                $('#grün').removeClass("weiß");
-                                                $('#grün').addClass("rot");
-                                                setTimeout(function () {
-                                                    $('#grün').removeClass("rot");
-                                                    $('#grün').addClass("weiß");
-                                                },200)
-                                            } else {
-                                                console.debug(response);
-                                                playSound('succ');
-                                                $('#Titel').text(response.title);
-                                                console.debug("Antwort wird zurückgegeben");
-                                                $('#grün').removeClass("weiß");
-                                                $('#grün').addClass("grün");
-                                                setTimeout(function () {
-                                                    $('#grün').removeClass("grün");
-                                                    $('#grün').addClass("weiß");
-                                                },200)
-                                            }
-                                        },
-                                        error: function (response, textStatus, e) {
-                                            console.debug("Antwort auf setBuch gescheitert", textStatus, e);
-                                            playSound('erro')
-                                        }
-                                    });
-                                });
-
-
-                            }
-                        }
-                    });
-
-                }
-            });
 
             function playSound(status) {
                 var audio;
@@ -262,4 +174,22 @@ requirejs(['./scripts/vapp.js'], function () {
             }
         });
     });
+    function getBuecherplanTable(response) {
+        var buecherplan = [];
+
+        // initialisiere Stundenplan-Array splan mit leeren Werten
+        // trage alle gefundenen Daten ein
+        var data = response;
+        $.each(data, function (key, val) {
+            $('#buchausgabe')
+                .append("<span class='scannerSpalte1'>Vorname: </span><span class='scannerSpalte2'>"+val.firstname+"</span><br>")
+                .append("<span class='scannerSpalte1'>Name: </span><span class='scannerSpalte2'>"+val.name+"</span><br>")
+                .append("<span class='scannerSpalte1'>Kurs: </span><span class='scannerSpalte2'>"+val.kurs+"</span><br>")
+                .append("<span class='scannerSpalte1'>BEAN: </span><span class='scannerSpalte2'>"+val.bean+"</span><br>")
+                .append("<span class='scannerSpalte1'>Titel: </span><span class='scannerSpalte2'>"+val.titel+"</span><br>")
+                .append("<span class='scannerSpalte1'>Ausleihdatum: </span><span class='scannerSpalte2'>"+val.ausleihdatum+"</span><br>")
+            ;
+            //buecherplan.push([val.bean, val.titel, val.ausleihdatum, val.kurs, val.firstname,val.name ]);
+        });
+    }
 });
