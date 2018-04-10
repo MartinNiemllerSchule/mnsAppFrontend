@@ -30,14 +30,20 @@ function getVertretungsplanTabelle(db, cb) {
             vplan.push([data.tag, data.stunde, data.bezeichnung, data.raum, data.VLehrer, data.info]);
         });
        */
-    db.vplan.toArray().then(vplan => {
-        var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
-        var vplanTBody = '';
-        for (var i = 0; i < vplan.length; i++) {
-            vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
-        }
-        cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
-    }).catch((e) => {console.debug('nach toArray',e)});
+    console.debug('vor');
+    db.vplan
+        .toArray()
+        .then(vplan => {
+            var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
+            var vplanTBody = '';
+            console.debug(vplan);
+            for (var i = 0; i < vplan.length; i++) {
+                vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
+            }
+            cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
+        })
+        .catch((e) => {console.debug('nach toArray',e)});
+    console.debug('nach');
 
 }
 
