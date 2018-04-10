@@ -23,25 +23,28 @@ function getVertretungsplanTabelle(db, cb) {
 
 	db.vplan.each(function (data) {
 
-			vplan.push([data.tag, data.stunde, data.bezeichnung, data.raum, data.VLehrer, data.info]);
+
+		var i = vplan.length - 1;
+		var test = vplan[i][0];
+		if (vplan != null && data.tag == vplan[0][i])
+
+
+        if (vplan[i + 1] != null && vplan[i][0] == vplan[i + 1][0] && vplan[i][2] == vplan[i + 1][2]
+            && vplan[i].raum == vplan[i + 1].raum && ((vplan[i + 1].stunde - vplan[i].stunde) == 1)) {
+
+            vplanTBody += '<tr><td>' + vplan[i].tag + '</td><td>' + vplan[i].stunde + ' + ' + i + 1 + '</td><td>'
+                + vplan[i].bezeichnung + '</td><td>' + vplan[i].raum + '</td><td>' + vplan[i].VLehrer + '</td><td>'
+                + vplan[i].info + '</td></tr>';
+            i++;
+
+        } else vplan.push([data.tag, data.stunde, data.bezeichnung, data.raum, data.VLehrer, data.info]);
+
 		});
 		var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
 		var vplanTBody = '';
 		setTimeout(function () {
             for (var i = 0; i < vplan.length; i++) {
-
-            	var test = vplan[0].tag;
-
-            	if (vplan[i + 1] != null && vplan[i][0] == vplan[i + 1][0] && vplan[i][2] == vplan[i + 1][2]
-					&& vplan[i].raum == vplan[i + 1].raum && ((vplan[i + 1].stunde - vplan[i].stunde) == 1)) {
-
-					vplanTBody += '<tr><td>' + vplan[i].tag + '</td><td>' + vplan[i].stunde + ' + ' + i + 1 + '</td><td>'
-						+ vplan[i].bezeichnung + '</td><td>' + vplan[i].raum + '</td><td>' + vplan[i].VLehrer + '</td><td>'
-						+ vplan[i].info + '</td></tr>';
-					i++;
-
-				} else vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
-
+            	vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
             }
 
             cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
@@ -59,16 +62,7 @@ function getVertretungsplanTabelleAlle(db, cb) {
     setTimeout(function () {
 
 		for (var i = 0; i < vplan.length; i++) {
-
-            if (vplan[i + 1] != null && vplan[i].tag == vplan[i + 1].tag && vplan[i].bezeichnung == vplan[i + 1].bezeichnung
-                && vplan[i].raum == vplan[i + 1].raum && ((vplan[i + 1].stunde - vplan[i].stunde) == 1)) {
-
-            	vplanTBody += '<tr><td>' + vplan[i].tag + '</td><td>' + vplan[i].stunde + ' + ' + i + 1 + '</td><td>'
-                    + vplan[i].bezeichnung + '</td><td>' + vplan[i].raum + '</td><td>' + vplan[i].VLehrer + '</td><td>'
-                    + vplan[i].info + '</td></tr>';
-                i++;
-
-            } else vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
+			vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
         }
 
 		cb('<table class="Vertretungsplan" id="selRightContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
