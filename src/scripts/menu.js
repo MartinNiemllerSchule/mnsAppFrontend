@@ -46,7 +46,11 @@ define(['db', 'text!./template/menu.html', 'jquery'], function (db, menuTmpl) {
                     $('#logOut').click(function () {
                         db.transaction('rw', db.config, db.buecher, db.klausuren, db.kursliste, db.splan, db.vplan, db.vplanAlle, function () {
                             //var autoLogin = db.config.get('autoLogin');
-                            db.config.delete();
+                            db.config.delete().then(() => {
+                                console.debug("Database successfully deleted");
+                            }).catch((err) => {
+                                console.debug("Could not delete database");
+                            });
                             db.buecher.delete();
                             db.klausuren.delete();
                             db.kursliste.delete();
