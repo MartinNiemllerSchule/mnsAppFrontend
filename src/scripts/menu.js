@@ -53,6 +53,7 @@ define(['db', 'text!./template/menu.html', 'jquery'], function (db, menuTmpl) {
                             db.splan.delete();
                             db.vplan.delete();
                             db.vplanAlle.delete();
+                            console.debug(db.config);
                             //db.config.put({'key': 'autoLogin', 'value': autoLogin});
                         }).catch(function (e) {
                             console.debug('Datenbankfehler in lokaler DB bei Logout:', e.stack || e);
