@@ -24,7 +24,7 @@ function getVertretungsplanTabelle(db, cb) {
 		.then(vplan => {
 			var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
 			var vplanTBody = '';
-			var td = '\'</td><td>\'';
+			var td = '</td><td>';
 			for (var i = 0; i < vplan.length; i++) {
 				vplanTBody += '<tr><td>' + vplan[i].stunde + td + '</td></tr>';
 			}
