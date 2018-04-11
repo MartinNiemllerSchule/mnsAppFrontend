@@ -19,7 +19,7 @@ requirejs(['./scripts/vapp.js'], function () {
 });
 
 function getVertretungsplanTabelle(db, cb) {
-	db.vplan
+	db.vplanAlle
 		.toArray()
 		.then(vplan => {
 			var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
