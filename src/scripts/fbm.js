@@ -21,6 +21,7 @@ define('fbm', ['firebase'], function (firebase) {
 	navigator.serviceWorker.register('./scripts/vendor/firebase-messaging-sw.js')
 		.then((registration) => {
 			messaging.useServiceWorker(registration);
+
 			// Callback fired if Instance ID token is updated.
 			messaging.onTokenRefresh(function () {
 				messaging.getToken()

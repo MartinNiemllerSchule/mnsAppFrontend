@@ -61,14 +61,11 @@ requirejs(['./scripts/vapp.js'], function () {
 				});
 
 				//Kursliste holen und in select eintragen
-				db.config.get('kursliste').then(function (data0) {
-					var data = data0.value;
-					var knr = $('#kursnr');
-
-					$.each(data, function (key, val) {
-						knr.append($('<option/>').val(val.kursnr).text(val.bezeichnung));
-					});
+                var knr = $('#kursnr');
+				db.kursliste.each(function (data) {
+						knr.append($('<option/>').val(data.kursnr).text(data.bezeichnung));
 				});
+
 
 				// wird vermutlich schon ausgeführt, solange die Daten noch beschafft werden: document.ready
 				$(function () {

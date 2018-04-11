@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="./scripts/vendor/staystandalone_ios.js"></script>
 	<script data-main="scripts/index" src="scripts/vendor/require.js" async></script>
 	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/einstellungen.css">
 	<link rel="manifest" href="/manifest.json">
 
 	<style>
@@ -26,7 +27,7 @@
 			align-items: center;
 		}
 
-		#loginFormular div {
+		#loginFormular div:not(.onoffswitch) {
 			display: block;
 			margin: auto 1em;
 			width: 100%;
@@ -34,11 +35,11 @@
 			padding-top: 0.6ex;
 		}
 
-		#loginFormular div:first-of-type {
+		#loginFormular div:first-of-type:not(.onoffswitch) {
 			border-top: solid thin white;
 		}
 
-		#loginFormular div label {
+		#loginFormular div label:not(.onoffswitch-label) {
 			width: 10em;
 			display: inline-block;
 			text-align: right;
@@ -64,10 +65,6 @@
 			margin-top: 2em;
 			transform: scale(2);
 		}
-
-		input[type="checkbox"] {
-			transform: scale(2);
-		}
 	</style>
 </head>
 <body>
@@ -83,7 +80,13 @@
 		</div>
 		<div>
 			<label for="autoLogin">angemeldet bleiben:</label>
-			<input type="checkbox" checked name="autoLogin" id="autoLogin">
+			<div class="onoffswitch" id="switchBenachrichtigungen">
+				<input type="checkbox" name="autologin" checked class="onoffswitch-checkbox" id="autoLogin">
+				<label class="onoffswitch-label" for="autoLogin">
+					<span class="onoffswitch-inner"></span>
+					<span class="onoffswitch-switch"></span>
+				</label>
+			</div>
 		</div>
 		<input type="submit" value="anmelden" id="loginButton">
 	</div>

@@ -110,20 +110,20 @@ requirejs(['./scripts/vapp.js'], function () {
                             }
                             if (match){
                                 if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
-                                    stundenplanTable[i - 1][j] = '<td rowspan="2" style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
+                                    stundenplanTable[i - 1][j] = '<td rowspan="2" style="background-color:lightsalmon">' + stundenplan[i - 1][j] + '</td>';
                                     stundenplanTable[i][j] = "";
                                     if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
-                                        stundenplanTable[i - 2][j] = '<td rowspan="3" style="background-color:darkorange">' + stundenplan[i - 2][j] + '</td>';
+                                        stundenplanTable[i - 2][j] = '<td rowspan="3" style="background-color:lightsalmon">' + stundenplan[i - 2][j] + '</td>';
                                         stundenplanTable[i - 1][j] = "";
                                         stundenplanTable[i][j] = "";
                                     }
                                 } else {
                                     if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
                                         stundenplanTable[i - 1][j] = "";
-                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td style="background-color:lightsalmon">' + stundenplan[i][j] + '</td>';
                                     } else {
-                                        stundenplanTable[i - 1][j] = '<td style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
-                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                        stundenplanTable[i - 1][j] = '<td style="background-color:lightsalmon">' + stundenplan[i - 1][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td style="background-color:lightsalmon">' + stundenplan[i][j] + '</td>';
                                     }
                                 }
                             }else{
@@ -163,20 +163,20 @@ requirejs(['./scripts/vapp.js'], function () {
                             }
                             if (match){
                                 if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
-                                    stundenplanTable[i - 1][j] = '<td rowspan="2" style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
+                                    stundenplanTable[i - 1][j] = '<td rowspan="2" style="background-color:lightsalmon">' + stundenplan[i - 1][j] + '</td>';
                                     stundenplanTable[i][j] = "";
                                     if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
-                                        stundenplanTable[i - 2][j] = '<td rowspan="3" style="background-color:darkorange">' + stundenplan[i - 2][j] + '</td>';
+                                        stundenplanTable[i - 2][j] = '<td rowspan="3" style="background-color:lightsalmon">' + stundenplan[i - 2][j] + '</td>';
                                         stundenplanTable[i - 1][j] = "";
                                         stundenplanTable[i][j] = "";
                                     }
                                 } else {
                                     if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
                                         stundenplanTable[i - 1][j] = "";
-                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td style="background-color:lightsalmon">' + stundenplan[i][j] + '</td>';
                                     } else {
-                                        stundenplanTable[i - 1][j] = '<td style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
-                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                        stundenplanTable[i - 1][j] = '<td style="background-color:lightsalmon">' + stundenplan[i - 1][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td style="background-color:lightsalmon">' + stundenplan[i][j] + '</td>';
                                     }
                                 }
                             }else{
@@ -217,20 +217,20 @@ requirejs(['./scripts/vapp.js'], function () {
                             }
                             if (match){
                                 if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
-                                    stundenplanTable[i - 1][j] = '<td rowspan="2" style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
+                                    stundenplanTable[i - 1][j] = '<td rowspan="2" style="background-color:lightsalmon">' + stundenplan[i - 1][j] + '</td>';
                                     stundenplanTable[i][j] = "";
                                     if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
-                                        stundenplanTable[i - 2][j] = '<td rowspan="3" style="background-color:darkorange">' + stundenplan[i - 2][j] + '</td>';
+                                        stundenplanTable[i - 2][j] = '<td rowspan="3" style="background-color:lightsalmon">' + stundenplan[i - 2][j] + '</td>';
                                         stundenplanTable[i - 1][j] = "";
                                         stundenplanTable[i][j] = "";
                                     }
                                 } else {
                                     if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
                                         stundenplanTable[i - 1][j] = "";
-                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td style="background-color:lightsalmon">' + stundenplan[i][j] + '</td>';
                                     } else {
-                                        stundenplanTable[i - 1][j] = '<td style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
-                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                        stundenplanTable[i - 1][j] = '<td style="background-color:lightsalmon">' + stundenplan[i - 1][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td style="background-color:lightsalmon">' + stundenplan[i][j] + '</td>';
                                     }
                                 }
                             }else{
@@ -271,20 +271,20 @@ requirejs(['./scripts/vapp.js'], function () {
                             }
                             if (match){
                                 if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
-                                    stundenplanTable[i - 1][j] = '<td rowspan="2" style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
+                                    stundenplanTable[i - 1][j] = '<td rowspan="2" style="background-color:lightsalmon">' + stundenplan[i - 1][j] + '</td>';
                                     stundenplanTable[i][j] = "";
                                     if (i > 1 && stundenplan[i][j] == stundenplan[i - 2][j]) {
-                                        stundenplanTable[i - 2][j] = '<td rowspan="3" style="background-color:darkorange">' + stundenplan[i - 2][j] + '</td>';
+                                        stundenplanTable[i - 2][j] = '<td rowspan="3" style="background-color:lightsalmon">' + stundenplan[i - 2][j] + '</td>';
                                         stundenplanTable[i - 1][j] = "";
                                         stundenplanTable[i][j] = "";
                                     }
                                 } else {
                                     if (i > 1 && stundenplan[i - 2][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
                                         stundenplanTable[i - 1][j] = "";
-                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td style="background-color:lightsalmon">' + stundenplan[i][j] + '</td>';
                                     } else {
-                                        stundenplanTable[i - 1][j] = '<td style="background-color:darkorange">' + stundenplan[i - 1][j] + '</td>';
-                                        stundenplanTable[i][j] = '<td style="background-color:darkorange">' + stundenplan[i][j] + '</td>';
+                                        stundenplanTable[i - 1][j] = '<td style="background-color:lightsalmon">' + stundenplan[i - 1][j] + '</td>';
+                                        stundenplanTable[i][j] = '<td style="background-color:lightsalmon">' + stundenplan[i][j] + '</td>';
                                     }
                                 }
                             }else{
@@ -378,8 +378,6 @@ requirejs(['./scripts/vapp.js'], function () {
                 if (aktTag < 10) aktTag = "0" + aktTag;
                 if (aktMonat < 10) aktMonat = "0" + aktMonat;
                 var aktDatum = "" + datum.getFullYear() + "-" + aktMonat + "-" + aktTag;
-                console.debug(aktDatum);
-                console.debug(Stundenplan.vertretungsplan);
                 Stundenplan.vertretungsplan.forEach(function (data) {
                     if (Stundenplan.kalenderwoche(data[0]) === Stundenplan.kalenderwoche()) {
                         data.push("this");
@@ -392,7 +390,6 @@ requirejs(['./scripts/vapp.js'], function () {
                     data.push(tag.getDay());
                 });
                 Stundenplan.aktuelleKalenderwoche = (Stundenplan.kalenderwoche() % 2);
-                console.debug(Stundenplan.aktuelleKalenderwoche);
             },
 
             /**

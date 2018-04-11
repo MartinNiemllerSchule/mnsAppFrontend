@@ -104,8 +104,8 @@ requirejs(['./scripts/vapp.js'], function () {
                     if (lastResult !== code) {
                         lastResult = code;
 
-                        $('#scanner_input').val(code);
-                        var buchNr = $('#scanner_input').val();
+                        
+                        var buchNr = code;
                         var id;
 
                         console.debug("Buchnummer" + buchNr);
@@ -181,15 +181,15 @@ requirejs(['./scripts/vapp.js'], function () {
         // trage alle gefundenen Daten ein
         var data = response;
         $.each(data, function (key, val) {
-            buecherplan.push([val.bean, val.titel, val.ausleihdatum, val.kurs, val.anschaffungsjahr, val.bibo_ean8, val.firstname, val.name, val.isbn, val.jg, val.kuerzel, val.kursnr, val.last_seen, val.lname, val.snr, ]);
+            $('#buchausgabe')
+                .append("<span class='scannerSpalte1'>Vorname: </span><span class='scannerSpalte2'>"+val.firstname+"</span><br>")
+                .append("<span class='scannerSpalte1'>Name: </span><span class='scannerSpalte2'>"+val.name+"</span><br>")
+                .append("<span class='scannerSpalte1'>Kurs: </span><span class='scannerSpalte2'>"+val.kurs+"</span><br>")
+                .append("<span class='scannerSpalte1'>BEAN: </span><span class='scannerSpalte2'>"+val.bean+"</span><br>")
+                .append("<span class='scannerSpalte1'>Titel: </span><span class='scannerSpalte2'>"+val.titel+"</span><br>")
+                .append("<span class='scannerSpalte1'>Ausleihdatum: </span><span class='scannerSpalte2'>"+val.ausleihdatum+"</span><br>")
+            ;
+            //buecherplan.push([val.bean, val.titel, val.ausleihdatum, val.kurs, val.firstname,val.name ]);
         });
-
-        var buecherTHead = '<thead><tr><th>BEAN</th><th>Titel</th><th>Ausleihdatum</th><th>Kurs</th><th>Anschaffungsjahr</th><th>bibo_ean8</th><th>Vorname</th><th>Nachname</th><th>ISBN</th><th>Jahrgang</th><th>Kuerzel</th><th>KursNr</th><th>Last Seen</th><th>Lehrer</th><th>Schueler Nummer</th></tr></thead>';
-
-        var bplan = '';
-        for (var i = 0; i < buecherplan.length; i++) {
-            bplan += '<tr><td>' + buecherplan[i].join('</td><td>') + '</td></tr>';
-        }
-        $('#buchausgabe').append('<table class="Buecherliste">' + buecherTHead + bplan + '</table>');
     }
 });

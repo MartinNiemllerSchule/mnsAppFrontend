@@ -19,36 +19,36 @@ requirejs(['./scripts/vapp.js'], function () {
 });
 
 function getVertretungsplanTabelle(db, cb) {
-	var vplan = [];
-
-	db.vplan.each(function (data) {
-
-			vplan.push([data.tag, data.stunde, data.bezeichnung, data.raum, data.VLehrer, data.info]);
+	db.vplan
+		.toArray()
+		.then(vplan => {
+			var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
+			var vplanTBody = '';
+			for (var i = 0; i < vplan.length; i++) {
+				vplanTBody += '<tr><td>' + Object.values(vplan[i]).join('</td><td>') + '</td></tr>';
+			}
+			cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
+		})
+		.catch((e) => {
+			console.debug('[getVertretungsplanTabelle]', e)
 		});
-		var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
-		var vplanTBody = '';
-		setTimeout(function () {
-            for (var i = 0; i < vplan.length; i++) {
-                vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
-            }
-            cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
-        },500);
 }
+
 function getVertretungsplanTabelleAlle(db, cb) {
 	var vplan = [];
 
 	db.vplanAlle.each(function (data) {
 
-			vplan.push([data.tag, data.stunde, data.bezeichnung, data.raum, data.VLehrer, data.info]);
-		});
-		var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
-		var vplanTBody = '';
-    setTimeout(function () {
+		vplan.push([data.tag, data.stunde, data.bezeichnung, data.raum, data.VLehrer, data.info]);
+	});
+	var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
+	var vplanTBody = '';
+	setTimeout(function () {
 
 		for (var i = 0; i < vplan.length; i++) {
 			vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
 		}
 
 		cb('<table class="Vertretungsplan" id="selRightContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
-    },500);
+	}, 500);
 }

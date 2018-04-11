@@ -32,53 +32,55 @@ requirejs(['./scripts/vapp.js'], function () {
 		db.config
 			.get('autoLogin')
 			.then(function (aL) {
-				// versuche automatisches Login
-				if (aL !== null && aL.value) {
-					if (aL.value) {
-						/* automatisches Login ausführen
-						 * Dazu werden zunächst die Daten aus der Datenbank entnommen und
-						 * der Login vom Server abgerufen.
-						 * Ist der Abruf erfolgreich, wird der aktuelle Stunden und Vertretungsplan als Antwort des Servers
-						 * in der Datenbank gespeichert, wo ihn die anderen Seiten finden und anzeigen können.
-						 */
+                db.config
+                    .get('refresh')
+                    .then(function (rF) {
+                // versuche automatisches Login oder führe beim refresh ein login aus
+                if (aL !== null && aL.value || rF !== null && rF.value) {
+                    /* automatisches Login ausführen
+                     * Dazu werden zunächst die Daten aus der Datenbank entnommen und
+                     * der Login vom Server abgerufen.
+                     * Ist der Abruf erfolgreich, wird der aktuelle Stunden und Vertretungsplan als Antwort des Servers
+                     * in der Datenbank gespeichert, wo ihn die anderen Seiten finden und anzeigen können.
+                     */
 
-						var sendData = 'fname=login&sean=';
-						db.config
-							.get('sean')
-							.then(function (sean) {
-								if (sean) {
-									sendData += sean.value;
-									db.config
-										.get('pw')
-										.then(function (pw) {
-											if (pw) {
-												sendData += '&pw=' + pw.value;
-												$.ajax({
-													url: urlApi,
-													dataType: 'json',
-													crossDomain: true,
-													data: sendData,
-													success: function (response) {
-														db.handleLogin(response).then(function (e) {
-															// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
-															if (e) {
-																$('#loginFormular').hide();
-																window.location = zielNachLogin;
-															}
-														}); // Antwort in DB speichern
-													},
-													error: function (response, textStatus, e) {
-														console.debug('kein login auf dem Server möglich', textStatus, e);
-													}
-												});
-											} else console.debug('kein Passwort gefunden');
-										});
-								} else console.debug('keine sean gefunden');
-							});
-					} else {
-						throw 'automatisches Login ist verboten';
-					}
-				}
+                    var sendData = 'fname=login&sean=';
+                    db.config
+                        .get('sean')
+                        .then(function (sean) {
+                            if (sean) {
+                                sendData += sean.value;
+                                db.config
+                                    .get('pw')
+                                    .then(function (pw) {
+                                        if (pw) {
+                                            sendData += '&pw=' + pw.value;
+                                            $.ajax({
+                                                url: urlApi,
+                                                dataType: 'json',
+                                                crossDomain: true,
+                                                data: sendData,
+                                                success: function (response) {
+                                                    db.handleLogin(response).then(function (e) {
+                                                        // verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
+                                                        if (e) {
+                                                            $('#loginFormular').hide();
+                                                            window.location = zielNachLogin;
+                                                        }
+                                                    }); // Antwort in DB speichern
+                                                },
+                                                error: function (response, textStatus, e) {
+                                                    console.debug('kein login auf dem Server möglich', textStatus, e);
+                                                }
+                                            });
+                                        } else console.debug('kein Passwort gefunden');
+                                    });
+                            } else console.debug('keine sean gefunden');
+                        });
+                } else {
+                    throw 'automatisches Login ist verboten';
+                }
+            })
 			})
 			.catch(function (e) {
 				console.debug('autoLogin unmöglich: ', e);
@@ -122,7 +124,7 @@ function sendLoginData(db, sean, passwort) {
 			db.config.put({key:'sean', value:sean});
 			db.config.put({key:'pw', value:passwort});
 			db.config.put({key:'loginType', value:'sean'});
-			var autoLogin = $("[name='autoLogin']").is(':checked');
+			var autoLogin = $('#autoLogin').is(':checked');
 			db.config.put({key:'autoLogin', value: autoLogin});
 			db.handleLogin(response).then(function (e) {
 				// verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde

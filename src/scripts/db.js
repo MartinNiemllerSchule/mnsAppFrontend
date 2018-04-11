@@ -31,6 +31,7 @@ define('db', ['dexie'], function (Dexie) {
 			// Login war erfolgreich -> Datum des Login speichern
 			db.transaction('rw', db.config, db.splan, db.vplan, db.vplanAlle, db.buecher, db.klausuren, db.kursliste, function () {
 				db.config.put({key: 'loginDate', value: new Date()});
+                db.config.put({key:'refresh', value: false});
 				// Daten in die lokale Datenbank eintragen (falls vorhanden - unterscheidet sich für Schüler und Lehrer)
 				if (antwort.login === antwortLoginText) {
 					// Vielleicht: alle Eigenschaften durchlaufen und abspeichern (in einer Schleife)

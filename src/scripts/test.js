@@ -3,7 +3,7 @@
  */
 
 requirejs(['./scripts/vapp.js'], function () {
-	requirejs(['db', 'jquery'], function (db) {
+	requirejs(['db', 'jquery','menu'], function (db) {
 		"use strict";
 
 		// Parameter auslesen, falls es den gibt

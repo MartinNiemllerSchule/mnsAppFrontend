@@ -99,6 +99,7 @@ requirejs(['./scripts/vapp.js'], function () {
 					if (titelArr.length === 2 && titelArr[0] === 'Token:' && titelArr[1].length >= 95 ) {
 						// Send the current token to your server.
 						const sendData = 'fname=setToken&token=' + titelArr[1];
+						console.debug('[messaging.sendTokenToServer] ',urlApi, sendData);
 						$.ajax({
 							url: urlApi,
 							dataType: 'json',

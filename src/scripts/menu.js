@@ -42,6 +42,30 @@ define(['db', 'text!./template/menu.html', 'jquery'], function (db, menuTmpl) {
 							$('#selRightContent').removeClass('tactive');
 						});
 
+                    // setze Funktionalität des Logout-Button
+                    $('#logOut').click(function () {
+                        db.transaction('rw', db.config, db.buecher, db.klausuren, db.kursliste, db.splan, db.vplan, db.vplanAlle, function () {
+                            db.config.clear();
+                            db.buecher.clear();
+                            db.klausuren.clear();
+                            db.kursliste.clear();
+                            db.splan.clear();
+                            db.vplan.clear();
+                            db.vplanAlle.clear();
+                        }).catch(function (e) {
+                            console.debug('Datenbankfehler in lokaler DB bei Logout:', e.stack || e);
+                        })
+                    });
+
+                    // setze Funktionalität des Refresh-Button
+                    $('#refresh').click(function () {
+                        db.transaction('rw', db.config, function () {
+                            db.config.put({key:'refresh', value: true});
+                        }).catch(function (e) {
+                            console.debug('Datenbankfehler in lokaler DB bei refresh:', e.stack || e);
+                        })
+                    });
+
 					// id='active' setzen (Highlight der Seite)
 					$('ul.Sidebar li a').each((idx, elem) => {
 						if (elem.href == $(location).attr('href')) $(elem).attr('id', 'active');
@@ -56,17 +80,6 @@ define(['db', 'text!./template/menu.html', 'jquery'], function (db, menuTmpl) {
 						console.debug('Konnte Bücherliste nicht ausblenden, da nicht ermittelt werden konnte, ob Lehrer oder Schüler die' +
 							' Seite abfragen', e.stack || e);
 					});
-
-					// setze Funktionalität des Logout-Button
-					$('#logout').click(function () {
-						db.config.transaction('rw', config, function () {
-							var autoLogin = db.config.get('autoLogin');
-							db.config.clear();
-							db.config.put({'key': 'autoLogin', 'value': autoLogin});
-						}).catch(function (e) {
-							console.debug('Datenbankfehler in lokaler DB bei Logout:', e.stack || e);
-						})
-					})
 				});
 			});
 		}

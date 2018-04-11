@@ -1,11 +1,19 @@
 importScripts('https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging.js');
-firebase.initializeApp({
-	messagingSenderId: '289478987889'
-});
+    // Initialize Firebase
+    const config = {
+        apiKey: "AIzaSyD5O2ZjNd8ChC8SmocLfjhQ2f_V12FcWAM",
+        authDomain: "vapp-mns.firebaseapp.com",
+        databaseURL: "https://vapp-mns.firebaseio.com",
+        projectId: "vapp-mns",
+        storageBucket: "vapp-mns.appspot.com",
+        messagingSenderId: "289478987889"
+    };
+    firebase.initializeApp(config);
 
 
-const messaging = firebase.messaging();
+
+    const messaging = firebase.messaging();
 
 /**
  * Here is is the code snippet to initialize Firebase Messaging in the Service
@@ -35,8 +43,8 @@ messaging.setBackgroundMessageHandler(function(payload) {
 	// Customize notification here
 	const notificationTitle = 'MNS sagt';
 	const notificationOptions = {
-		body: 'Background Message body.',
-		icon: './images/fcmLogo.svg'
+		body: 'Background Message body.', //payload.data
+		icon: './images/mns-icon-1x.png'
 	};
 
 	return self.registration.showNotification(notificationTitle,notificationOptions);
