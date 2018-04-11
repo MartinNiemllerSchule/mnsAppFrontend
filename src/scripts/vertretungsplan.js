@@ -24,14 +24,12 @@ function getVertretungsplanTabelle(db, cb) {
 		.then(vplan => {
 			var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
 			var vplanTBody = '';
+			var td = '\'</td><td>\'';
 			for (var i = 0; i < vplan.length; i++) {
-				vplanTBody += '<tr><td>' + Object.values(vplan[i]).join('</td><td>') + '</td></tr>';
+				vplanTBody += '<tr><td>' + vplan[i].stunde + '</td><td>' + '</td></tr>';
 			}
 			cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
 		})
-		.catch((e) => {
-			console.debug('[getVertretungsplanTabelle]', e)
-		});
 }
 
 function getVertretungsplanTabelleAlle(db, cb) {
