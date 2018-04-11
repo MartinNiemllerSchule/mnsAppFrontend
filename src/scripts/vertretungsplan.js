@@ -34,20 +34,16 @@ function getVertretungsplanTabelle(db, cb) {
 }
 
 function getVertretungsplanTabelleAlle(db, cb) {
-	var vplan = [];
-
-	db.vplanAlle.each(function (data) {
-
-		vplan.push([data.tag, data.stunde, data.bezeichnung, data.raum, data.VLehrer, data.info]);
-	});
-	var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
-	var vplanTBody = '';
-	setTimeout(function () {
-
-		for (var i = 0; i < vplan.length; i++) {
-			vplanTBody += '<tr><td>' + vplan[i].join('</td><td>') + '</td></tr>';
-		}
-
-		cb('<table class="Vertretungsplan" id="selRightContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
+	db.vplan
+		.toArray()
+		.then(vplan => {
+			var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
+			var vplanTBody = '';
+			var td = '</td><td>';
+			for (var i = 0; i < vplan.length; i++) {
+				vplanTBody += '<tr><td>' + vplan[i].tag + td + vplan[i].stunde + td + vplan[i].bezeichnung + td + vplan[i].raum 
+					+ td + vplan[i].kuerzel + td + vplan[i].info + '</td></tr>';
+			}
+			cb('<table class="Vertretungsplan" id="selRightContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
 	}, 500);
 }
