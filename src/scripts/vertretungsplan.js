@@ -26,7 +26,8 @@ function getVertretungsplanTabelle(db, cb) {
 			var vplanTBody = '';
 			var td = '</td><td>';
 			for (var i = 0; i < vplan.length; i++) {
-				vplanTBody += '<tr><td>' + vplan[i].tag + td + vplan[i].stunde + td + vplan[i].bezeichnung + td + vplan[i].raum + '</td></tr>';
+				vplanTBody += '<tr><td>' + vplan[i].tag + td + vplan[i].stunde + td + vplan[i].bezeichnung + td + vplan[i].raum 
+					+ td + vplan[i].kuerzel + vplan[i].info + '</td></tr>';
 			}
 			cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
 		})
