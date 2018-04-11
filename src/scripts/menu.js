@@ -57,6 +57,15 @@ define(['db', 'text!./template/menu.html', 'jquery'], function (db, menuTmpl) {
                         })
                     });
 
+                    // setze Funktionalität des Logout-Button
+                    $('#refresh').click(function () {
+                        db.transaction('rw', db.config, function () {
+                            db.config.put({key:'refresh', value: true});
+                        }).catch(function (e) {
+                            console.debug('Datenbankfehler in lokaler DB bei refresh:', e.stack || e);
+                        })
+                    });
+
 					// id='active' setzen (Highlight der Seite)
 					$('ul.Sidebar li a').each((idx, elem) => {
 						if (elem.href == $(location).attr('href')) $(elem).attr('id', 'active');
