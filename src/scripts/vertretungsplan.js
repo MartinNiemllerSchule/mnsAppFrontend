@@ -26,7 +26,7 @@ function getVertretungsplanTabelle(db, cb) {
 			var vplanTBody = '';
 			var td = '\'</td><td>\'';
 			for (var i = 0; i < vplan.length; i++) {
-				vplanTBody += '<tr><td>' + vplan[i].stunde + '</td><td>' + '</td></tr>';
+				vplanTBody += '<tr><td>' + vplan[i].stunde + td + '</td></tr>';
 			}
 			cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
 		})
