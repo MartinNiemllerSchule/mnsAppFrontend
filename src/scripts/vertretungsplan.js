@@ -24,8 +24,18 @@ function getVertretungsplanTabelle(db, cb) {
 		var vplanTBody = '';
 		var td = '</td><td>';
 		for (var i = 0; i < vplan.length; i++) {
-			vplanTBody += '<tr><td>' + vplan[i].tag + td + vplan[i].stunde + td + vplan[i].bezeichnung + td + vplan[i].raum 
-				+ td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
+			if (vplan[i + 1] != undefined && vplan[i].tag == vplan[i + 1].tag && (vplan[i + 1].stunde - vplan[i] == 1)
+                && vplan[i].bezeichnung == vplan[i + 1].bezeichnung && vplan[i].raum == vplan[i + 1].raum && vplan[i].VLehrer == vplan[i + 1].VLehrer
+                && vplan[i].info == vplan[i + 1].info) {
+
+                vplanTBody += '<tr><td>' + vplan[i].tag + td + vplan[i].stunde + ' + ' + i + 1 +  td + vplan[i].bezeichnung + td + vplan[i].raum
+                    + td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
+
+                i++;
+
+            } else  vplanTBody += '<tr><td>' + vplan[i].tag + td + vplan[i].stunde + td + vplan[i].bezeichnung + td + vplan[i].raum
+                + td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
+
 		}
 		cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
 	})
