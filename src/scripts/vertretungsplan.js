@@ -35,7 +35,7 @@ function getVertretungsplanTabelle(db, cb) {
 
 
 
-			if (vplan[i + 1] != undefined && vplan[i].tag == vplan[i + 1].tag && (vplan[i + 1].stunde - vplan[i] == 1)
+			if (vplan[i + 1] != undefined && vplan[i].tag == vplan[i + 1].tag && (vplan[i + 1].stunde - vplan[i].stunde == 1)
 			    && vplan[i].bezeichnung == vplan[i + 1].bezeichnung && vplan[i].raum == vplan[i + 1].raum && vplan[i].VLehrer == vplan[i + 1].VLehrer
 			    && vplan[i].info == vplan[i + 1].info) {
 
