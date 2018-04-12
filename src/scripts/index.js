@@ -29,62 +29,70 @@ requirejs(['./scripts/vapp.js'], function () {
 		}); // Login-Button ausstatten, nachdem die HTML-Seite geladen wurde
 
 		// autoLogin vielleicht versuchen
-		db.config
-			.get('autoLogin')
-			.then(function (aL) {
-                db.config
-                    .get('refresh')
-                    .then(function (rF) {
-                // versuche automatisches Login oder führe beim refresh ein login aus
-                if (aL !== null && aL.value || rF !== null && rF.value) {
-                    /* automatisches Login ausführen
-                     * Dazu werden zunächst die Daten aus der Datenbank entnommen und
-                     * der Login vom Server abgerufen.
-                     * Ist der Abruf erfolgreich, wird der aktuelle Stunden und Vertretungsplan als Antwort des Servers
-                     * in der Datenbank gespeichert, wo ihn die anderen Seiten finden und anzeigen können.
-                     */
-
-                    var sendData = 'fname=login&sean=';
+        var online = navigator.onLine;
+        console.debug(online);
+        if(online) {
+            db.config
+                .get('autoLogin')
+                .then(function (aL) {
                     db.config
-                        .get('sean')
-                        .then(function (sean) {
-                            if (sean) {
-                                sendData += sean.value;
+                        .get('refresh')
+                        .then(function (rF) {
+                            // versuche automatisches Login oder führe beim refresh ein login aus
+                            if (aL !== null && aL.value || rF !== null && rF.value) {
+                                /* automatisches Login ausführen
+                                 * Dazu werden zunächst die Daten aus der Datenbank entnommen und
+                                 * der Login vom Server abgerufen.
+                                 * Ist der Abruf erfolgreich, wird der aktuelle Stunden und Vertretungsplan als Antwort des Servers
+                                 * in der Datenbank gespeichert, wo ihn die anderen Seiten finden und anzeigen können.
+                                 */
+
+                                var sendData = 'fname=login&sean=';
                                 db.config
-                                    .get('pw')
-                                    .then(function (pw) {
-                                        if (pw) {
-                                            sendData += '&pw=' + pw.value;
-                                            $.ajax({
-                                                url: urlApi,
-                                                dataType: 'json',
-                                                crossDomain: true,
-                                                data: sendData,
-                                                success: function (response) {
-                                                    db.handleLogin(response).then(function (e) {
-                                                        // verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
-                                                        if (e) {
-                                                            $('#loginFormular').hide();
-                                                            window.location = zielNachLogin;
-                                                        }
-                                                    }); // Antwort in DB speichern
-                                                },
-                                                error: function (response, textStatus, e) {
-                                                    console.debug('kein login auf dem Server möglich', textStatus, e);
-                                                }
-                                            });
-                                        } else console.debug('kein Passwort gefunden');
+                                    .get('sean')
+                                    .then(function (sean) {
+                                        if (sean) {
+                                            sendData += sean.value;
+                                            db.config
+                                                .get('pw')
+                                                .then(function (pw) {
+                                                    if (pw) {
+                                                        sendData += '&pw=' + pw.value;
+                                                        $.ajax({
+                                                            url: urlApi,
+                                                            dataType: 'json',
+                                                            crossDomain: true,
+                                                            data: sendData,
+                                                            success: function (response) {
+                                                                db.handleLogin(response).then(function (e) {
+                                                                    // verstecke das Login-Formular - hier nur wenn auch die Antwort mit "ok" bestätigt wurde
+                                                                    if (e) {
+                                                                        $('#loginFormular').hide();
+                                                                        window.location = zielNachLogin;
+                                                                    }
+                                                                }); // Antwort in DB speichern
+                                                            },
+                                                            error: function (response, textStatus, e) {
+                                                                console.debug('kein login auf dem Server möglich', textStatus, e);
+                                                            }
+                                                        });
+                                                    } else console.debug('kein Passwort gefunden');
+                                                });
+                                        } else console.debug('keine sean gefunden');
                                     });
-                            } else console.debug('keine sean gefunden');
-                        });
-                } else {
-                    throw 'automatisches Login ist verboten';
-                }
-            })
-			})
-			.catch(function (e) {
-				console.debug('autoLogin unmöglich: ', e);
-			});
+                            } else {
+                                throw 'automatisches Login ist verboten';
+                            }
+                        })
+                })
+                .catch(function (e) {
+                    console.debug('autoLogin unmöglich: ', e);
+                });
+        } else if(db.config.get('loginType') !== undefined ){
+        	window.location = zielNachLogin;
+		}else{
+        	alert('ERROR! Keine Internetverbindung und keine lokalen Daten');
+		}
 	});
 });
 
