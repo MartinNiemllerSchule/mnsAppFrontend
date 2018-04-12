@@ -26,6 +26,7 @@ function getVertretungsplanTabelle(db, cb) {
 		for (var i = 0; i < vplan.length; i++) {
 
 			if(vplan[i + 1] != undefined) console.debug('true');
+            if(vplan[i].tag == vplan[i + 1].tag) console.debug('true');
 
 
 
