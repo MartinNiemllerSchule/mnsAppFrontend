@@ -27,6 +27,22 @@ a {
 	padding: 0;
 }
 
+.btn{
+	width: 100%;
+	height: 55px;
+	margin: 0;
+	float: left;
+	text-align: center;
+	font-size: 22px;
+	line-height: 55px;
+	cursor: pointer;
+	color: #FFFFFF;
+}
+
+.btn:hover{
+	background-color: #64AFFF;
+}
+
 #btn {
 	border-bottom: 0px;
 }
