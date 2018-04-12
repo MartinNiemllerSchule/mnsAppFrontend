@@ -4,63 +4,61 @@
  */
 
 requirejs(['./scripts/vapp.js'], function () {
-	requirejs(['db', 'jquery', 'menu'], function (db) {
-		"use strict";
-		$(function () {
-			getVertretungsplanTabelle(db, function (tabelle) {
-				$('#VertretungsplanTabelle').append(tabelle);
-			});
-			getVertretungsplanTabelleAlle(db, function (tabelle) {
-				$('#VertretungsplanTabelle').append(tabelle);
-			});
-		});
+    requirejs(['db', 'jquery', 'menu'], function (db) {
+        "use strict";
+        $(function () {
+            getVertretungsplanTabelle(db, function (tabelle) {
+                $('#VertretungsplanTabelle').append(tabelle);
+            });
+            getVertretungsplanTabelleAlle(db, function (tabelle) {
+                $('#VertretungsplanTabelle').append(tabelle);
+            });
+        });
 
-	});
+    });
 });
 
 function getVertretungsplanTabelle(db, cb) {
-	db.vplan.toArray().then(vplan => {
-		var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
-		var vplanTBody = '';
-		var td = '</td><td>';
-		for (var i = 0; i < vplan.length; i++) {
-			
-			if (vplan[i + 1] != undefined && vplan[i].tag == vplan[i + 1].tag) console.debug('tag true');
-            		if (vplan[i + 1] != undefined && vplan[i + 1].stunde - vplan[i].stunde == 1) console.debug('stunde true');
-			if (vplan[i + 1] != undefined && vplan[i].bezeichnung == vplan[i + 1].bezeichnung) console.debug('kurs true');
-			if (vplan[i + 1] != undefined && vplan[i].tag == vplan[i + 1].tag && (vplan[i + 1].stunde - vplan[i].stunde == 1)
-			    && vplan[i].bezeichnung == vplan[i + 1].bezeichnung) console.debug('alles true');
+    db.vplan.toArray().then(vplan => {
+        var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
+        var vplanTBody = '';
+        var td = '</td><td>';
+        for (var i = 0; i < vplan.length; i++) {
+            if (vplan[i + 1] != undefined && vplan[i].tag == vplan[i + 1].tag && (vplan[i + 1].stunde - vplan[i].stunde == 1)
+                && vplan[i].bezeichnung == vplan[i + 1].bezeichnung && vplan[i].raum == vplan[i + 1].raum && vplan[i].VLehrer == vplan[i + 1].VLehrer
+                && vplan[i].info == vplan[i + 1].info) {
 
-
-
-
-
-			if (vplan[i + 1] != undefined && vplan[i].tag == vplan[i + 1].tag && (vplan[i + 1].stunde - vplan[i].stunde == 1)
-			    && vplan[i].bezeichnung == vplan[i + 1].bezeichnung && vplan[i].raum == vplan[i + 1].raum && vplan[i].VLehrer == vplan[i + 1].VLehrer
-			    && vplan[i].info == vplan[i + 1].info) {
-
-                vplanTBody += '<tr><td>' + vplan[i].tag + td + vplan[i].stunde + ' + ' + (parseInt(vplan[i].stunde) + 1) +  td + vplan[i].bezeichnung + td + vplan[i].raum 
-			+ td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
+                vplanTBody += '<tr><td>' + vplan[i].tag + td + vplan[i].stunde + ' + ' + (parseInt(vplan[i].stunde) + 1) +  td + vplan[i].bezeichnung + td + vplan[i].raum
+                    + td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
 
                 i++;
 
             } else  vplanTBody += '<tr><td>' + vplan[i].tag + td + vplan[i].stunde + td + vplan[i].bezeichnung + td + vplan[i].raum
                 + td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
 
-		}
-		cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
-	})
+        }
+        cb('<table class="Vertretungsplan tactive" id="selLeftContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
+    })
 }
 
 function getVertretungsplanTabelleAlle(db, cb) {
-	db.vplanAlle.toArray().then(vplan => {
-		var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
-		var vplanTBody = '';
-		var td = '</td><td>';
-		for (var i = 0; i < vplan.length; i++) {
-			vplanTBody += '<tr><td>' + vplan[i].tag + td + vplan[i].stunde + td + vplan[i].bezeichnung + td + vplan[i].raum 
-				+ td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
-		}
-		cb('<table class="Vertretungsplan" id="selRightContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
-	})
+    db.vplanAlle.toArray().then(vplan => {
+        var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
+        var vplanTBody = '';
+        var td = '</td><td>';
+        for (var i = 0; i < vplan.length; i++) {
+            if (vplan[i + 1] != undefined && vplan[i].tag == vplan[i + 1].tag && (vplan[i + 1].stunde - vplan[i].stunde == 1)
+                && vplan[i].bezeichnung == vplan[i + 1].bezeichnung && vplan[i].raum == vplan[i + 1].raum && vplan[i].VLehrer == vplan[i + 1].VLehrer
+                && vplan[i].info == vplan[i + 1].info) {
+
+                vplanTBody += '<tr><td>' + vplan[i].tag + td + vplan[i].stunde + ' + ' + (parseInt(vplan[i].stunde) + 1) +  td + vplan[i].bezeichnung + td + vplan[i].raum
+                    + td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
+
+                i++;
+
+            } else  vplanTBody += '<tr><td>' + vplan[i].tag + td + vplan[i].stunde + td + vplan[i].bezeichnung + td + vplan[i].raum
+                + td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
+        }
+        cb('<table class="Vertretungsplan" id="selRightContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
+    })
 }
