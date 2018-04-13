@@ -162,6 +162,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 else farbe = 'lightsalmon';
                             }
                             Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe, i, j);
+                            farbe = null;
                         }
                     }
                 } else if (stundenplan === Stundenplan.stundenplanSecondWeek && Stundenplan.aktuelleKalenderwoche === 0) {
@@ -182,6 +183,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 else farbe = 'lightsalmon';
                             }
                             Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe, i, j);
+                            farbe = null;
                         }
                     }
                 } else if (stundenplan === Stundenplan.stundenplanFirstWeek && Stundenplan.aktuelleKalenderwoche === 0) {
@@ -202,6 +204,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 else farbe = 'lightsalmon';
                             }
                             Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe, i, j);
+                            farbe = null;
                         }
                     }
                 } else if (stundenplan === Stundenplan.stundenplanSecondWeek && Stundenplan.aktuelleKalenderwoche === 1) {
@@ -222,6 +225,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 else farbe = 'lightsalmon';
                             }
                             Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe, i, j);
+                            farbe = null;
                         }
                     }
                     //next
