@@ -93,7 +93,7 @@ requirejs(['./scripts/vapp.js'], function () {
              * @param stundenplanTable
              * @param farbe
              */
-            generateRowspanUndFarbe: function (stundenplan, stundenplanTable, farbe) {
+            generateRowspanUndFarbe: function (stundenplan, stundenplanTable, farbe, i, j) {
                 var style = ' style="background-color:' + farbe + '">';
                 if (farbe !== null){
                     if (stundenplan[i][j] == stundenplan[i - 1][j] && stundenplan[i - 1][j] !== "") {
@@ -161,7 +161,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 if (Stundenplan.vertretungsplan[k][3] == undefined && Stundenplan.vertretungsplan[k][4].length < 5) farbe = '#ff4d4d';
                                 else farbe = 'lightsalmon';
                             }
-                            Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe);
+                            Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe, i, j);
                         }
                     }
                 } else if (stundenplan === Stundenplan.stundenplanSecondWeek && Stundenplan.aktuelleKalenderwoche === 0) {
@@ -181,7 +181,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 if (Stundenplan.vertretungsplan[k][3] == undefined && Stundenplan.vertretungsplan[k][4].length < 5) farbe = '#ff4d4d';
                                 else farbe = 'lightsalmon';
                             }
-                            Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe);
+                            Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe, i, j);
                         }
                     }
                 } else if (stundenplan === Stundenplan.stundenplanFirstWeek && Stundenplan.aktuelleKalenderwoche === 0) {
@@ -201,7 +201,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 if (Stundenplan.vertretungsplan[k][3] == undefined && Stundenplan.vertretungsplan[k][4].length < 5) farbe = '#ff4d4d';
                                 else farbe = 'lightsalmon';
                             }
-                            Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe);
+                            Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe, i, j);
                         }
                     }
                 } else if (stundenplan === Stundenplan.stundenplanSecondWeek && Stundenplan.aktuelleKalenderwoche === 1) {
@@ -221,7 +221,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 if (Stundenplan.vertretungsplan[k][3] == undefined && Stundenplan.vertretungsplan[k][4].length < 5) farbe = '#ff4d4d';
                                 else farbe = 'lightsalmon';
                             }
-                            Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe);
+                            Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe, i, j);
                         }
                     }
                     //next
