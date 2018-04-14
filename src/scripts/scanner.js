@@ -146,13 +146,15 @@ requirejs(['./scripts/vapp.js'], function () {
 
 
             // Stop quagga in any case, when the modal is closed
-            document.getElementById("btn1").addEventListener("click", function () {
+            $('#btn1').click(function () {
                 if (_scannerIsRunning == true) {
                     Quagga.stop();
                 } else {
                     startScanner();
                 }
-            }, false);
+            });
+
+
 
             /*
              $("#livestream_scanner input:file").on("change", function(e) {
