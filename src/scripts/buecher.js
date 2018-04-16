@@ -7,7 +7,7 @@ requirejs(['./scripts/vapp.js'], function () {
 		"use strict";
 
 		$(function () {
-			getBuecherplanTable(db, function (tabelle) {
+			getBuecherTabelle(db, function (tabelle) {
 				$('#buecherPlan').append(tabelle);
 			});
 		});
@@ -32,4 +32,18 @@ function getBuecherplanTable(db, cb) {
 
             cb('<table class="Buecherliste">' + buecherTHead + bplan + '</table>');
         },500);
+}
+function getBuecherTabelle(db, cb) {
+    db.buecher.toArray().then(buecher => {
+        var buecherTHead = '<thead><tr><th>BEAN</th><th>Titel</th><th>Ausleihdatum</th><th>Kurs</th><th>Anschaffungsjahr</th></tr></thead>';
+        var buecherTBody = '';
+        var td = '</td><td>';
+        for (var i = 0; i < buecher.length; i++) {
+
+        	vplanTBody += '<tr><td>' + buecher[i].bean + td + buecher[i].titel + td + buecher[i].ausleihdatum + td + buecher[i].kurs
+                + td + buecher[i].anschaffungsjahr + '</td></tr>';
+
+        }
+        cb('<table class=" Buecherliste">' + buecherTHead + '<tbody>' + buecherTBody + '</tbody></table>');
+    })
 }
