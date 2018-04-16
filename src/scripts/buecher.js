@@ -40,7 +40,7 @@ function getBuecherTabelle(db, cb) {
         var td = '</td><td>';
         for (var i = 0; i < buecher.length; i++) {
 
-        	vplanTBody += '<tr><td>' + buecher[i].bean + td + buecher[i].titel + td + buecher[i].ausleihdatum + td + buecher[i].kurs
+        	buecherTBody += '<tr><td>' + buecher[i].bean + td + buecher[i].titel + td + buecher[i].ausleihdatum + td + buecher[i].kurs
                 + td + buecher[i].anschaffungsjahr + '</td></tr>';
 
         }
