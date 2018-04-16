@@ -40,6 +40,7 @@ https://vapp.niemoeller.schule/scripts/vendor/quagga.js
 https://vapp.niemoeller.schule/scripts/vendor/require.js
 https://vapp.niemoeller.schule/scripts/vendor/staystandalone_ios.js
 https://vapp.niemoeller.schule/scripts/vendor/text.js
+https://vapp.niemoeller.schule/scripts/vendor/sha512.min.js
 
 https://vapp.niemoeller.schule/scripts/buecher.js
 https://vapp.niemoeller.schule/scripts/db.js
