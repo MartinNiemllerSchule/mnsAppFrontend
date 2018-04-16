@@ -1,0 +1,9 @@
+canvas.imgBuffer{
+    max-width: 400px;
+    max-height: 400px;
+}
+canvas.drawing, canvas.drawingBuffer {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
