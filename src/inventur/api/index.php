@@ -9,7 +9,7 @@
 	header('Content-Type: text/plain');
 
 	if (LOG) error_log('index');
-	include_once "db.php";
+include_once "../../api/db.php";
 	$db = new DBAPI(); // Datenbankzugriff herstellen
 	if (LOG) error_log('index - DBAPI fertig: '.(is_object($db)? 'db ist Objekt' : 'db ist kein Objekt'));
 
