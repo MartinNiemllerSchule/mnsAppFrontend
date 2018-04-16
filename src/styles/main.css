@@ -239,6 +239,10 @@ a {
 .scannerSpalte2 {
 	margin-left: 1em;
 }
+.hiddenByCss{
+	position: absolute !important;
+	left: -500% !important;
+}
 
 
 @media only screen and (max-width: 950px) {

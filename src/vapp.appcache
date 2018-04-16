@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v1 - 12-04-2018
+# v1 - 16-04-2018
 https://vapp.niemoeller.schule/index.html
 https://vapp.niemoeller.schule/buecher.html
 https://vapp.niemoeller.schule/einstellungen.html
@@ -40,21 +40,21 @@ https://vapp.niemoeller.schule/scripts/vendor/quagga.js
 https://vapp.niemoeller.schule/scripts/vendor/require.js
 https://vapp.niemoeller.schule/scripts/vendor/staystandalone_ios.js
 https://vapp.niemoeller.schule/scripts/vendor/text.js
+https://vapp.niemoeller.schule/scripts/vendor/sha512.min.js
 
 https://vapp.niemoeller.schule/scripts/buecher.js
 https://vapp.niemoeller.schule/scripts/db.js
 https://vapp.niemoeller.schule/scripts/einstellungen.js
 https://vapp.niemoeller.schule/scripts/index.js
-https://vapp.niemoeller.schule/scripts/InventurScan.js
 https://vapp.niemoeller.schule/scripts/klausuren.js
 https://vapp.niemoeller.schule/scripts/menu.js
 https://vapp.niemoeller.schule/scripts/Qr.js
-https://vapp.niemoeller.schule/scripts/qr_alternative.js
 https://vapp.niemoeller.schule/scripts/scanner.js
 https://vapp.niemoeller.schule/scripts/stundenplan.js
 https://vapp.niemoeller.schule/scripts/test.js
 https://vapp.niemoeller.schule/scripts/vapp.js
 https://vapp.niemoeller.schule/scripts/vertretungsplan.js
+https://vapp.niemoeller.schule/scripts/fbm.js
 
 https://vapp.niemoeller.schule/styles/einstellungen.css
 https://vapp.niemoeller.schule/styles/fullcalendar.css
@@ -62,3 +62,7 @@ https://vapp.niemoeller.schule/styles/fullcalendar.print.css
 https://vapp.niemoeller.schule/styles/jw-jqm-cal.css
 https://vapp.niemoeller.schule/styles/main.css
 https://vapp.niemoeller.schule/styles/qr.css
+
+NETWORK:
+https://vapp.niemoeller.schule/api/index.php
+https://www.gstatic.com/firebasejs/4.9.0/firebase.js
