@@ -112,7 +112,7 @@ requirejs(['./scripts/vapp.js'], function () {
                             var sendData = "fname=getBuch&bnr=" + buchNr;
                             console.debug("Ajax senddata" + sendData);
                             $.ajax({
-                                url: urlInventurApi,
+                                url: urlApi,
                                 dataType: 'json',
                                 crossDomain: true,
                                 data: sendData,
