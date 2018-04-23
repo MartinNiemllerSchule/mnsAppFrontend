@@ -113,7 +113,7 @@ define('fbm', ['firebase'], function (firebase) {
 									messaging.deleteToken(currentToken)
 										.then(function () {
 											console.log('[messaging.aus] Token deleted.');
-											setTokenSentToServer(false);
+											messaging.setTokenSentToServer(false);
 											resolve(response);
 										})
 										.catch(err => {
