@@ -56,10 +56,8 @@ function getVertretungsplanTabelleAlle(db, cb) {
 
             if (datum1 != datum2) {
                 vplanTBody += '<tr><td colspan="6">' + tage[datum2.getDay()] + '</td></tr>';
-
+                datum1 = datum2;
             }
-
-
 
             if (vplan[i + 1] != undefined && vplan[i].tag == vplan[i + 1].tag && (vplan[i + 1].stunde - vplan[i].stunde == 1)
                 && vplan[i].bezeichnung == vplan[i + 1].bezeichnung && vplan[i].raum == vplan[i + 1].raum && vplan[i].VLehrer == vplan[i + 1].VLehrer
