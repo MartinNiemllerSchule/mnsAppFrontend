@@ -67,7 +67,7 @@ function getVertretungsplanTabelleAlle(db, cb) {
             var datum2 = new Date(jahr, monat, tag);
 
             if (datum1.getTime() != datum2.getTime()) {
-                vplanTBody += '<tr><td colspan="6">' + tage[datum2.getDay()] + '</td></tr>';
+                vplanTBody += '<tr><th colspan="6">' + tage[datum2.getDay()] + '</th></tr>';
                 datum1 = datum2;
             }
 
