@@ -37,7 +37,6 @@ header('Content-Type: text/plain');
 
 $db = new DBAPI(); // Datenbankzugriff herstellen
 $vplanArr = $db->getVPlan4Display();
-error_log('[getVP.php] '.var_export($vplanArr,true));
 if ($vplanArr !== null && count($vplanArr) > 0) {
 	$vplan = '';
 	for($z=0; $z<count($vplanArr); $z++) {
