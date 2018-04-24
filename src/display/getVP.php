@@ -2,6 +2,7 @@
 /**
  * Vertretungsplan-Tabelle als HTML
  */
+include_once "../api/db.php";
 
 spl_autoload_register(function ($className) {
 	include '../api/' . $className . '.php';
@@ -36,6 +37,7 @@ header('Content-Type: text/plain');
 
 $db = new DBAPI(); // Datenbankzugriff herstellen
 $vplanArr = $db->getVPlan4Display();
+error_log('[getVP.php] '.var_export($vplanArr,true));
 if ($vplanArr !== null && count($vplanArr) > 0) {
 	$vplan = '';
 	for($z=0; $z<count($vplanArr); $z++) {
