@@ -46,7 +46,15 @@ function getVertretungsplanTabelleAlle(db, cb) {
         var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
         var vplanTBody = '';
         var td = '</td><td>';
+        var datum1 = new Date();
+
         for (var i = 0; i < vplan.length; i++) {
+            var jahr = vplan[i].tag.charAt(0) + vplan[i].tag.charAt(1) + vplan[i].tag.charAt(2) + vplan[i].tag.charAt(3);
+            var datum2 = new Date(vplan[i].tag);
+            //if (datum != )
+
+
+
             if (vplan[i + 1] != undefined && vplan[i].tag == vplan[i + 1].tag && (vplan[i + 1].stunde - vplan[i].stunde == 1)
                 && vplan[i].bezeichnung == vplan[i + 1].bezeichnung && vplan[i].raum == vplan[i + 1].raum && vplan[i].VLehrer == vplan[i + 1].VLehrer
                 && vplan[i].info == vplan[i + 1].info) {
