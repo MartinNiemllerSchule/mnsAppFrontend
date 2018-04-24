@@ -46,7 +46,7 @@ function getVertretungsplanTabelleAlle(db, cb) {
         var vplanTHead = '<thead><tr><th>Tag</th><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
         var vplanTBody = '';
         var td = '</td><td>';
-        var datum1 = new Date();
+        var datum1 = new Date(0,0,1);
 
         for (var i = 0; i < vplan.length; i++) {
             var jahr = parseInt(vplan[i].tag.charAt(0) + vplan[i].tag.charAt(1) + vplan[i].tag.charAt(2) + vplan[i].tag.charAt(3));
@@ -54,7 +54,7 @@ function getVertretungsplanTabelleAlle(db, cb) {
             var tag = parseInt(vplan[i].tag.charAt(8) + vplan[i].tag.charAt(9));
             var datum2 = new Date(jahr, monat, tag);
 
-            if (datum1 != datum2) {
+            if (datum1.getTime() != datum2.getTime()) {
                 vplanTBody += '<tr><td colspan="6">' + tage[datum2.getDay()] + '</td></tr>';
                 datum1 = datum2;
             }
