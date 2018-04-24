@@ -50,12 +50,15 @@ function getVertretungsplanTabelleAlle(db, cb) {
 
         for (var i = 0; i < vplan.length; i++) {
             var jahr = parseInt(vplan[i].tag.charAt(0) + vplan[i].tag.charAt(1) + vplan[i].tag.charAt(2) + vplan[i].tag.charAt(3));
-            var monat = parseInt(vplan[i].tag.charAt(5) + vplan[i].tag.charAt(6));
+            var monat = parseInt(vplan[i].tag.charAt(5) + vplan[i].tag.charAt(6)) - 1;
             var tag = parseInt(vplan[i].tag.charAt(8) + vplan[i].tag.charAt(9));
             var datum2 = new Date(jahr, monat, tag);
 
-            console.debug(datum2.getFullYear());
-            //if (datum != )
+            if (datum1 != datum2) {
+                console.debug(tage[1]);
+
+
+            }
 
 
 

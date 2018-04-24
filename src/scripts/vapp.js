@@ -42,3 +42,11 @@ stunden = {
 	'8': '14:00',
 	'9': '14:45'
 };
+
+tage = {
+	'1': 'Montag',
+	'2': 'Dienstag',
+	'3': 'Mittwoch',
+	'4': 'Donnerstag',
+	'5': 'Freitag',
+};
