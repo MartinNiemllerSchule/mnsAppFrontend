@@ -32,7 +32,7 @@ function getVertretungsplanTabelle(db, cb) {
             var datum2 = new Date(jahr, monat, tag);
 
             if (datum1.getTime() != datum2.getTime()) {
-                vplanTBody += '<tr><td colspan="6">' + tage[datum2.getDay()] + '</td></tr>';
+                vplanTBody += '<th><tr><td colspan="6">' + tage[datum2.getDay()] + '</td></tr></th>';
                 datum1 = datum2;
             }
 
