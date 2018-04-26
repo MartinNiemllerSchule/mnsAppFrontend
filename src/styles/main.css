@@ -260,8 +260,9 @@ a {
 #dev{
 	position: absolute;
 	text-align: center;
+	float: left;
 	bottom:0;
-	font-size: 15px;
+	font-size: 23px;
 }
 
 
