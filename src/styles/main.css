@@ -257,6 +257,13 @@ a {
 	position: absolute;
 }
 
+#dev{
+	position: absolute;
+	text-align: center;
+	bottom:0;
+	font-size: 15px;
+}
+
 
 @media only screen and (max-width: 950px) {
 
