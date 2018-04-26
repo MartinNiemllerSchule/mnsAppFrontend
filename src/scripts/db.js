@@ -6,7 +6,7 @@ define('db', ['dexie'], function (Dexie) {
 	var db = new Dexie('Einstellungen');
 	db.version(1).stores({
 		config: 'key',
-		splan: '++id',
+		splan: '++id, f, s',
 		vplan: '++id',
 		vplanAlle: '++id',
 		buecher: '++id',
@@ -62,8 +62,7 @@ define('db', ['dexie'], function (Dexie) {
 								stunde: this.stunde,
 								info: this.info,
 								bezeichnung: this.bezeichnung,
-								kuerzel: this.kuerzel,
-								lehrer: this.Lehrer
+								kuerzel: this.kuerzel
 							});
 						});
 					}
@@ -78,8 +77,7 @@ define('db', ['dexie'], function (Dexie) {
 								stunde: this.stunde,
 								info: this.info,
 								bezeichnung: this.bezeichnung,
-								kuerzel: this.kuerzel,
-                                lehrer: this.Lehrer
+								kuerzel: this.kuerzel
 							});
 						});
 					}
