@@ -62,7 +62,8 @@ define('db', ['dexie'], function (Dexie) {
 								stunde: this.stunde,
 								info: this.info,
 								bezeichnung: this.bezeichnung,
-								kuerzel: this.kuerzel
+								kuerzel: this.kuerzel,
+								lehrer: this.Lehrer
 							});
 						});
 					}
@@ -77,7 +78,8 @@ define('db', ['dexie'], function (Dexie) {
 								stunde: this.stunde,
 								info: this.info,
 								bezeichnung: this.bezeichnung,
-								kuerzel: this.kuerzel
+								kuerzel: this.kuerzel,
+                                lehrer: this.Lehrer
 							});
 						});
 					}
