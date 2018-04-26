@@ -20,7 +20,7 @@ requirejs(['./scripts/vapp.js'], function () {
 
 function getVertretungsplanTabelle(db, cb) {
     db.vplan.toArray().then(vplan => {
-        var vplanTHead = '<thead><tr><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
+        var vplanTHead = '<thead><th>Stunde</th><th>Lehrer</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
         var vplanTBody = '';
         var td = '</td><td>';
         var datum1 = new Date(0,0,1);
@@ -55,7 +55,7 @@ function getVertretungsplanTabelle(db, cb) {
 
 function getVertretungsplanTabelleAlle(db, cb) {
     db.vplanAlle.toArray().then(vplan => {
-        var vplanTHead = '<thead><tr><th>Stunde</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
+        var vplanTHead = '<thead><tr><th>Stunde</th><th>Lehrer</th><th>Kurs</th><th>Raum</th><th>Vertretung</th><th>Info</th></tr></thead>';
         var vplanTBody = '';
         var td = '</td><td>';
         var datum1 = new Date(0,0,1);
