@@ -253,9 +253,8 @@ a {
 	float:left;
 	text-align: center;
 	font-size:22px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	top:50%;
+	position: absolute;
 }
 
 
