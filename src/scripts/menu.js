@@ -52,6 +52,7 @@ define(['db', 'text!./template/menu.html', 'jquery'], function (db, menuTmpl) {
                             db.splan.clear();
                             db.vplan.clear();
                             db.vplanAlle.clear();
+                            document.cookie = "theme=twenty; max-age=0; path=/; domain=https://vapp.niemoeller.schule"
                         }).catch(function (e) {
                             console.debug('Datenbankfehler in lokaler DB bei Logout:', e.stack || e);
                         })
