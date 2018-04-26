@@ -40,12 +40,12 @@ function getVertretungsplanTabelle(db, cb) {
                 && vplan[i].bezeichnung == vplan[i + 1].bezeichnung && vplan[i].raum == vplan[i + 1].raum && vplan[i].VLehrer == vplan[i + 1].VLehrer
                 && vplan[i].info == vplan[i + 1].info) {
 
-                vplanTBody += '<tr><td>' + vplan[i].stunde + ' + ' + (parseInt(vplan[i].stunde) + 1) +  td + vplan[i].lehrer + td + vplan[i].bezeichnung + td + vplan[i].raum
+                vplanTBody += '<tr><td>' + vplan[i].stunde + ' + ' + (parseInt(vplan[i].stunde) + 1) +  td + vplan[i].Lehrer + td + vplan[i].bezeichnung + td + vplan[i].raum
                     + td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
 
                 i++;
 
-            } else  vplanTBody += '<tr><td>' + vplan[i].stunde + td + vplan[i].lehrer + td + vplan[i].bezeichnung + td + vplan[i].raum
+            } else  vplanTBody += '<tr><td>' + vplan[i].stunde + td + vplan[i].Lehrer + td + vplan[i].bezeichnung + td + vplan[i].raum
                 + td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
 
         }
@@ -75,12 +75,12 @@ function getVertretungsplanTabelleAlle(db, cb) {
                 && vplan[i].bezeichnung == vplan[i + 1].bezeichnung && vplan[i].raum == vplan[i + 1].raum && vplan[i].VLehrer == vplan[i + 1].VLehrer
                 && vplan[i].info == vplan[i + 1].info) {
 
-                vplanTBody += '<tr><td>' + vplan[i].stunde + ' + ' + (parseInt(vplan[i].stunde) + 1) +  td + vplan[i].lehrer + td + vplan[i].bezeichnung + td + vplan[i].raum
+                vplanTBody += '<tr><td>' + vplan[i].stunde + ' + ' + (parseInt(vplan[i].stunde) + 1) +  td + vplan[i].Lehrer + td + vplan[i].bezeichnung + td + vplan[i].raum
                     + td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
 
                 i++;
 
-            } else  vplanTBody += '<tr><td>' + vplan[i].stunde + td + vplan[i].lehrer + td + vplan[i].bezeichnung + td + vplan[i].raum
+            } else  vplanTBody += '<tr><td>' + vplan[i].stunde + td + vplan[i].Lehrer + td + vplan[i].bezeichnung + td + vplan[i].raum
                 + td + vplan[i].VLehrer + td + vplan[i].info + '</td></tr>';
         }
         cb('<table class="Vertretungsplan" id="selRightContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
