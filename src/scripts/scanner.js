@@ -149,9 +149,12 @@ requirejs(['./scripts/vapp.js'], function () {
             $('#btn1').click(function () {
                 if (_scannerIsRunning == true) {
                     Quagga.stop();
+                    $("#scanner-container").addClass("hiddenByCss");
                 } else {
                     startScanner();
                     $("#info").addClass("hiddenByCss");
+                    $("#fussbereich").addClass("hiddenByCss");
+
                 }
             });
 
