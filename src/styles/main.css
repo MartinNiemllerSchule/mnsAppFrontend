@@ -249,6 +249,11 @@ a {
 	position: absolute;
 	bottom: 0;
 }
+#info{
+	float:left;
+	text-align: center;
+	font-size:22px;
+}
 
 
 @media only screen and (max-width: 950px) {
