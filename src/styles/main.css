@@ -437,6 +437,7 @@ a {
 	#info{
 		float:left;
 		text-align: center;
+		font-size: 12px;
 		top:50%;
 		position: absolute;
 	}
