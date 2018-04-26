@@ -129,6 +129,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                         $("#scanner-container").addClass("hiddenByCss");
                                         $("#scanner_input").addClass("hiddenByCss");
                                         $("#btn1").addClass("hiddenByCss");
+                                        $("#info").addClass("hiddenByCSS");
                                     }
                                 },
                                 error: function (response, textStatus, e) {

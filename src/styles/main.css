@@ -244,6 +244,12 @@ a {
 	left: -500% !important;
 }
 
+#fussbereich{
+	background-color: #7ABBFF;
+	position: absolute;
+	bottom: 0;
+}
+
 
 @media only screen and (max-width: 950px) {
 
