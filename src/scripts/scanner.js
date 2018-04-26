@@ -151,7 +151,7 @@ requirejs(['./scripts/vapp.js'], function () {
                     Quagga.stop();
                 } else {
                     startScanner();
-                    $("#info").addClass("hiddenByCSS");
+                    $("#info").addClass("hiddenByCss");
                 }
             });
 
