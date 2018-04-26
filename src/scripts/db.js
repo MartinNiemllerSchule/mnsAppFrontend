@@ -63,7 +63,7 @@ define('db', ['dexie'], function (Dexie) {
 								info: this.info,
 								bezeichnung: this.bezeichnung,
 								kuerzel: this.kuerzel,
-								lehrer: this.lehrer
+								Lehrer: this.Lehrer
 							});
 						});
 					}
@@ -79,7 +79,7 @@ define('db', ['dexie'], function (Dexie) {
 								info: this.info,
 								bezeichnung: this.bezeichnung,
 								kuerzel: this.kuerzel,
-								lehrer: this.lehrer
+								Lehrer: this.Lehrer
 							});
 						});
 					}
