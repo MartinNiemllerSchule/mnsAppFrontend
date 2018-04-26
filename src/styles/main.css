@@ -434,6 +434,12 @@ a {
 	#mns-pic {
 		width: 100%;
 	}
+	#info{
+		float:left;
+		text-align: center;
+		top:50%;
+		position: absolute;
+	}
 }
 
 @media only screen and (max-width: 360px) {
