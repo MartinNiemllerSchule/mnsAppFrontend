@@ -86,3 +86,4 @@ function getVertretungsplanTabelleAlle(db, cb) {
         cb('<table class="Vertretungsplan" id="selRightContent">' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>');
     })
 }
+
