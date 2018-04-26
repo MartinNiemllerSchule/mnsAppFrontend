@@ -88,9 +88,6 @@ define(['db', 'text!./template/menu.html', 'jquery'], function (db, menuTmpl) {
 
     }
 
-
-	};
-
 	menu.init();
 	return menu;
 });
