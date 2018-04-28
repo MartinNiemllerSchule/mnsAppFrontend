@@ -175,7 +175,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 }
                             }
                             if (match){
-                                if (Stundenplan.vertretungsplan[k][3] == "" && Stundenplan.vertretungsplan[k][4].length < 10) farbe = '#ff4d4d';
+                                if (Stundenplan.vertretungsplan[k].VLehrer == "" && Stundenplan.vertretungsplan[k].raum.length < 10) farbe = '#ff4d4d';
                                 else farbe = 'lightsalmon';
                             }
                             Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe, i, j);
@@ -196,7 +196,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 }
                             }
                             if (match){
-                                if (Stundenplan.vertretungsplan[k][3] == "" && Stundenplan.vertretungsplan[k][4].length < 10) farbe = '#ff4d4d';
+                                if (Stundenplan.vertretungsplan[k].VLehrer == "" && Stundenplan.vertretungsplan[k].raum.length < 10) farbe = '#ff4d4d';
                                 else farbe = 'lightsalmon';
                             }
                             Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe, i, j);
@@ -217,7 +217,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 }
                             }
                             if (match){
-                                if (Stundenplan.vertretungsplan[k][3] == "" && Stundenplan.vertretungsplan[k][4].length < 10) farbe = '#ff4d4d';
+                                if (Stundenplan.vertretungsplan[k].VLehrer == "" && Stundenplan.vertretungsplan[k].raum.length < 10) farbe = '#ff4d4d';
                                 else farbe = 'lightsalmon';
                             }
                             Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe, i, j);
@@ -238,7 +238,7 @@ requirejs(['./scripts/vapp.js'], function () {
                                 }
                             }
                             if (match){
-                                if (Stundenplan.vertretungsplan[k][3] == "" && Stundenplan.vertretungsplan[k][4].length < 10) farbe = '#ff4d4d';
+                                if (Stundenplan.vertretungsplan[k].VLehrer == "" && Stundenplan.vertretungsplan[k].raum.length < 10) farbe = '#ff4d4d';
                                 else farbe = 'lightsalmon';
                             }
                             Stundenplan.generateRowspanUndFarbe(stundenplan, stundenplanTable, farbe, i, j);
