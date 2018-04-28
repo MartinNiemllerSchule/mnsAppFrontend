@@ -3,6 +3,8 @@
 
  */
 define('fbm', ['firebase'], function (firebase) {
+
+
 	// Initialize Firebase
 	const config = {
 		apiKey: "AIzaSyD5O2ZjNd8ChC8SmocLfjhQ2f_V12FcWAM",
@@ -18,7 +20,7 @@ define('fbm', ['firebase'], function (firebase) {
 	const messaging = firebase.messaging();
 
 	// ServiceWorker registrieren
-	navigator.serviceWorker.register('./scripts/vendor/firebase-messaging-sw.js')
+	navigator.serviceWorker.register('/sw.js')
 		.then((registration) => {
 			messaging.useServiceWorker(registration);
 
