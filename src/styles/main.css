@@ -264,6 +264,11 @@ a {
 	bottom:0;
 	font-size: 23px;
 }
+#list{
+	position: absolute;
+	text-align: center;
+	font-size: 23px;
+}
 
 
 @media only screen and (max-width: 950px) {
