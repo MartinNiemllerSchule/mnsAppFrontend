@@ -318,7 +318,7 @@ requirejs(['./scripts/vapp.js'], function () {
                 Stundenplan.vertretungsplan.forEach(function (data) {
                     if (Stundenplan.kalenderwoche(data.tag) === Stundenplan.kalenderwoche()) {
                         aktData = Object.assign(data, {woche: "this"});
-                    } else if (Stundenplan.kalenderwoche(data[0]) === (Stundenplan.kalenderwoche() + 1)) {
+                    } else if (Stundenplan.kalenderwoche(data.tag) === (Stundenplan.kalenderwoche() + 1)) {
                         aktData = Object.assign(data, {woche: "next"});
                     } else {
                         aktData = Object.assign(data, {woche: "later"});
