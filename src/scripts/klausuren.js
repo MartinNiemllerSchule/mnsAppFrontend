@@ -8,7 +8,7 @@ requirejs(['./scripts/vapp.js'], function () {
 
 		var eventCal = {
 			klausuren: [],
-			kursliste: undefined,
+//			kursliste: undefined,
 			fc: undefined,
 			fctd: undefined, // ausgewählte Zelle
 
@@ -17,12 +17,12 @@ requirejs(['./scripts/vapp.js'], function () {
 			 * @param klausur - Objekt (eine Datenbank-Zeile
 			 */
 			klausur2event: function (klausur) {
-				var start = moment(klausur.date + ' ' + stunden[klausur.stunde]);
-				var dauer = klausur.dauer * 45 + (Math.trunc((parseInt(klausur.dauer) + 1) / 2) - 1) * 15;
-				var ende = start.clone().add(dauer, 'm');
-				var evt = {
+				const start = moment(klausur.date + ' ' + stunden[klausur.stunde]);
+				const dauer = parseInt(klausur.dauer) * 45 + (Math.trunc((parseInt(klausur.dauer) + 1) / 2) - 1) * 15;
+				const ende = start.clone().add(dauer, 'm');
+				const evt = {
 					'title': klausur.bezeichnung,
-					'kursnr': klausur.kursnr,
+					'kursnr': parseInt(klausur.kursnr),
 					'start': start,
 					'end': ende,
 					'className': 'calEventKlausur',
@@ -42,34 +42,29 @@ requirejs(['./scripts/vapp.js'], function () {
 			 * zeigt den Klausuren tatsächlich an - alle Einstellungen werden vorgenommen
 			 */
 			init: function () {
-				var self = this;
-				// alle Klausuren eintragen und anzeigen
-				db.config.get('klausuren').then(function (klausuren) {
-					if (klausuren && klausuren.value.length > 0) {
-						self.klausuren = [];
-						for (var i = 0; i < klausuren.value.length; i++) {
-							self.klausur2event(klausuren.value[i]);
-						}
-						if (self.fc) {
-							self.fc.fullCalendar('addEventSource', self.klausuren);
+				// alle Klausuren eintragen
+				db.klausuren.toArray(klausurenArr => {
+					if (klausurenArr && klausurenArr.length > 0) {
+						eventCal.klausuren = [];
+						klausurenArr.forEach(klausur => eventCal.klausur2event(klausur));
+						// TODO - verschieben in Zeile ~130 .then(...)
+						if (eventCal.fc) {
+							eventCal.fc.fullCalendar('addEventSource', eventCal.klausuren);
 						} else {
 							setTimeout(function () {
-								self.fc.fullCalendar('addEventSource', self.klausuren);
+								eventCal.fc.fullCalendar('addEventSource', eventCal.klausuren);
 							}, 1000);
 						}
 					}
 				});
 
 				//Kursliste holen und in select eintragen
-                var knr = $('#kursnr');
-				db.kursliste.each(function (data) {
-						knr.append($('<option/>').val(data.kursnr).text(data.bezeichnung));
-				});
-
+				let knr = $('#kursnr');
+				db.kursliste.each(data => knr.append($('<option/>').val(data.kursnr).text(data.bezeichnung)));
 
 				// wird vermutlich schon ausgeführt, solange die Daten noch beschafft werden: document.ready
 				$(function () {
-					self.fc = $('#calendar').fullCalendar({
+					eventCal.fc = $('#calendar').fullCalendar({
 						header: {
 							left: 'prev,next today',
 							center: 'title',
@@ -86,18 +81,18 @@ requirejs(['./scripts/vapp.js'], function () {
 						events: [],
 
 						dayClick: function (date, jsEvent, view) {
-							if (self.fctd == this) {
-								$(this).css('background-color', '');
-								self.fctd = undefined;
-								self.hide();
+							if (eventCal.fctd == this) {
+								$(this).css('background-color', ''); // Rücksetzen der Auswahl
+								eventCal.fctd = undefined;
+								eventCal.hide();
 							} else {
 								$('#kalenderEintragen').show();
-								if (self.fctd != undefined) {
-									$(self.fctd).css('background-color', '');
+								if (eventCal.fctd != undefined) { // Änderung zurücksetzen
+									$(eventCal.fctd).css('background-color', '');
 								}
-								$(this).css('background-color', 'red');
+								$(this).css('background-color', 'red'); // Auswahl markieren
 								$('#datum').prop('value', date.format('YYYY-MM-DD'));
-								self.fctd = this;
+								eventCal.fctd = this;
 								$('#kursnr').click();  // TODO: vermutlich richtigen Eintrag auswählen oder hervorheben -  Daten im Stundenplan
 							}
 						},
@@ -107,8 +102,8 @@ requirejs(['./scripts/vapp.js'], function () {
 							db.config.get('art').then(function (art) {
 								if (art.value === 'l') {
 									$('#kalenderEintragLoeschen').show();
-									self.fcEvent = event;
-									self.fcElement = element;
+									eventCal.fcEvent = event;
+									eventCal.fcElement = element;
 								}
 							}).catch(function (e) {
 								console.debug('Fehler beim Clicken auf ein Event', e.stack || e);
@@ -119,24 +114,25 @@ requirejs(['./scripts/vapp.js'], function () {
 
 					$('#kalenderEintragen').hide();
 					$('#kalenderEintragLoeschen').hide();
-					$('input[value="eintragen"]').removeAttr('onsubmit').click(self.send);
-					$('input[value="löschen"]').click(self.delete);
+					$('input[value="eintragen"]').removeAttr('onsubmit').click(eventCal.send);
+					$('input[value="löschen"]').click(eventCal.delete); // TODO: testen
 					
 				});
 			},
 
 			send: function () {
 				// Variablen auslesen
-				var sendData = 'fname=' + $('#fname').val() + '&datum=' + $('#datum').val() +
+				let sendData = 'fname=' + $('#fname').val() + '&datum=' + $('#datum').val() +
 					'&kursnr=' + $('#kursnr').val() + '&stunde=' + +$('#stunde').val() + '&dauer=' + +$('#dauer').val();
-				console.debug('sendData: ', sendData);
-				var klausur = {
+				console.debug('[klausuren send] sendData: ', sendData);
+				let klausur = {
 					date: $('#datum').val(),
-					stunde: $('#stunde').val(),
-					dauer: $('#dauer').val(),
-					bezeichnung: $('#kursnr option:selected').text()
+					stunde: parseInt($('#stunde').val()),
+					dauer: parseInt($('#dauer').val()),
+					bezeichnung: $('#kursnr option:selected').text(),
+					kursnr: parseInt($('#kursnr option:selected').val())
 				};
-				console.debug('klausur', klausur);
+				console.debug('[klausuren send] klausur', klausur);
 
 				$.ajax({
 					url: urlApi,
@@ -144,7 +140,7 @@ requirejs(['./scripts/vapp.js'], function () {
 					crossDomain: true,
 					data: sendData,
 					success: function (response) {
-						console.debug('response: ', response);
+						console.debug('[klausuren send] response: ', response);
 						// sollte {erfolg:[true|false]} sein
 						if (response.erfolg) {
 							eventCal.klausur2event(klausur).then(function (event) {
@@ -153,7 +149,8 @@ requirejs(['./scripts/vapp.js'], function () {
 							});
 							$(eventCal.fctd).css('background-color', '');
 							$('#kalenderEintragen').hide();
-							//TODO: eintragen in lokale DB oder refetch
+
+							db.klausuren.put(klausur);
 						} else {
 							console.warn('Die Klausur konnte nicht eingetragen werden - sendData - antwort', sendData, response);
 						}
@@ -172,7 +169,7 @@ requirejs(['./scripts/vapp.js'], function () {
 				const event = eventCal.fcEvent;
 				if (event) {
 					console.debug(event);
-					var sendData = "fname=deleteKlausur&kursnr=" + event.kursnr + "&datum=" + event.start.format('YYYY-MM-DD');
+					let sendData = "fname=deleteKlausur&kursnr=" + event.kursnr + "&datum=" + event.start.format('YYYY-MM-DD');
 					$.ajax({
 						url: urlApi,
 						dataType: 'json',
@@ -182,13 +179,16 @@ requirejs(['./scripts/vapp.js'], function () {
 							// sollte {erfolg:[true|false]} sein
 							if (response.erfolg) {
 								// entferne aus Klausuren
-								var pos = 0;
-								while (pos < eventCal.klausuren.length && eventCal.klausuren[pos].kursnr != event.kursnr) pos++;
-								if (eventCal.klausuren[pos].kursnr == event.kursnr) {
+								let pos = 0;
+								while (pos < eventCal.klausuren.length &&
+									!(eventCal.klausuren[pos].kursnr == event.kursnr && eventCal.klausuren[pos].start.isSame(event.start))
+									) pos++;
+								if (pos < eventCal.klausuren.length &&
+									eventCal.klausuren[pos].kursnr == event.kursnr && eventCal.klausuren[pos].start.isSame(event.start)) {
 									eventCal.klausuren.splice(pos, 1);
 									$('#calendar').fullCalendar('removeEventSource', eventCal.klausuren);
 									$('#calendar').fullCalendar('addEventSource', eventCal.klausuren);
-									//TODO: eintragen in lokale DB oder refetch
+									db.klausuren.delete({'kursnr': event.kursnr, 'date': event.start.format('YYYY-MM-DD')});
 								} else console.debug('konnte klausur aus klausuren nicht entfernen');
 							} else {
 								console.warn('Die Klausur konnte nicht gelöscht werden - sendData - antwort', sendData, response);
@@ -202,7 +202,6 @@ requirejs(['./scripts/vapp.js'], function () {
 					});
 				}
 			}
-
 		}
 
 		eventCal.init();

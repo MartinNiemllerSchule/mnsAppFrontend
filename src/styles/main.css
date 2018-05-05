@@ -4,6 +4,10 @@ body {
 	font-family: Arial;
 }
 
+div.text {
+	margin: 1ex 0ex;
+}
+
 a {
 	color: #7ABBFF;
 	text-decoration: none;

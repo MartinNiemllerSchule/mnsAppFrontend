@@ -9,7 +9,7 @@ requirejs.config({
 		dexie: './vendor/dexie.min',
 		sha512: './vendor/sha512.min',
 		moment: './vendor/moment.min',
-		fullCalendar: './vendor/fullcalendar',
+		fullCalendar: 'https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min',
 		fcLDe: './vendor/de',
 		firebase: 'https://www.gstatic.com/firebasejs/4.9.0/firebase',
 		firebaseApp: "https://www.gstatic.com/firebasejs/4.9.0/firebase-app",
@@ -26,10 +26,10 @@ requirejs.config({
 	}
 });
 
-//urlApi = './api/index.php';
-urlApi = 'https://vapp.niemoeller.schule/api/index.php';
+urlApi = './api/index.php';
+//urlApi = 'https://vapp.niemoeller.schule/api/index.php';
 urlInventurApi = './inventur/api/index.php';
-zielNachLogin = './stundenplan.html';
+zielNachLogin = './klausuren.html';
 
 stunden = {
 	'1': '08:00',
