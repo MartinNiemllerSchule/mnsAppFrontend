@@ -21,6 +21,7 @@ requirejs(['./scripts/vapp.js'], function () {
 				const dauer = parseInt(klausur.dauer) * 45 + (Math.trunc((parseInt(klausur.dauer) + 1) / 2) - 1) * 15;
 				const ende = start.clone().add(dauer, 'm');
 				const evt = {
+					'pos': this.klausuren.length,
 					'title': klausur.bezeichnung,
 					'kursnr': parseInt(klausur.kursnr),
 					'start': start,
@@ -175,23 +176,25 @@ requirejs(['./scripts/vapp.js'], function () {
 						dataType: 'json',
 						crossDomain: true,
 						data: sendData,
-						success: function (response) {
-							// sollte {erfolg:[true|false]} sein
-							if (response.erfolg) {
-								// entferne aus Klausuren
-								let pos = 0;
-								while (pos < eventCal.klausuren.length &&
-									!(eventCal.klausuren[pos].kursnr == event.kursnr && eventCal.klausuren[pos].start.isSame(event.start))
-									) pos++;
-								if (pos < eventCal.klausuren.length &&
-									eventCal.klausuren[pos].kursnr == event.kursnr && eventCal.klausuren[pos].start.isSame(event.start)) {
-									eventCal.klausuren.splice(pos, 1);
+						success: function (response) { // sollte {erfolg:[true|false]} sein
+							if (response.erfolg) { // entferne aus Klausuren
+								if (
+									event.pos && event.pos < eventCal.klausuren.length &&
+									eventCal.klausuren[event.pos].kursnr == event.kursnr &&
+									eventCal.klausuren[event.pos].start.isSame(event.start)
+								) {
 									$('#calendar').fullCalendar('removeEventSource', eventCal.klausuren);
+									eventCal.klausuren.splice(event.pos, 1);
+									for (let p = event.pos; p < eventCal.klausuren.length; p++)
+										eventCal.klausuren[p].pos = p;
 									$('#calendar').fullCalendar('addEventSource', eventCal.klausuren);
+									// TODO: das löschen in indexedDB funktioniert so noch nicht
 									db.klausuren.delete({'kursnr': event.kursnr, 'date': event.start.format('YYYY-MM-DD')});
-								} else console.debug('konnte klausur aus klausuren nicht entfernen');
+								} else console.debug('[klausuren delete] klausur wurde aus der Datenbank entfernt, aber nicht in der' +
+									' UI und auch nicht in indexdDB ', event);
 							} else {
-								console.warn('Die Klausur konnte nicht gelöscht werden - sendData - antwort', sendData, response);
+								console.warn('[klausuren delete] Die Klausur konnte in der serverDB nicht gelöscht werden ',
+									event, sendData, response);
 							}
 							$('#kalenderEintragLoeschen').hide();
 						},
