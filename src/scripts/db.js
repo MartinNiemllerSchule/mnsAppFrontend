@@ -53,35 +53,43 @@ define('db', ['dexie'], function (Dexie) {
 					}
 
 					if ('vplan' in antwort) {
-						db.vplan.clear();
-						$.each(antwort.vplan, function () {
-							db.vplan.put({
-								VLehrer: this.VLehrer,
-								raum: this.raum,
-								tag: this.tag,
-								stunde: this.stunde,
-								info: this.info,
-								bezeichnung: this.bezeichnung,
-								kuerzel: this.kuerzel,
-								Lehrer: this.Lehrer
+						db.config.put({key: 'vpDate', value: new Date()});
+						db.vplan
+							.clear()
+							.then(() => {
+								$.each(antwort.vplan, function () {
+									db.vplan.put({
+										VLehrer: this.VLehrer,
+										raum: this.raum,
+										tag: this.tag,
+										stunde: this.stunde,
+										info: this.info,
+										bezeichnung: this.bezeichnung,
+										kuerzel: this.kuerzel,
+										Lehrer: this.Lehrer
+									});
+								});
 							});
-						});
-					}
+						}
 
 					if ('vplanAlle' in antwort) {
-						db.vplanAlle.clear();
-						$.each(antwort.vplanAlle, function () {
-							db.vplanAlle.put({
-								VLehrer: this.VLehrer,
-								raum: this.raum,
-								tag: this.tag,
-								stunde: this.stunde,
-								info: this.info,
-								bezeichnung: this.bezeichnung,
-								kuerzel: this.kuerzel,
-								Lehrer: this.Lehrer
+						db.config.put({key: 'vpDateAlle', value: new Date()});
+						db.vplanAlle
+							.clear()
+							.then(() => {
+								$.each(antwort.vplanAlle, function () {
+									db.vplanAlle.put({
+										VLehrer: this.VLehrer,
+										raum: this.raum,
+										tag: this.tag,
+										stunde: this.stunde,
+										info: this.info,
+										bezeichnung: this.bezeichnung,
+										kuerzel: this.kuerzel,
+										Lehrer: this.Lehrer
+									});
+								});
 							});
-						});
 					}
 
 					if ('buecher' in antwort) {
@@ -130,6 +138,78 @@ define('db', ['dexie'], function (Dexie) {
 				console.error('handleLogin:', e.stack || e);
 				reject(false);
 			});
+		});
+	};
+
+	db.renewVPlanAlle = function (vplanAlle) {
+		return new Dexie.Promise((resolve, reject) => {
+			db.transaction('rw', db.config, db.vplanAlle, function () {
+				db.config.put({key: 'vpDateAlle', value: new Date()});
+				db.vplanAlle
+					.clear()
+					.then(() => {
+						$.each(vplanAlle, function () {
+							db.vplanAlle.put({
+								VLehrer: this.VLehrer,
+								raum: this.raum,
+								tag: this.tag,
+								stunde: this.stunde,
+								info: this.info,
+								bezeichnung: this.bezeichnung,
+								kuerzel: this.kuerzel,
+								Lehrer: this.Lehrer
+							});
+						})
+					}).then(function () {
+					resolve();
+				}).catch(function (e) {
+					console.error('[renewVPlanAlle] ', e.stack || e);
+					reject();
+				});
+			});
+		});
+	};
+
+	db.renewVPlan = function (vplan) {
+		return new Dexie.Promise((resolve, reject) => {
+			db.transaction('rw', db.config, db.vplan, function () {
+				db.config.put({key: 'vpDate', value: new Date()});
+				db.vplan
+					.clear()
+					.then(() => {
+						$.each(vplan, function () {
+							db.vplan.put({
+								VLehrer: this.VLehrer,
+								raum: this.raum,
+								tag: this.tag,
+								stunde: this.stunde,
+								info: this.info,
+								bezeichnung: this.bezeichnung,
+								kuerzel: this.kuerzel,
+								Lehrer: this.Lehrer
+							});
+						})
+					}).then(function () {
+					resolve();
+				}).catch(function (e) {
+					console.error('[renewVPlan] ', e.stack || e);
+					reject();
+				});
+			});
+		});
+	};
+
+	db.renewVertretungsplaene = function (vertretungsplaene) {
+		return new Dexie.Promise((resolve, reject) => {
+			const vp = vertretungsplaene.vplan || [];
+			const vpa = vertretungsplaene.vplanAlle || [];
+			Promise
+				.all([db.renewVPlanAlle(vpa), db.renewVPlan(vp)])
+				.then(() => resolve())
+				.catch(()=> {
+					console.debug('[renewVertretungsplaene] Promise.all - mindestens eins [vplan, vplanAlle] ist gescheitert');
+					reject();
+				});
 		});
 	};
 

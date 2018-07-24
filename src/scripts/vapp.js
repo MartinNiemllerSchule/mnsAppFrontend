@@ -29,7 +29,7 @@ requirejs.config({
 urlApi = './api/index.php';
 //urlApi = 'https://vapp.niemoeller.schule/api/index.php';
 urlInventurApi = './inventur/api/index.php';
-zielNachLogin = './klausuren.html';
+zielNachLogin = './vertretungsplan.html';
 
 stunden = {
 	'1': '08:00',
@@ -41,12 +41,4 @@ stunden = {
 	'7': '13:15',
 	'8': '14:00',
 	'9': '14:45'
-};
-
-tage = {
-	'1': 'Montag',
-	'2': 'Dienstag',
-	'3': 'Mittwoch',
-	'4': 'Donnerstag',
-	'5': 'Freitag',
 };
