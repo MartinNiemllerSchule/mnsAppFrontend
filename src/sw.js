@@ -1,5 +1,5 @@
-importScripts('https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/5.3.0/firebase-messaging.js');
 // Initialize Firebase
 const config = {
 	apiKey: "AIzaSyD5O2ZjNd8ChC8SmocLfjhQ2f_V12FcWAM",
@@ -34,13 +34,14 @@ const messaging = firebase.messaging();
 
 var handleBackgroundMessage = payload => {
 	console.log('[sw.js] Received background message ', payload);
-	// Customize notification here
+	/* Customize notification here
 	const notificationTitle = 'MNS sagt';
 	const notificationOptions = {
 		body: 'Background Message body.', //payload.data
 		icon: './images/mns-icon-1x.png'
 	};
 	return self.registration.showNotification(notificationTitle, notificationOptions);
+	*/
 }
 
 // If you would like to customize notifications that are received in the

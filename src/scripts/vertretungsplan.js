@@ -3,34 +3,23 @@
  */
 
 requirejs(['./scripts/vapp.js'], function () {
-	requirejs(['db', 'jquery', 'menu'], function (db) {
+	requirejs(['db', 'jquery', 'menu', 'fbm'], function (db) {
 		"use strict";
 		$(function () {
 			// Vertretungsplan aktualisieren -> Button mit Funktionalität ausstatten
 			$('#VertretungsplanAktualisierenButton').click(() => getVertretungsplan(db));
-			// TODO: Stand der db-Vertretungsplan-Daten melden
-
 			updateVertretungsplanUI(db);
 		});
 	});
 });
 
 /**
- * holt den Vertretungsplan und speichert ihn in der Datenbank (alter VP wird entfernt und durch neuen ersetzt)
- *  api abfragen -> in db speichern -> anzeige aktualisieren
+ * db.js macht: api abfragen -> in db speichern
+ * erst dann -> Anzeige aktualisieren
  */
 function getVertretungsplan(db) {
-	$.ajax({
-		url: urlApi,
-		dataType: 'json',
-		crossDomain: true,
-		data: 'fname=getVertretungsplaene',
-		success: (response) => {
-			db.renewVertretungsplaene(response)
-				.then(() => updateVertretungsplanUI(db))
-		},
-		error: (response,textStatus,e) =>	console.debug('[getVertretungsplan] Ajax-Abfrage gescheitert',response, textStatus, e)
-	});
+	db.getVertretungsplaene()
+		.then(() => updateVertretungsplanUI(db));
 };
 
 /**
@@ -84,14 +73,20 @@ function getTabelle(tab) {
 				datum1 = datum2;
 			}
 
+			const verlehrer = (tab[i].VLehrer == 'TTT') ? '' : getHtml(tab[i].VLehrer);
 			if (
 				tab[i + 1] != undefined && tab[i].tag == tab[i + 1].tag && (tab[i + 1].stunde - tab[i].stunde == 1)
 				&& tab[i].bezeichnung == tab[i + 1].bezeichnung && tab[i].raum == tab[i + 1].raum
 				&& tab[i].VLehrer == tab[i + 1].VLehrer	&& tab[i].info == tab[i + 1].info
 			) {
-				vplanTBody += '<tr><td>' + tab[i].stunde + ' + ' + (parseInt(tab[i].stunde) + 1) + td + getHtml(tab[i].Lehrer) + td	+ getHtml(tab[i].bezeichnung) + td + getHtml(tab[i].raum)	+ td + getHtml(tab[i].VLehrer) + td + getHtml(tab[i].info) + '</td></tr>';
+				vplanTBody += '<tr><td>' + tab[i].stunde + ' + ' + (parseInt(tab[i].stunde) + 1) + td + getHtml(tab[i].Lehrer) +
+					td	+ getHtml(tab[i].bezeichnung) + td + getHtml(tab[i].raum)	+ td + verlehrer + td + getHtml(tab[i].info) +
+					'</td></tr>';
 				i++;
-			} else vplanTBody += '<tr><td>' + tab[i].stunde + td + getHtml(tab[i].Lehrer) + td + getHtml(tab[i].bezeichnung) + td + getHtml(tab[i].raum) + td + getHtml(tab[i].VLehrer) + td + getHtml(tab[i].info) + '</td></tr>';
+			} else {
+				vplanTBody += '<tr><td>' + tab[i].stunde + td + getHtml(tab[i].Lehrer) + td + getHtml(tab[i].bezeichnung) + td +
+					getHtml(tab[i].raum) + td + verlehrer + td + getHtml(tab[i].info) + '</td></tr>';
+			}
 		}
 		return '<table>' + vplanTHead + '<tbody>' + vplanTBody + '</tbody></table>';
 	} else {

@@ -213,5 +213,30 @@ define('db', ['dexie'], function (Dexie) {
 		});
 	};
 
+	/**
+	 * holt den Vertretungsplan und speichert ihn in der Datenbank (alter VP wird entfernt und durch neuen ersetzt)
+	 *  api abfragen -> in db speichern -> anzeige aktualisieren
+	 */
+	db.getVertretungsplaene = () => {
+		return new Promise((resolve,reject) => {
+			$.ajax({
+				url: urlApi,
+				dataType: 'json',
+				crossDomain: true,
+				data: 'fname=getVertretungsplaene',
+				success: (response) => {
+					db.renewVertretungsplaene(response)
+						.then(() => resolve())
+						.catch(() => reject())
+				},
+				error: (response,textStatus,e) =>	{
+					console.debug('[getVertretungsplan] Ajax-Abfrage gescheitert',response, textStatus, e);
+					reject();
+				}
+			});
+		});
+	};
+
+
 	return db;
 });

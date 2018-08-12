@@ -11,9 +11,9 @@ requirejs.config({
 		moment: './vendor/moment.min',
 		fullCalendar: 'https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min',
 		fcLDe: './vendor/de',
-		firebase: 'https://www.gstatic.com/firebasejs/4.9.0/firebase',
-		firebaseApp: "https://www.gstatic.com/firebasejs/4.9.0/firebase-app",
-		firebaseMessaging: "https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging",
+		firebase: 'https://www.gstatic.com/firebasejs/5.3.0/firebase',
+		firebaseApp: "https://www.gstatic.com/firebasejs/5.3.0/firebase-app",
+		firebaseMessaging: "https://www.gstatic.com/firebasejs/5.3.0/firebase-messaging",
 		quagga: './vendor/quagga',
 		text: './vendor/text'
 	},

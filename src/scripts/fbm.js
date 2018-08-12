@@ -2,7 +2,7 @@
 	Stellt Firebase Cloud Messaging bereit
 
  */
-define('fbm', ['firebase'], function (firebase) {
+define('fbm', ['db', 'firebase'], function (db, firebase) {
 
 
 	// Initialize Firebase
@@ -52,12 +52,14 @@ define('fbm', ['firebase'], function (firebase) {
 			// - the user clicks on an app notification created by a sevice worker `messaging.setBackgroundMessageHandler` handler.
 			messaging.onMessage(function (payload) {
 				console.log("Message received. ", payload);
-				/*
-				// [START_EXCLUDE]
-				// Update the UI to include the received message.
-				appendMessage(payload);
-				// [END_EXCLUDE]
-				*/
+
+				if (payload.data && payload.data.fcm_action) {
+					if (payload.data.fcm_action === 'updateVPlan') {
+						db.getVertretungsplaene();
+						if (typeof updateVertretungsplanUI === 'function') updateVertretungsplanUI(db);
+					}
+
+				}
 			}); // [END receive_message]
 
 			messaging.ein = function () {
