@@ -39,8 +39,10 @@ requirejs(['./scripts/vapp.js'], function () {
 							einstellungen.switchBen.prop('checked', false);
 						};
 						db.config.put({key: 'benachrichtigungen', value: false});
-					});self
+					});
 				einstellungen.switchBen.change(einstellungen.handleBenachrichtungenChanged);
+
+				// UI Passwortwechsel einrichten
 
 			},
 
